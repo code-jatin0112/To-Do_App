@@ -13,7 +13,7 @@ export default function ProgressCard({ todos }) {
       ? 0
       : Math.round((completed / total) * 100);
 
-  const radius = 54;
+  const radius = 42;
   const circumference = 2 * Math.PI * radius;
   const offset =
     circumference - (percentage / 100) * circumference;
@@ -37,157 +37,161 @@ export default function ProgressCard({ todos }) {
         y: -5,
         scale: 1.02,
       }}
-      className="rounded-3xl bg-white/80 dark:bg-slate-900/80 backdrop-blur-xl border border-white/40 dark:border-slate-700 shadow-xl p-6"
+      className="h-full rounded-3xl bg-white/80 dark:bg-slate-900/80 backdrop-blur-xl border border-white/40 dark:border-slate-700 shadow-xl p-6"
     >
-      {/* Header */}
-      <div className="flex items-center justify-between">
-        <div>
-          <h2 className="text-2xl font-bold text-slate-800 dark:text-white">
-            Task Progress
-          </h2>
+      <div className="flex h-full flex-col">
+        {/* Header */}
+        <div className="flex items-center justify-between">
+          <div>
+            <h2 className="text-2xl font-bold text-slate-800 dark:text-white">
+              Task Progress
+            </h2>
 
-          <p className="mt-1 text-sm text-slate-500 dark:text-slate-400">
-            Keep pushing towards your goals.
-          </p>
-        </div>
+            <p className="mt-1 text-sm text-slate-500 dark:text-slate-400">
+              Keep pushing towards your goals.
+            </p>
+          </div>
 
-        <div className="rounded-2xl bg-indigo-100 dark:bg-indigo-500/20 p-3">
-          <Target
-            size={28}
-            className="text-indigo-600 dark:text-indigo-400"
-          />
-        </div>
-      </div>
-
-      {/* Circular Progress */}
-      <div className="mt-8 flex justify-center">
-        <div className="relative h-40 w-40">
-          <svg
-            className="rotate-[-90deg]"
-            width="160"
-            height="160"
-          >
-            <circle
-              cx="80"
-              cy="80"
-              r={radius}
-              strokeWidth="12"
-              stroke="rgb(226 232 240)"
-              fill="transparent"
+          <div className="rounded-2xl bg-indigo-100 dark:bg-indigo-500/20 p-3">
+            <Target
+              size={28}
+              className="text-indigo-600 dark:text-indigo-400"
             />
+          </div>
+        </div>
 
-            <motion.circle
-              cx="80"
-              cy="80"
-              r={radius}
-              strokeWidth="12"
-              stroke="url(#gradient)"
-              fill="transparent"
-              strokeLinecap="round"
-              strokeDasharray={circumference}
-              initial={{
-                strokeDashoffset: circumference,
-              }}
+        {/* Circular Progress */}
+        <div className="mt-6 flex justify-center">
+          <div className="relative h-32 w-32">
+            <svg
+              className="rotate-[-90deg]"
+              width="128"
+              height="128"
+            >
+              <circle
+                cx="64"
+                cy="64"
+                r={radius}
+                strokeWidth="10"
+                stroke="rgb(226 232 240)"
+                fill="transparent"
+              />
+
+              <motion.circle
+                cx="64"
+                cy="64"
+                r={radius}
+                strokeWidth="10"
+                stroke="url(#gradient)"
+                fill="transparent"
+                strokeLinecap="round"
+                strokeDasharray={circumference}
+                initial={{
+                  strokeDashoffset: circumference,
+                }}
+                animate={{
+                  strokeDashoffset: offset,
+                }}
+                transition={{
+                  duration: 1,
+                  ease: "easeOut",
+                }}
+              />
+
+              <defs>
+                <linearGradient
+                  id="gradient"
+                  x1="0%"
+                  y1="0%"
+                  x2="100%"
+                  y2="100%"
+                >
+                  <stop
+                    offset="0%"
+                    stopColor="#6366f1"
+                  />
+                  <stop
+                    offset="100%"
+                    stopColor="#8b5cf6"
+                  />
+                </linearGradient>
+              </defs>
+            </svg>
+
+            <div className="absolute inset-0 flex flex-col items-center justify-center">
+              <h2 className="text-3xl font-extrabold text-slate-800 dark:text-white">
+                {percentage}%
+              </h2>
+
+              <span className="text-xs text-slate-500 dark:text-slate-400">
+                Completed
+              </span>
+            </div>
+          </div>
+        </div>
+
+        {/* Progress Bar */}
+        <div className="mt-6">
+          <div className="mb-2 flex justify-between text-sm text-slate-500 dark:text-slate-400">
+            <span>Overall Progress</span>
+            <span>{percentage}%</span>
+          </div>
+
+          <div className="h-2.5 overflow-hidden rounded-full bg-slate-200 dark:bg-slate-700">
+            <motion.div
+              initial={{ width: 0 }}
               animate={{
-                strokeDashoffset: offset,
+                width: `${percentage}%`,
               }}
               transition={{
                 duration: 1,
-                ease: "easeOut",
               }}
+              className="h-full rounded-full bg-gradient-to-r from-indigo-600 to-violet-600"
+            />
+          </div>
+        </div>
+
+        {/* Stats */}
+        <div className="mt-6 grid grid-cols-2 gap-3">
+          <div className="rounded-2xl bg-slate-100 dark:bg-slate-800 p-3 text-center">
+            <CheckCircle2
+              className="mx-auto mb-2 text-emerald-500"
+              size={22}
             />
 
-            <defs>
-              <linearGradient
-                id="gradient"
-                x1="0%"
-                y1="0%"
-                x2="100%"
-                y2="100%"
-              >
-                <stop
-                  offset="0%"
-                  stopColor="#6366f1"
-                />
-                <stop
-                  offset="100%"
-                  stopColor="#8b5cf6"
-                />
-              </linearGradient>
-            </defs>
-          </svg>
+            <p className="text-xl font-bold text-slate-800 dark:text-white">
+              {completed}
+            </p>
 
-          <div className="absolute inset-0 flex flex-col items-center justify-center">
-            <h2 className="text-4xl font-extrabold text-slate-800 dark:text-white">
-              {percentage}%
-            </h2>
-
-            <span className="text-sm text-slate-500 dark:text-slate-400">
+            <span className="text-xs text-slate-500 dark:text-slate-400">
               Completed
             </span>
           </div>
-        </div>
-      </div>
 
-      {/* Progress Bar */}
-      <div className="mt-8">
-        <div className="flex justify-between text-sm text-slate-500 dark:text-slate-400 mb-2">
-          <span>Overall Progress</span>
-          <span>{percentage}%</span>
-        </div>
+          <div className="rounded-2xl bg-slate-100 dark:bg-slate-800 p-3 text-center">
+            <Trophy
+              className="mx-auto mb-2 text-yellow-500"
+              size={22}
+            />
 
-        <div className="h-3 overflow-hidden rounded-full bg-slate-200 dark:bg-slate-700">
-          <motion.div
-            initial={{ width: 0 }}
-            animate={{
-              width: `${percentage}%`,
-            }}
-            transition={{
-              duration: 1,
-            }}
-            className="h-full rounded-full bg-gradient-to-r from-indigo-600 to-violet-600"
-          />
-        </div>
-      </div>
+            <p className="text-xl font-bold text-slate-800 dark:text-white">
+              {total}
+            </p>
 
-      {/* Stats */}
-      <div className="mt-8 grid grid-cols-2 gap-4">
-        <div className="rounded-2xl bg-slate-100 dark:bg-slate-800 p-4 text-center">
-          <CheckCircle2
-            className="mx-auto mb-2 text-emerald-500"
-            size={26}
-          />
-
-          <p className="text-2xl font-bold text-slate-800 dark:text-white">
-            {completed}
-          </p>
-
-          <span className="text-sm text-slate-500 dark:text-slate-400">
-            Completed
-          </span>
+            <span className="text-xs text-slate-500 dark:text-slate-400">
+              Total Tasks
+            </span>
+          </div>
         </div>
 
-        <div className="rounded-2xl bg-slate-100 dark:bg-slate-800 p-4 text-center">
-          <Trophy
-            className="mx-auto mb-2 text-yellow-500"
-            size={26}
-          />
-
-          <p className="text-2xl font-bold text-slate-800 dark:text-white">
-            {total}
-          </p>
-
-          <span className="text-sm text-slate-500 dark:text-slate-400">
-            Total Tasks
-          </span>
+        {/* Motivation */}
+        <div className="mt-auto pt-6">
+          <div className="rounded-2xl bg-gradient-to-r from-indigo-600 to-violet-600 py-3 px-4 text-center text-white shadow-lg">
+            <p className="font-medium text-sm">
+              {message}
+            </p>
+          </div>
         </div>
-      </div>
-
-      {/* Motivation */}
-      <div className="mt-8 rounded-2xl bg-gradient-to-r from-indigo-600 to-violet-600 p-4 text-center text-white shadow-lg">
-        <p className="font-semibold">
-          {message}
-        </p>
       </div>
     </motion.div>
   );
