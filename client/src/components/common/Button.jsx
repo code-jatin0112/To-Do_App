@@ -3,19 +3,25 @@ export default function Button({
   type = "button",
   onClick,
   disabled = false,
+  className = "",
 }) {
   return (
     <button
       type={type}
       disabled={disabled}
       onClick={onClick}
-      className="
+      className={`
+        relative
+        flex
+        items-center
+        justify-center
         w-full
         rounded-2xl
         bg-gradient-to-r
         from-indigo-600
         to-violet-600
         py-3
+        px-6
         font-semibold
         text-white
         shadow-lg
@@ -27,7 +33,8 @@ export default function Button({
         hover:shadow-indigo-500/30
         active:scale-95
         disabled:opacity-50
-      "
+        ${className}
+      `}
     >
       {children}
     </button>

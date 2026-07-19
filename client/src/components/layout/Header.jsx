@@ -142,11 +142,15 @@ export default function Header({
           </motion.button>
 
           {/* Logout */}
-          <Button onClick={onLogout}>
-            <div className="flex items-center gap-2">
-              <LogOut size={18} />
-              Logout
-            </div>
+          <Button onClick={onLogout} className="h-16 min-w-[220px]">
+            <LogOut
+              size={24}
+              className="absolute left-6"
+            />
+
+          <span className="text-xl font-bold">
+            Logout
+          </span>
           </Button>
         </div>
       </div>
