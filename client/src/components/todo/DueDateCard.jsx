@@ -73,82 +73,84 @@ export default function DueDateCard({ todos }) {
       initial={{ opacity: 0, y: 25 }}
       animate={{ opacity: 1, y: 0 }}
       whileHover={{ y: -5, scale: 1.02 }}
-      className="rounded-3xl bg-white/80 dark:bg-slate-900/80 backdrop-blur-xl border border-white/40 dark:border-slate-700 shadow-xl p-6"
+      className="h-full rounded-3xl bg-white/80 dark:bg-slate-900/80 backdrop-blur-xl border border-white/40 dark:border-slate-700 shadow-xl p-6"
     >
-      {/* Header */}
-      <div className="flex items-center justify-between">
-        <div>
-          <h2 className="text-2xl font-bold text-slate-800 dark:text-white">
-            Today's Summary
-          </h2>
+      <div className="flex h-full flex-col">
+        {/* Header */}
+        <div className="flex items-center justify-between">
+          <div>
+            <h2 className="text-2xl font-bold text-slate-800 dark:text-white">
+              Today's Summary
+            </h2>
 
-          <p className="mt-1 text-sm text-slate-500 dark:text-slate-400">
-            {today.toLocaleDateString(undefined, {
-              weekday: "long",
-              month: "long",
-              day: "numeric",
-            })}
-          </p>
+            <p className="mt-1 text-sm text-slate-500 dark:text-slate-400">
+              {today.toLocaleDateString(undefined, {
+                weekday: "long",
+                month: "long",
+                day: "numeric",
+              })}
+            </p>
+          </div>
+
+          <div className="rounded-2xl bg-indigo-100 dark:bg-indigo-500/20 p-3">
+            <CalendarDays
+              size={28}
+              className="text-indigo-600 dark:text-indigo-400"
+            />
+          </div>
         </div>
 
-        <div className="rounded-2xl bg-indigo-100 dark:bg-indigo-500/20 p-3">
-          <CalendarDays
-            size={28}
-            className="text-indigo-600 dark:text-indigo-400"
-          />
+        {/* Stats */}
+        <div className="mt-8 space-y-4">
+          {cards.map((card, index) => {
+            const Icon = card.icon;
+
+            return (
+              <motion.div
+                key={card.title}
+                initial={{ opacity: 0, x: -15 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{
+                  delay: index * 0.1,
+                }}
+                whileHover={{
+                  scale: 1.02,
+                }}
+                className="flex items-center justify-between rounded-2xl bg-slate-100 dark:bg-slate-800 p-4"
+              >
+                <div className="flex items-center gap-4">
+                  <div className={`${card.bg} rounded-xl p-3`}>
+                    <Icon
+                      size={22}
+                      className={card.color}
+                    />
+                  </div>
+
+                  <div>
+                    <p className="font-semibold text-slate-800 dark:text-white">
+                      {card.title}
+                    </p>
+
+                    <p className="text-sm text-slate-500 dark:text-slate-400">
+                      Active tasks
+                    </p>
+                  </div>
+                </div>
+
+                <div className={`text-3xl font-bold ${card.color}`}>
+                  {card.value}
+                </div>
+              </motion.div>
+            );
+          })}
         </div>
-      </div>
 
-      {/* Stats */}
-      <div className="mt-8 space-y-4">
-        {cards.map((card, index) => {
-          const Icon = card.icon;
-
-          return (
-            <motion.div
-              key={card.title}
-              initial={{ opacity: 0, x: -15 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{
-                delay: index * 0.1,
-              }}
-              whileHover={{
-                scale: 1.02,
-              }}
-              className="flex items-center justify-between rounded-2xl bg-slate-100 dark:bg-slate-800 p-4"
-            >
-              <div className="flex items-center gap-4">
-                <div className={`${card.bg} rounded-xl p-3`}>
-                  <Icon
-                    size={22}
-                    className={card.color}
-                  />
-                </div>
-
-                <div>
-                  <p className="font-semibold text-slate-800 dark:text-white">
-                    {card.title}
-                  </p>
-
-                  <p className="text-sm text-slate-500 dark:text-slate-400">
-                    Active tasks
-                  </p>
-                </div>
-              </div>
-
-              <div className={`text-3xl font-bold ${card.color}`}>
-                {card.value}
-              </div>
-            </motion.div>
-          );
-        })}
-      </div>
-
-      {/* Footer */}
-      <div className="mt-8 rounded-2xl bg-gradient-to-r from-indigo-600 to-violet-600 p-4 text-center text-white shadow-lg">
-        <p className="font-medium">
-          {message}
-        </p>
+        {/* Footer */}
+        <div className="mt-auto pt-8">
+          <div className="rounded-2xl bg-gradient-to-r from-indigo-600 to-violet-600 p-4 text-center text-white shadow-lg">
+            <p className="font-medium">{message}</p>
+          </div>
+        </div>
       </div>
     </motion.div>
   );
