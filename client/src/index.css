@@ -1,8 +1,59 @@
 @import "tailwindcss";
 
+/* Enable class-based dark mode in Tailwind v4 */
+@custom-variant dark (&:where(.dark, .dark *));
+
+:root {
+  font-family: Inter, sans-serif;
+  color-scheme: light;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+html.dark {
+  color-scheme: dark;
+}
+
 body {
   margin: 0;
   min-height: 100vh;
-  font-family: Inter, sans-serif;
-  background: #f8fafc;
+  transition:
+    background-color 250ms ease,
+    color 250ms ease;
+}
+
+body {
+  @apply bg-slate-100 text-slate-900;
+}
+
+.dark body {
+  @apply bg-slate-950 text-slate-100;
+}
+
+* {
+  transition:
+    background-color 200ms ease,
+    border-color 200ms ease,
+    color 200ms ease;
+}
+
+/* Better scrollbar */
+
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #94a3b8;
+  border-radius: 999px;
+}
+
+.dark ::-webkit-scrollbar-thumb {
+  background: #475569;
 }

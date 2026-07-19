@@ -1,13 +1,22 @@
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
 
 import { useAuth } from "../context/AuthContext";
 
+import Sidebar from "../components/layout/Sidebar";
+import Header from "../components/layout/Header";
+
+import ConfirmModal from "../components/common/ConfirmModal";
+
 import StatsCards from "../components/todo/StatsCards";
+import ProgressCard from "../components/todo/ProgressCard";
+import DueDateCard from "../components/todo/DueDateCard";
+import TodoFilters from "../components/todo/TodoFilters";
 import TodoForm from "../components/todo/TodoForm";
 import TodoList from "../components/todo/TodoList";
-import Button from "../components/common/Button";
+import TaskChart from "../components/todo/TaskChart";
+import ActivityChart from "../components/todo/ActivityChart";
 
 import {
   getTodos,
@@ -20,9 +29,19 @@ export default function Dashboard() {
   const navigate = useNavigate();
   const { user, logoutUser } = useAuth();
 
+  const formRef = useRef(null);
+
   const [todos, setTodos] = useState([]);
   const [loading, setLoading] = useState(true);
+
   const [editingTodo, setEditingTodo] = useState(null);
+
+  const [deleteTodoId, setDeleteTodoId] = useState(null);
+  const [deleteLoading, setDeleteLoading] = useState(false);
+
+  const [search, setSearch] = useState("");
+  const [statusFilter, setStatusFilter] = useState("All");
+  const [priorityFilter, setPriorityFilter] = useState("All");
 
   useEffect(() => {
     fetchTodos();
@@ -68,19 +87,27 @@ export default function Dashboard() {
       toast.success("Todo updated!");
     } catch (error) {
       console.error(error);
-      toast.error("Update failed");
+      toast.error("Failed to update todo");
     }
   };
 
-  const handleDeleteTodo = async (id) => {
+  const confirmDelete = (id) => {
+    setDeleteTodoId(id);
+  };
+
+  const handleDeleteTodo = async () => {
+    if (!deleteTodoId) return;
+
     try {
-      await deleteTodo(id);
+      setDeleteLoading(true);
+
+      await deleteTodo(deleteTodoId);
 
       setTodos((prev) =>
-        prev.filter((todo) => todo._id !== id)
+        prev.filter((todo) => todo._id !== deleteTodoId)
       );
 
-      if (editingTodo?._id === id) {
+      if (editingTodo?._id === deleteTodoId) {
         setEditingTodo(null);
       }
 
@@ -88,6 +115,9 @@ export default function Dashboard() {
     } catch (error) {
       console.error(error);
       toast.error("Delete failed");
+    } finally {
+      setDeleteLoading(false);
+      setDeleteTodoId(null);
     }
   };
 
@@ -108,22 +138,24 @@ export default function Dashboard() {
 
       toast.success(
         response.todo.status === "Completed"
-          ? "Marked as completed!"
-          : "Marked as pending!"
+          ? "Task Completed 🎉"
+          : "Task marked Pending"
       );
     } catch (error) {
       console.error(error);
-      toast.error("Failed to update status");
+      toast.error("Status update failed");
     }
   };
 
   const handleEditTodo = (todo) => {
     setEditingTodo(todo);
 
-    window.scrollTo({
-      top: 0,
-      behavior: "smooth",
-    });
+    setTimeout(() => {
+      formRef.current?.scrollIntoView({
+        behavior: "smooth",
+        block: "start",
+      });
+    }, 100);
   };
 
   const handleCancelEdit = () => {
@@ -134,58 +166,128 @@ export default function Dashboard() {
     logoutUser();
     navigate("/login");
   };
+    const filteredTodos = useMemo(() => {
+    return todos.filter((todo) => {
+      const matchesSearch =
+        todo.title
+          .toLowerCase()
+          .includes(search.toLowerCase()) ||
+        (todo.description || "")
+          .toLowerCase()
+          .includes(search.toLowerCase());
+
+      const matchesStatus =
+        statusFilter === "All" ||
+        todo.status === statusFilter;
+
+      const matchesPriority =
+        priorityFilter === "All" ||
+        todo.priority === priorityFilter;
+
+      return (
+        matchesSearch &&
+        matchesStatus &&
+        matchesPriority
+      );
+    });
+  }, [todos, search, statusFilter, priorityFilter]);
 
   if (loading) {
     return (
-      <div className="min-h-screen flex justify-center items-center text-xl">
-        Loading...
+      <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-slate-100 via-blue-50 to-indigo-100 dark:from-slate-950 dark:via-slate-900 dark:to-slate-950">
+        <div className="flex flex-col items-center gap-4">
+          <div className="h-14 w-14 rounded-full border-4 border-indigo-600 border-t-transparent animate-spin" />
+
+          <h2 className="text-2xl font-bold text-slate-700 dark:text-white">
+            Loading your workspace...
+          </h2>
+
+          <p className="text-slate-500 dark:text-slate-400">
+            Please wait a moment.
+          </p>
+        </div>
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen bg-slate-100">
-      <div className="max-w-7xl mx-auto px-6 py-10">
-        <div className="flex justify-between items-center mb-10">
-          <div>
-            <h1 className="text-4xl font-bold">
-              Welcome back,
-              <span className="text-indigo-600">
-                {" "}
-                {user?.name}
-              </span>
-            </h1>
+    <div className="min-h-screen flex bg-gradient-to-br from-slate-100 via-blue-50 to-indigo-100 dark:from-slate-950 dark:via-slate-900 dark:to-slate-950">
+      <Sidebar />
 
-            <p className="text-slate-500 mt-2">
-              Organize your work efficiently.
-            </p>
-          </div>
+      <main className="flex-1 overflow-y-auto px-8 py-8">
+        <div className="mx-auto max-w-[1700px]">
 
-          <Button onClick={handleLogout}>
-            Logout
-          </Button>
-        </div>
-
-        <StatsCards todos={todos} />
-
-        <div className="mt-10">
-          <TodoForm
-            onAddTodo={handleAddTodo}
-            editingTodo={editingTodo}
-            onUpdateTodo={handleUpdateTodo}
-            onCancelEdit={handleCancelEdit}
+          <Header
+            user={user}
+            onLogout={handleLogout}
+            search={search}
+            setSearch={setSearch}
           />
-        </div>
 
-        <div className="mt-10">
-          <TodoList
-            todos={todos}
-            onDelete={handleDeleteTodo}
-            onEdit={handleEditTodo}
-            onToggleStatus={handleToggleStatus}
+          {/* Stats */}
+          <section className="mt-8">
+            <StatsCards todos={filteredTodos} />
+          </section>
+
+          {/* Progress + Summary */}
+          <section className="mt-8 grid gap-6 lg:grid-cols-2 items-stretch">
+            <ProgressCard todos={filteredTodos} />
+            <DueDateCard todos={filteredTodos} />
+          </section>
+
+          {/* Filters */}
+          <section className="mt-8">
+            <TodoFilters
+              search={search}
+              setSearch={setSearch}
+              statusFilter={statusFilter}
+              setStatusFilter={setStatusFilter}
+              priorityFilter={priorityFilter}
+              setPriorityFilter={setPriorityFilter}
+            />
+          </section>
+
+          {/* Todo List */}
+          <section className="mt-8">
+            <TodoList
+              todos={filteredTodos}
+              onDelete={confirmDelete}
+              onEdit={handleEditTodo}
+              onToggleStatus={handleToggleStatus}
+            />
+          </section>
+
+          {/* Charts */}
+          <section className="mt-8 grid gap-6 lg:grid-cols-2 items-stretch">
+            <TaskChart todos={filteredTodos} />
+            <ActivityChart todos={filteredTodos} />
+          </section>
+
+          {/* Create / Edit Task */}
+          <section
+            ref={formRef}
+            className="mt-8 scroll-mt-24"
+          >
+            <TodoForm
+              onAddTodo={handleAddTodo}
+              editingTodo={editingTodo}
+              onUpdateTodo={handleUpdateTodo}
+              onCancelEdit={handleCancelEdit}
+            />
+          </section>
+                    <ConfirmModal
+            open={deleteTodoId !== null}
+            title="Delete Todo?"
+            message="This action cannot be undone."
+
+            loading={deleteLoading}
+
+            onConfirm={handleDeleteTodo}
+            onCancel={() => setDeleteTodoId(null)}
           />
+
         </div>
-      </div>
+      </main>
     </div>
   );
 }
