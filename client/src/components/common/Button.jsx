@@ -12,27 +12,39 @@ export default function Button({
       onClick={onClick}
       className={`
         relative
-        flex
+        inline-flex
         items-center
         justify-center
-        w-full
+        gap-3
+        overflow-hidden
+
         rounded-2xl
-        bg-gradient-to-r
-        from-indigo-600
-        to-violet-600
-        py-3
         px-6
+        py-3
+
         font-semibold
         text-white
+
+        bg-gradient-to-r
+        from-indigo-600
+        via-indigo-500
+        to-violet-600
+
         shadow-lg
-        shadow-indigo-500/20
+        shadow-indigo-500/25
+
         transition-all
         duration-300
-        hover:scale-[1.02]
+
+        hover:-translate-y-0.5
         hover:shadow-xl
-        hover:shadow-indigo-500/30
+        hover:shadow-indigo-500/35
+
         active:scale-95
+
+        disabled:cursor-not-allowed
         disabled:opacity-50
+
         ${className}
       `}
     >
