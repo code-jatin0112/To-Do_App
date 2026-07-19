@@ -67,16 +67,15 @@ export default function TodoForm({
 
     setLoading(true);
 
-    try {
-      if (editingTodo) {
-        await onUpdateTodo(editingTodo._id, formData);
-        toast.success("Task updated successfully!");
-      } else {
-        await onAddTodo(formData);
-        toast.success("Task created successfully!");
-      }
+  try {
+    if (editingTodo) {
+      await onUpdateTodo(editingTodo._id, formData);
+    } else {
+      await onAddTodo(formData);
+    }
 
-      resetForm();
+    resetForm();
+    
     } catch (err) {
       console.error(err);
       toast.error("Something went wrong.");

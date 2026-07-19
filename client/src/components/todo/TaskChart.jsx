@@ -95,13 +95,11 @@ export default function TaskChart({ todos = [] }) {
               data={data}
               dataKey="value"
               nameKey="name"
-              innerRadius={65}
-              outerRadius={95}
+              innerRadius={75}
+              outerRadius={110}
               paddingAngle={4}
               animationDuration={1000}
-              label={({ percent }) =>
-                `${(percent * 100).toFixed(0)}%`
-              }
+              label={false}
             >
               {data.map((entry, index) => (
                 <Cell
@@ -122,23 +120,35 @@ export default function TaskChart({ todos = [] }) {
             />
 
             <Legend />
+
           </PieChart>
         </ResponsiveContainer>
 
         <div className="pointer-events-none absolute inset-0 flex items-center justify-center">
-          <div className="rounded-full bg-white dark:bg-slate-900 shadow-lg border border-slate-200 dark:border-slate-700 px-5 py-4 text-center">
-            <p className="text-3xl font-bold text-slate-800 dark:text-white">
+
+          <div className="flex h-32 w-32 flex-col items-center justify-center rounded-full border border-slate-200 bg-white shadow-xl dark:border-slate-700 dark:bg-slate-900">
+
+            <p
+              className={`font-extrabold leading-none tracking-tight [font-variant-numeric:tabular-nums] text-slate-800 dark:text-white ${
+                completionRate === 100
+                  ? "text-[34px]"
+                  : "text-[38px]"
+              }`}
+            >
               {completionRate}%
             </p>
 
-            <span className="text-xs text-slate-500 dark:text-slate-400">
+            <span className="mt-1 text-sm font-medium text-slate-500 dark:text-slate-400">
               Complete
             </span>
+
           </div>
+
         </div>
       </div>
 
-      <div className="mt-8 grid grid-cols-2 gap-4">
+            <div className="mt-8 grid grid-cols-2 gap-4">
+
         <motion.div
           whileHover={{ scale: 1.03 }}
           className="rounded-2xl border border-emerald-200 dark:border-emerald-500/20 bg-emerald-50 dark:bg-emerald-500/10 p-5"
@@ -150,6 +160,10 @@ export default function TaskChart({ todos = [] }) {
           <h3 className="mt-2 text-3xl font-bold text-emerald-600 dark:text-emerald-400">
             {completed}
           </h3>
+
+          <p className="mt-1 text-xs text-emerald-600/80 dark:text-emerald-300/80">
+            {completionRate}% of all tasks
+          </p>
         </motion.div>
 
         <motion.div
@@ -163,8 +177,14 @@ export default function TaskChart({ todos = [] }) {
           <h3 className="mt-2 text-3xl font-bold text-amber-600 dark:text-amber-400">
             {pending}
           </h3>
+
+          <p className="mt-1 text-xs text-amber-600/80 dark:text-amber-300/80">
+            {100 - completionRate}% remaining
+          </p>
         </motion.div>
+
       </div>
+
     </motion.div>
   );
 }

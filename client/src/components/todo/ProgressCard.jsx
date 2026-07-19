@@ -13,7 +13,7 @@ export default function ProgressCard({ todos }) {
       ? 0
       : Math.round((completed / total) * 100);
 
-  const radius = 42;
+  const radius = 48;
   const circumference = 2 * Math.PI * radius;
   const offset =
     circumference - (percentage / 100) * circumference;
@@ -40,7 +40,9 @@ export default function ProgressCard({ todos }) {
       className="h-full rounded-3xl bg-white/80 dark:bg-slate-900/80 backdrop-blur-xl border border-white/40 dark:border-slate-700 shadow-xl p-6"
     >
       <div className="flex h-full flex-col">
+
         {/* Header */}
+
         <div className="flex items-center justify-between">
           <div>
             <h2 className="text-2xl font-bold text-slate-800 dark:text-white">
@@ -61,16 +63,19 @@ export default function ProgressCard({ todos }) {
         </div>
 
         {/* Circular Progress */}
+
         <div className="mt-6 flex justify-center">
-          <div className="relative h-32 w-32">
+
+          <div className="relative h-36 w-36">
+
             <svg
               className="rotate-[-90deg]"
-              width="128"
-              height="128"
+              width="144"
+              height="144"
             >
               <circle
-                cx="64"
-                cy="64"
+                cx="72"
+                cy="72"
                 r={radius}
                 strokeWidth="10"
                 stroke="rgb(226 232 240)"
@@ -78,8 +83,8 @@ export default function ProgressCard({ todos }) {
               />
 
               <motion.circle
-                cx="64"
-                cy="64"
+                cx="72"
+                cy="72"
                 r={radius}
                 strokeWidth="10"
                 stroke="url(#gradient)"
@@ -110,6 +115,7 @@ export default function ProgressCard({ todos }) {
                     offset="0%"
                     stopColor="#6366f1"
                   />
+
                   <stop
                     offset="100%"
                     stopColor="#8b5cf6"
@@ -119,21 +125,33 @@ export default function ProgressCard({ todos }) {
             </svg>
 
             <div className="absolute inset-0 flex flex-col items-center justify-center">
-              <h2 className="text-3xl font-extrabold text-slate-800 dark:text-white">
+
+              <h2
+                className={`font-extrabold leading-none tracking-tight [font-variant-numeric:tabular-nums] text-slate-800 dark:text-white ${
+                  percentage === 100
+                    ? "text-[34px]"
+                    : "text-[40px]"
+                }`}
+              >
                 {percentage}%
               </h2>
 
-              <span className="text-xs text-slate-500 dark:text-slate-400">
+              <span className="mt-1 text-xs font-medium text-slate-500 dark:text-slate-400">
                 Completed
               </span>
+
             </div>
+
           </div>
+
         </div>
 
         {/* Progress Bar */}
+
         <div className="mt-6">
           <div className="mb-2 flex justify-between text-sm text-slate-500 dark:text-slate-400">
             <span>Overall Progress</span>
+
             <span>{percentage}%</span>
           </div>
 
@@ -151,9 +169,12 @@ export default function ProgressCard({ todos }) {
           </div>
         </div>
 
-        {/* Stats */}
+                {/* Stats */}
+
         <div className="mt-6 grid grid-cols-2 gap-3">
+
           <div className="rounded-2xl bg-slate-100 dark:bg-slate-800 p-3 text-center">
+
             <CheckCircle2
               className="mx-auto mb-2 text-emerald-500"
               size={22}
@@ -166,9 +187,11 @@ export default function ProgressCard({ todos }) {
             <span className="text-xs text-slate-500 dark:text-slate-400">
               Completed
             </span>
+
           </div>
 
           <div className="rounded-2xl bg-slate-100 dark:bg-slate-800 p-3 text-center">
+
             <Trophy
               className="mx-auto mb-2 text-yellow-500"
               size={22}
@@ -181,18 +204,27 @@ export default function ProgressCard({ todos }) {
             <span className="text-xs text-slate-500 dark:text-slate-400">
               Total Tasks
             </span>
+
           </div>
+
         </div>
 
         {/* Motivation */}
+
         <div className="mt-auto pt-6">
+
           <div className="rounded-2xl bg-gradient-to-r from-indigo-600 to-violet-600 py-3 px-4 text-center text-white shadow-lg">
+
             <p className="font-medium text-sm">
               {message}
             </p>
+
           </div>
+
         </div>
+
       </div>
+
     </motion.div>
   );
 }
