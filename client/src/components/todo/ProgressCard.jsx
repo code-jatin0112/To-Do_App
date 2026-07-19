@@ -13,7 +13,7 @@ export default function ProgressCard({ todos }) {
       ? 0
       : Math.round((completed / total) * 100);
 
-  const radius = 48;
+  const radius = 60;
   const circumference = 2 * Math.PI * radius;
   const offset =
     circumference - (percentage / 100) * circumference;
@@ -33,10 +33,7 @@ export default function ProgressCard({ todos }) {
     <motion.div
       initial={{ opacity: 0, y: 25 }}
       animate={{ opacity: 1, y: 0 }}
-      whileHover={{
-        y: -5,
-        scale: 1.02,
-      }}
+      whileHover={{ y: -5, scale: 1.02 }}
       className="h-full rounded-3xl bg-white/80 dark:bg-slate-900/80 backdrop-blur-xl border border-white/40 dark:border-slate-700 shadow-xl p-6"
     >
       <div className="flex h-full flex-col">
@@ -66,27 +63,27 @@ export default function ProgressCard({ todos }) {
 
         <div className="mt-6 flex justify-center">
 
-          <div className="relative h-36 w-36">
+          <div className="relative h-44 w-44">
 
             <svg
+              width="176"
+              height="176"
               className="rotate-[-90deg]"
-              width="144"
-              height="144"
             >
               <circle
-                cx="72"
-                cy="72"
+                cx="88"
+                cy="88"
                 r={radius}
-                strokeWidth="10"
+                strokeWidth="12"
                 stroke="rgb(226 232 240)"
                 fill="transparent"
               />
 
               <motion.circle
-                cx="72"
-                cy="72"
+                cx="88"
+                cy="88"
                 r={radius}
-                strokeWidth="10"
+                strokeWidth="12"
                 stroke="url(#gradient)"
                 fill="transparent"
                 strokeLinecap="round"
@@ -127,16 +124,19 @@ export default function ProgressCard({ todos }) {
             <div className="absolute inset-0 flex flex-col items-center justify-center">
 
               <h2
-                className={`font-extrabold leading-none tracking-tight [font-variant-numeric:tabular-nums] text-slate-800 dark:text-white ${
+                className={`font-extrabold leading-none tracking-tight text-slate-800 dark:text-white ${
                   percentage === 100
-                    ? "text-[34px]"
-                    : "text-[40px]"
+                    ? "text-[38px]"
+                    : "text-[44px]"
                 }`}
+                style={{
+                  fontVariantNumeric: "tabular-nums",
+                }}
               >
                 {percentage}%
               </h2>
 
-              <span className="mt-1 text-xs font-medium text-slate-500 dark:text-slate-400">
+              <span className="mt-2 text-sm font-medium text-slate-500 dark:text-slate-400">
                 Completed
               </span>
 
@@ -149,13 +149,17 @@ export default function ProgressCard({ todos }) {
         {/* Progress Bar */}
 
         <div className="mt-6">
+
           <div className="mb-2 flex justify-between text-sm text-slate-500 dark:text-slate-400">
+
             <span>Overall Progress</span>
 
             <span>{percentage}%</span>
+
           </div>
 
           <div className="h-2.5 overflow-hidden rounded-full bg-slate-200 dark:bg-slate-700">
+
             <motion.div
               initial={{ width: 0 }}
               animate={{
@@ -166,46 +170,50 @@ export default function ProgressCard({ todos }) {
               }}
               className="h-full rounded-full bg-gradient-to-r from-indigo-600 to-violet-600"
             />
+
           </div>
+
         </div>
 
                 {/* Stats */}
 
         <div className="mt-6 grid grid-cols-2 gap-3">
 
-          <div className="rounded-2xl bg-slate-100 dark:bg-slate-800 p-3 text-center">
-
+          <motion.div
+            whileHover={{ scale: 1.03 }}
+            className="rounded-2xl bg-slate-100 dark:bg-slate-800 p-4 text-center"
+          >
             <CheckCircle2
               className="mx-auto mb-2 text-emerald-500"
-              size={22}
+              size={24}
             />
 
-            <p className="text-xl font-bold text-slate-800 dark:text-white">
+            <p className="text-2xl font-bold text-slate-800 dark:text-white">
               {completed}
             </p>
 
             <span className="text-xs text-slate-500 dark:text-slate-400">
               Completed
             </span>
+          </motion.div>
 
-          </div>
-
-          <div className="rounded-2xl bg-slate-100 dark:bg-slate-800 p-3 text-center">
-
+          <motion.div
+            whileHover={{ scale: 1.03 }}
+            className="rounded-2xl bg-slate-100 dark:bg-slate-800 p-4 text-center"
+          >
             <Trophy
               className="mx-auto mb-2 text-yellow-500"
-              size={22}
+              size={24}
             />
 
-            <p className="text-xl font-bold text-slate-800 dark:text-white">
+            <p className="text-2xl font-bold text-slate-800 dark:text-white">
               {total}
             </p>
 
             <span className="text-xs text-slate-500 dark:text-slate-400">
               Total Tasks
             </span>
-
-          </div>
+          </motion.div>
 
         </div>
 
@@ -213,13 +221,14 @@ export default function ProgressCard({ todos }) {
 
         <div className="mt-auto pt-6">
 
-          <div className="rounded-2xl bg-gradient-to-r from-indigo-600 to-violet-600 py-3 px-4 text-center text-white shadow-lg">
-
-            <p className="font-medium text-sm">
+          <motion.div
+            whileHover={{ scale: 1.02 }}
+            className="rounded-2xl bg-gradient-to-r from-indigo-600 to-violet-600 px-5 py-4 text-center text-white shadow-lg"
+          >
+            <p className="text-sm font-semibold leading-relaxed">
               {message}
             </p>
-
-          </div>
+          </motion.div>
 
         </div>
 

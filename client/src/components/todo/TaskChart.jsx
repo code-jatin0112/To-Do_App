@@ -22,6 +22,11 @@ export default function TaskChart({ todos = [] }) {
 
   const total = completed + pending;
 
+  const completionRate =
+    total === 0
+      ? 0
+      : Math.round((completed / total) * 100);
+
   const data = [
     {
       name: "Completed",
@@ -42,7 +47,7 @@ export default function TaskChart({ todos = [] }) {
       >
         <div className="rounded-full bg-indigo-100 dark:bg-indigo-500/20 p-6">
           <PieChartIcon
-            size={50}
+            size={52}
             className="text-indigo-600 dark:text-indigo-400"
           />
         </div>
@@ -58,8 +63,6 @@ export default function TaskChart({ todos = [] }) {
     );
   }
 
-  const completionRate = Math.round((completed / total) * 100);
-
   return (
     <motion.div
       initial={{ opacity: 0, y: 25 }}
@@ -72,7 +75,8 @@ export default function TaskChart({ todos = [] }) {
     >
       {/* Header */}
 
-      <div className="flex items-center justify-between mb-6">
+      <div className="mb-6 flex items-center justify-between">
+
         <div>
           <h2 className="text-2xl font-bold text-slate-800 dark:text-white">
             Task Analytics
@@ -86,18 +90,24 @@ export default function TaskChart({ todos = [] }) {
         <div className="rounded-full bg-indigo-100 dark:bg-indigo-500/20 px-4 py-2 text-sm font-semibold text-indigo-600 dark:text-indigo-300">
           {completionRate}% Complete
         </div>
+
       </div>
 
       <div className="relative flex-1">
+
         <ResponsiveContainer width="100%" height="100%">
+
           <PieChart>
+
             <Pie
               data={data}
               dataKey="value"
               nameKey="name"
-              innerRadius={75}
-              outerRadius={110}
-              paddingAngle={4}
+              cx="50%"
+              cy="45%"
+              innerRadius={90}
+              outerRadius={120}
+              paddingAngle={5}
               animationDuration={1000}
               label={false}
             >
@@ -122,32 +132,39 @@ export default function TaskChart({ todos = [] }) {
             <Legend />
 
           </PieChart>
+
         </ResponsiveContainer>
 
         <div className="pointer-events-none absolute inset-0 flex items-center justify-center">
 
-          <div className="flex h-32 w-32 flex-col items-center justify-center rounded-full border border-slate-200 bg-white shadow-xl dark:border-slate-700 dark:bg-slate-900">
+          <div className="flex h-36 w-36 flex-col items-center justify-center rounded-full border border-slate-200 bg-white shadow-xl dark:border-slate-700 dark:bg-slate-900">
 
             <p
-              className={`font-extrabold leading-none tracking-tight [font-variant-numeric:tabular-nums] text-slate-800 dark:text-white ${
+              className={`font-extrabold leading-none tracking-tight text-slate-800 dark:text-white ${
                 completionRate === 100
-                  ? "text-[34px]"
-                  : "text-[38px]"
+                  ? "text-[40px]"
+                  : "text-[46px]"
               }`}
+              style={{
+                fontVariantNumeric: "tabular-nums",
+              }}
             >
               {completionRate}%
             </p>
 
-            <span className="mt-1 text-sm font-medium text-slate-500 dark:text-slate-400">
+            <span className="mt-2 text-sm font-medium text-slate-500 dark:text-slate-400">
               Complete
             </span>
 
           </div>
 
         </div>
+
       </div>
 
-            <div className="mt-8 grid grid-cols-2 gap-4">
+            {/* Stats */}
+
+      <div className="mt-8 grid grid-cols-2 gap-4">
 
         <motion.div
           whileHover={{ scale: 1.03 }}
