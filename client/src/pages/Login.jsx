@@ -1,22 +1,28 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
-import { LogIn, Mail, Lock, ArrowRight } from "lucide-react";
+import { Eye, EyeOff, LogIn } from "lucide-react";
 import toast from "react-hot-toast";
 
 import AuthLayout from "../components/layout/AuthLayout";
 import Input from "../components/common/Input";
 import Button from "../components/common/Button";
 
+import { login } from "../services/authService";
+import { useAuth } from "../context/AuthContext";
+
 export default function Login() {
   const navigate = useNavigate();
+  const { loginUser } = useAuth();
 
-  const [loading, setLoading] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
 
   const [formData, setFormData] = useState({
     email: "",
     password: "",
   });
+
+  const [loading, setLoading] = useState(false);
 
   const handleChange = (e) => {
     setFormData((prev) => ({
@@ -31,21 +37,18 @@ export default function Login() {
     try {
       setLoading(true);
 
-      /*
-        Replace this section with your actual login API call.
-        Example:
+      const response = await login(formData);
 
-        await loginUser(formData);
-      */
-
-      await new Promise((resolve) => setTimeout(resolve, 1200));
+      loginUser(response.user, response.token);
 
       toast.success("Welcome back!");
 
       navigate("/dashboard");
-    } catch (err) {
+    } catch (error) {
+      console.error(error);
+
       toast.error(
-        err?.response?.data?.message || "Login failed"
+        error.response?.data?.message || "Login Failed"
       );
     } finally {
       setLoading(false);
@@ -54,47 +57,31 @@ export default function Login() {
 
   return (
     <AuthLayout>
-
       <motion.div
-        initial={{ opacity: 0, y: 35 }}
+        initial={{ opacity: 0, y: 40 }}
         animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.7 }}
-        className="
-          rounded-[32px]
-          border
-          border-white/10
-          bg-white/10
-          p-10
-          backdrop-blur-3xl
-          shadow-[0_25px_80px_rgba(0,0,0,.45)]
-        "
+        transition={{ duration: 0.45 }}
+        className="w-full max-w-lg rounded-[36px] bg-white/80 backdrop-blur-xl border border-white/50 shadow-2xl p-10"
       >
+        <div className="mb-8">
 
-        <div className="mb-10">
-
-          <div className="flex items-center gap-3">
-
-            <div className="rounded-2xl bg-indigo-500/20 p-3">
-
-              <LogIn
-                className="text-indigo-300"
-                size={24}
-              />
-
+          <div className="flex items-center gap-3 mb-5">
+            <div className="h-14 w-14 rounded-2xl bg-indigo-100 flex items-center justify-center">
+              <LogIn className="text-indigo-600" size={28} />
             </div>
 
             <div>
-
-              <h1 className="text-3xl font-bold text-white">
+              <h2 className="text-4xl font-bold text-slate-800">
                 Welcome Back
-              </h1>
+              </h2>
 
-              <p className="mt-1 text-slate-300">
-                Sign in to continue managing your tasks.
+              <p className="text-slate-500 mt-1">
+                Sign in to continue using
+                <span className="font-semibold text-indigo-600">
+                  {" "}TaskFlow
+                </span>
               </p>
-
             </div>
-
           </div>
 
         </div>
@@ -103,66 +90,37 @@ export default function Login() {
           onSubmit={handleSubmit}
           className="space-y-6"
         >
+          <Input
+            label="Email Address"
+            name="email"
+            placeholder="you@example.com"
+            value={formData.email}
+            onChange={handleChange}
+          />
 
-                    <div className="space-y-5">
-
-            <Input
-              label="Email Address"
-              name="email"
-              type="email"
-              placeholder="Enter your email"
-              value={formData.email}
-              onChange={handleChange}
-              autoComplete="email"
-              required
-            />
+          <div className="relative">
 
             <Input
               label="Password"
               name="password"
-              type="password"
+              type={showPassword ? "text" : "password"}
               placeholder="Enter your password"
               value={formData.password}
               onChange={handleChange}
-              autoComplete="current-password"
-              required
             />
-
-          </div>
-
-          <div className="flex items-center justify-between">
-
-            <label className="flex cursor-pointer items-center gap-3">
-
-              <input
-                type="checkbox"
-                className="
-                  h-4
-                  w-4
-                  rounded
-                  border-white/20
-                  bg-transparent
-                  accent-indigo-500
-                "
-              />
-
-              <span className="text-sm text-slate-300">
-                Remember me
-              </span>
-
-            </label>
 
             <button
               type="button"
-              className="
-                text-sm
-                font-medium
-                text-indigo-300
-                transition-colors
-                hover:text-indigo-200
-              "
+              onClick={() =>
+                setShowPassword(!showPassword)
+              }
+              className="absolute right-4 top-[46px] text-slate-500 hover:text-indigo-600"
             >
-              Forgot Password?
+              {showPassword ? (
+                <EyeOff size={20} />
+              ) : (
+                <Eye size={20} />
+              )}
             </button>
 
           </div>
@@ -171,58 +129,43 @@ export default function Login() {
             type="submit"
             disabled={loading}
           >
-            {loading ? (
-              "Signing In..."
-            ) : (
-              <>
-                Sign In
-                <ArrowRight size={18} />
-              </>
-            )}
+            {loading ? "Signing In..." : "Sign In"}
           </Button>
-
-                    <div className="pt-2 text-center">
-
-            <p className="text-slate-300">
-              Don't have an account?{" "}
-
-              <Link
-                to="/signup"
-                className="
-                  font-semibold
-                  text-indigo-300
-                  transition-colors
-                  hover:text-indigo-200
-                "
-              >
-                Create one
-              </Link>
-
-            </p>
-
-          </div>
-
         </form>
 
-        <div className="mt-8 border-t border-white/10 pt-6">
+        <div className="flex justify-between items-center mt-6 text-sm">
 
-          <div className="flex items-center justify-center gap-2">
+          <button
+            type="button"
+            className="text-slate-500 hover:text-indigo-600 transition"
+          >
+            Forgot Password?
+          </button>
 
-            <Mail
-              size={16}
-              className="text-slate-400"
-            />
-
-            <p className="text-sm text-slate-400">
-              Secure authentication powered by TaskFlow
-            </p>
-
-          </div>
+          <Link
+            to="/signup"
+            className="font-semibold text-indigo-600 hover:text-indigo-700"
+          >
+            Create Account
+          </Link>
 
         </div>
 
-      </motion.div>
+        <div className="mt-8 border-t border-slate-200 pt-6 text-center">
 
+          <p className="text-slate-500">
+            New to TaskFlow?
+          </p>
+
+          <Link
+            to="/signup"
+            className="inline-block mt-3 rounded-xl bg-indigo-50 px-5 py-3 text-indigo-600 font-semibold hover:bg-indigo-100 transition"
+          >
+            Sign Up
+          </Link>
+
+        </div>
+      </motion.div>
     </AuthLayout>
   );
 }

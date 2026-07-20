@@ -8,29 +8,27 @@ export default function Button({
   return (
     <button
       type={type}
-      onClick={onClick}
       disabled={disabled}
+      onClick={onClick}
       className={`
-        group
         relative
         inline-flex
-        w-full
         items-center
         justify-center
+        gap-3
         overflow-hidden
+
         rounded-2xl
-
         px-6
-        py-3.5
+        py-3
 
-        text-base
         font-semibold
         text-white
 
         bg-gradient-to-r
         from-indigo-600
-        via-violet-600
-        to-fuchsia-600
+        via-indigo-500
+        to-violet-600
 
         shadow-lg
         shadow-indigo-500/25
@@ -38,8 +36,9 @@ export default function Button({
         transition-all
         duration-300
 
-        hover:scale-[1.02]
-        hover:shadow-[0_15px_45px_rgba(99,102,241,.45)]
+        hover:-translate-y-0.5
+        hover:shadow-xl
+        hover:shadow-indigo-500/35
 
         active:scale-95
 
@@ -49,24 +48,7 @@ export default function Button({
         ${className}
       `}
     >
-      <span className="relative z-10 flex items-center gap-2">
-        {children}
-      </span>
-
-      <span
-        className="
-          absolute
-          inset-0
-          -translate-x-full
-          bg-gradient-to-r
-          from-transparent
-          via-white/20
-          to-transparent
-          transition-transform
-          duration-700
-          group-hover:translate-x-full
-        "
-      />
+      {children}
     </button>
   );
 }

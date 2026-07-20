@@ -5,12 +5,9 @@ export default function Input({
   label,
   name,
   type = "text",
-  placeholder = "",
+  placeholder,
   value,
   onChange,
-  disabled = false,
-  required = false,
-  autoComplete = "off",
 }) {
   const [showPassword, setShowPassword] = useState(false);
 
@@ -18,91 +15,55 @@ export default function Input({
 
   return (
     <div className="space-y-2">
-
-      {label && (
-        <label
-          htmlFor={name}
-          className="block text-sm font-medium tracking-wide text-slate-200"
-        >
-          {label}
-        </label>
-      )}
+      <label className="block text-sm font-medium text-slate-700">
+        {label}
+      </label>
 
       <div className="relative">
-
         <input
-          id={name}
           name={name}
           type={isPassword && showPassword ? "text" : type}
           placeholder={placeholder}
           value={value}
           onChange={onChange}
-          disabled={disabled}
-          required={required}
-          autoComplete={autoComplete}
           className="
             w-full
             rounded-2xl
             border
-            border-white/10
-            bg-white/5
-            backdrop-blur-xl
-
-            px-5
-            py-3.5
-
-            text-base
-            text-white
-
+            border-slate-300
+            bg-white
+            px-4
+            py-3
+            pr-12
+            text-slate-800
             placeholder:text-slate-400
-
-            outline-none
-
             transition-all
             duration-300
-
-            hover:border-indigo-400/40
-
+            outline-none
             focus:border-indigo-500
-            focus:bg-white/10
             focus:ring-4
-            focus:ring-indigo-500/20
-
-            disabled:cursor-not-allowed
-            disabled:opacity-60
-
-            pr-12
+            focus:ring-indigo-100
           "
         />
 
         {isPassword && (
           <button
             type="button"
-            onClick={() => setShowPassword((prev) => !prev)}
+            onClick={() => setShowPassword(!showPassword)}
             className="
               absolute
               right-4
               top-1/2
               -translate-y-1/2
-
-              text-slate-400
-
-              transition
-              duration-300
-
-              hover:text-indigo-300
+              text-slate-500
+              hover:text-indigo-600
+              transition-colors
             "
           >
-            {showPassword ? (
-              <EyeOff size={20} />
-            ) : (
-              <Eye size={20} />
-            )}
+            {showPassword ? <EyeOff size={20} /> : <Eye size={20} />}
           </button>
         )}
-
       </div>
-
     </div>
   );
 }
