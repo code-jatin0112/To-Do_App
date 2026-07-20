@@ -5,6 +5,7 @@ import {
   Clock,
   Settings,
   Sparkles,
+  SquareKanban,
 } from "lucide-react";
 import { motion } from "framer-motion";
 
@@ -41,11 +42,8 @@ export default function Sidebar() {
           whileHover={{ scale: 1.05 }}
           className="flex items-center gap-3"
         >
-          <div className="h-12 w-12 rounded-2xl bg-gradient-to-r from-indigo-600 to-purple-600 flex items-center justify-center shadow-lg">
-            <Sparkles
-              size={24}
-              className="text-white"
-            />
+          <div className="rounded-2xl bg-white/10 p-4 backdrop-blur-sm">
+            <SquareKanban size={42} />
           </div>
 
           <div>
