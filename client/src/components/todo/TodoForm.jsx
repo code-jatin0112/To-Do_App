@@ -82,7 +82,9 @@ export default function TodoForm({
 
     setFormData((prev) => ({
       ...prev,
-      [name]: type === "checkbox" ? checked : value,
+      [name]: type === "checkbox"
+        ? checked
+        : value,
     }));
   };
 
@@ -92,7 +94,7 @@ export default function TodoForm({
     if (!value) return;
 
     if (formData.labels.includes(value)) {
-      toast.error("Label already exists");
+      toast.error("Label already exists.");
       return;
     }
 
@@ -107,7 +109,9 @@ export default function TodoForm({
   const removeLabel = (label) => {
     setFormData((prev) => ({
       ...prev,
-      labels: prev.labels.filter((item) => item !== label),
+      labels: prev.labels.filter(
+        (item) => item !== label
+      ),
     }));
   };
 
@@ -133,13 +137,13 @@ export default function TodoForm({
   const toggleSubtask = (index) => {
     setFormData((prev) => ({
       ...prev,
-      subtasks: prev.subtasks.map((item, i) =>
+      subtasks: prev.subtasks.map((task, i) =>
         i === index
           ? {
-              ...item,
-              completed: !item.completed,
+              ...task,
+              completed: !task.completed,
             }
-          : item
+          : task
       ),
     }));
   };
@@ -147,7 +151,9 @@ export default function TodoForm({
   const removeSubtask = (index) => {
     setFormData((prev) => ({
       ...prev,
-      subtasks: prev.subtasks.filter((_, i) => i !== index),
+      subtasks: prev.subtasks.filter(
+        (_, i) => i !== index
+      ),
     }));
   };
 
@@ -155,7 +161,7 @@ export default function TodoForm({
     e.preventDefault();
 
     if (!formData.title.trim()) {
-      toast.error("Please enter a title.");
+      toast.error("Please enter a task title.");
       return;
     }
 
@@ -163,7 +169,10 @@ export default function TodoForm({
 
     try {
       if (editingTodo) {
-        await onUpdateTodo(editingTodo._id, formData);
+        await onUpdateTodo(
+          editingTodo._id,
+          formData
+        );
       } else {
         await onAddTodo(formData);
       }
@@ -180,43 +189,101 @@ export default function TodoForm({
   return (
     <motion.div
       layout
-      initial={{ opacity: 0, y: 25 }}
-      animate={{ opacity: 1, y: 0 }}
-      className="rounded-3xl bg-white/80 dark:bg-slate-900/80 backdrop-blur-xl border border-white/40 dark:border-slate-700 shadow-xl p-8"
+      initial={{
+        opacity: 0,
+        y: 20,
+      }}
+      animate={{
+        opacity: 1,
+        y: 0,
+      }}
+      className="
+        rounded-3xl
+        border
+        border-stone-200
+        dark:border-zinc-800
+        bg-white/70
+        dark:bg-zinc-900/70
+        backdrop-blur-md
+        shadow-lg
+        p-8
+      "
     >
-      <div className="flex items-center justify-between mb-8">
+
+      {/* Header */}
+
+      <div className="mb-8 flex items-center justify-between">
+
         <div>
-          <h2 className="text-3xl font-bold text-slate-800 dark:text-white">
-            {editingTodo ? "Edit Task" : "Create New Task"}
+
+          <h2 className="text-3xl font-bold text-stone-800 dark:text-stone-100">
+
+            {editingTodo
+              ? "Edit Task"
+              : "Create Task"}
+
           </h2>
 
-          <p className="mt-1 text-slate-500 dark:text-slate-400">
-            Organize everything in one place.
+          <p className="mt-2 text-stone-500 dark:text-stone-400">
+
+            Organize your work with a clean workflow.
+
           </p>
+
         </div>
 
         {editingTodo && (
+
           <motion.button
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
+            whileHover={{
+              scale: 1.05,
+            }}
+            whileTap={{
+              scale: .95,
+            }}
             onClick={onCancelEdit}
-            className="h-11 w-11 rounded-xl bg-red-100 dark:bg-red-500/20 flex items-center justify-center"
+            className="
+              flex
+              h-11
+              w-11
+              items-center
+              justify-center
+              rounded-2xl
+              bg-rose-100
+              text-rose-600
+              transition
+              hover:bg-rose-200
+              dark:bg-rose-500/15
+              dark:text-rose-300
+            "
           >
-            <X size={20} />
+
+            <X size={18} />
+
           </motion.button>
+
         )}
+
       </div>
 
       <form
         onSubmit={handleSubmit}
-        className="space-y-6"
+        className="space-y-7"
       >
 
                 {/* Title */}
+
         <div>
-          <label className="mb-2 flex items-center gap-2 text-sm font-semibold text-slate-700 dark:text-slate-300">
-            <Type size={16} />
+
+          <label className="mb-2 flex items-center gap-2 text-sm font-semibold text-stone-700 dark:text-stone-300">
+
+            <Type
+              size={16}
+              className="text-stone-500"
+            />
+
             Title
+
           </label>
 
           <input
@@ -225,20 +292,47 @@ export default function TodoForm({
             maxLength={80}
             value={formData.title}
             onChange={handleChange}
-            placeholder="Finish React Project..."
-            className="w-full rounded-2xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 px-5 py-3 text-slate-800 dark:text-white placeholder:text-slate-400 outline-none transition focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500"
+            placeholder="Finish React Dashboard..."
+            className="
+              w-full
+              rounded-2xl
+              border
+              border-stone-200
+              dark:border-zinc-700
+              bg-stone-100
+              dark:bg-zinc-800
+              px-5
+              py-3.5
+              text-stone-800
+              dark:text-stone-100
+              placeholder:text-stone-400
+              outline-none
+              transition-all
+              focus:border-stone-400
+              focus:ring-2
+              focus:ring-stone-300
+            "
           />
 
-          <div className="mt-1 text-right text-xs text-slate-400">
+          <div className="mt-2 text-right text-xs text-stone-400">
             {formData.title.length}/80
           </div>
+
         </div>
 
         {/* Description */}
+
         <div>
-          <label className="mb-2 flex items-center gap-2 text-sm font-semibold text-slate-700 dark:text-slate-300">
-            <FileText size={16} />
+
+          <label className="mb-2 flex items-center gap-2 text-sm font-semibold text-stone-700 dark:text-stone-300">
+
+            <FileText
+              size={16}
+              className="text-stone-500"
+            />
+
             Description
+
           </label>
 
           <textarea
@@ -247,20 +341,48 @@ export default function TodoForm({
             maxLength={300}
             value={formData.description}
             onChange={handleChange}
-            placeholder="Describe your task..."
-            className="w-full resize-none rounded-2xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 px-5 py-3 text-slate-800 dark:text-white placeholder:text-slate-400 outline-none transition focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500"
+            placeholder="Describe what needs to be done..."
+            className="
+              w-full
+              resize-none
+              rounded-2xl
+              border
+              border-stone-200
+              dark:border-zinc-700
+              bg-stone-100
+              dark:bg-zinc-800
+              px-5
+              py-3.5
+              text-stone-800
+              dark:text-stone-100
+              placeholder:text-stone-400
+              outline-none
+              transition-all
+              focus:border-stone-400
+              focus:ring-2
+              focus:ring-stone-300
+            "
           />
 
-          <div className="mt-1 text-right text-xs text-slate-400">
+          <div className="mt-2 text-right text-xs text-stone-400">
             {formData.description.length}/300
           </div>
+
         </div>
 
         {/* Notes */}
+
         <div>
-          <label className="mb-2 flex items-center gap-2 text-sm font-semibold text-slate-700 dark:text-slate-300">
-            <FileText size={16} />
+
+          <label className="mb-2 flex items-center gap-2 text-sm font-semibold text-stone-700 dark:text-stone-300">
+
+            <FileText
+              size={16}
+              className="text-stone-500"
+            />
+
             Notes
+
           </label>
 
           <textarea
@@ -270,38 +392,105 @@ export default function TodoForm({
             value={formData.notes}
             onChange={handleChange}
             placeholder="Additional notes..."
-            className="w-full resize-none rounded-2xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 px-5 py-3 text-slate-800 dark:text-white placeholder:text-slate-400 outline-none transition focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500"
+            className="
+              w-full
+              resize-none
+              rounded-2xl
+              border
+              border-stone-200
+              dark:border-zinc-700
+              bg-stone-100
+              dark:bg-zinc-800
+              px-5
+              py-3.5
+              text-stone-800
+              dark:text-stone-100
+              placeholder:text-stone-400
+              outline-none
+              transition-all
+              focus:border-stone-400
+              focus:ring-2
+              focus:ring-stone-300
+            "
           />
 
-          <div className="mt-1 text-right text-xs text-slate-400">
+          <div className="mt-2 text-right text-xs text-stone-400">
             {formData.notes.length}/500
           </div>
+
         </div>
 
         {/* Priority & Due Date */}
+
         <div className="grid gap-6 md:grid-cols-2">
+
+          {/* Priority */}
+
           <div>
-            <label className="mb-2 flex items-center gap-2 text-sm font-semibold text-slate-700 dark:text-slate-300">
-              <Flag size={16} />
+
+            <label className="mb-2 flex items-center gap-2 text-sm font-semibold text-stone-700 dark:text-stone-300">
+
+              <Flag
+                size={16}
+                className="text-stone-500"
+              />
+
               Priority
+
             </label>
 
             <select
               name="priority"
               value={formData.priority}
               onChange={handleChange}
-              className="w-full rounded-2xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 px-5 py-3 text-slate-800 dark:text-white outline-none transition focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500"
+              className="
+                w-full
+                rounded-2xl
+                border
+                border-stone-200
+                dark:border-zinc-700
+                bg-stone-100
+                dark:bg-zinc-800
+                px-5
+                py-3.5
+                text-stone-800
+                dark:text-stone-100
+                outline-none
+                transition-all
+                focus:border-stone-400
+                focus:ring-2
+                focus:ring-stone-300
+              "
             >
-              <option value="High">🔴 High</option>
-              <option value="Medium">🟡 Medium</option>
-              <option value="Low">🟢 Low</option>
+              <option value="High">
+                🔴 High
+              </option>
+
+              <option value="Medium">
+                🟡 Medium
+              </option>
+
+              <option value="Low">
+                🟢 Low
+              </option>
+
             </select>
+
           </div>
 
+          {/* Due Date */}
+
           <div>
-            <label className="mb-2 flex items-center gap-2 text-sm font-semibold text-slate-700 dark:text-slate-300">
-              <CalendarDays size={16} />
+
+            <label className="mb-2 flex items-center gap-2 text-sm font-semibold text-stone-700 dark:text-stone-300">
+
+              <CalendarDays
+                size={16}
+                className="text-stone-500"
+              />
+
               Due Date
+
             </label>
 
             <input
@@ -309,14 +498,54 @@ export default function TodoForm({
               name="dueDate"
               value={formData.dueDate}
               onChange={handleChange}
-              className="w-full rounded-2xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 px-5 py-3 text-slate-800 dark:text-white outline-none transition focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500"
+              className="
+                w-full
+                rounded-2xl
+                border
+                border-stone-200
+                dark:border-zinc-700
+                bg-stone-100
+                dark:bg-zinc-800
+                px-5
+                py-3.5
+                text-stone-800
+                dark:text-stone-100
+                outline-none
+                transition-all
+                focus:border-stone-400
+                focus:ring-2
+                focus:ring-stone-300
+              "
             />
+
           </div>
+
         </div>
 
-        {/* Favorite & Archive */}
+                {/* Favorite & Archive */}
+
         <div className="grid gap-4 md:grid-cols-2">
-          <label className="flex cursor-pointer items-center gap-3 rounded-2xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 p-4">
+
+          {/* Favorite */}
+
+          <label
+            className="
+              flex
+              cursor-pointer
+              items-center
+              gap-4
+              rounded-2xl
+              border
+              border-stone-200
+              dark:border-zinc-700
+              bg-stone-100
+              dark:bg-zinc-800
+              p-5
+              transition-all
+              hover:border-amber-300
+            "
+          >
+
             <input
               type="checkbox"
               name="favorite"
@@ -325,27 +554,53 @@ export default function TodoForm({
               className="hidden"
             />
 
-            <Star
-              size={22}
-              className={
-                formData.favorite
-                  ? "fill-yellow-400 text-yellow-400"
-                  : "text-slate-400"
-              }
-            />
+            <div className="rounded-xl bg-white dark:bg-zinc-900 p-3 shadow-sm">
+
+              <Star
+                size={22}
+                className={
+                  formData.favorite
+                    ? "fill-amber-400 text-amber-400"
+                    : "text-stone-400"
+                }
+              />
+
+            </div>
 
             <div>
-              <p className="font-semibold text-slate-700 dark:text-white">
+
+              <p className="font-semibold text-stone-800 dark:text-stone-100">
                 Favorite
               </p>
 
-              <p className="text-xs text-slate-500">
-                Pin this task to the top
+              <p className="mt-1 text-sm text-stone-500 dark:text-stone-400">
+                Pin this task to the top.
               </p>
+
             </div>
+
           </label>
 
-          <label className="flex cursor-pointer items-center gap-3 rounded-2xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 p-4">
+          {/* Archive */}
+
+          <label
+            className="
+              flex
+              cursor-pointer
+              items-center
+              gap-4
+              rounded-2xl
+              border
+              border-stone-200
+              dark:border-zinc-700
+              bg-stone-100
+              dark:bg-zinc-800
+              p-5
+              transition-all
+              hover:border-stone-400
+            "
+          >
+
             <input
               type="checkbox"
               name="archived"
@@ -354,35 +609,49 @@ export default function TodoForm({
               className="hidden"
             />
 
-            <Archive
-              size={22}
-              className={
-                formData.archived
-                  ? "text-indigo-500"
-                  : "text-slate-400"
-              }
-            />
+            <div className="rounded-xl bg-white dark:bg-zinc-900 p-3 shadow-sm">
+
+              <Archive
+                size={22}
+                className={
+                  formData.archived
+                    ? "text-stone-700 dark:text-stone-200"
+                    : "text-stone-400"
+                }
+              />
+
+            </div>
 
             <div>
-              <p className="font-semibold text-slate-700 dark:text-white">
+
+              <p className="font-semibold text-stone-800 dark:text-stone-100">
                 Archive
               </p>
 
-              <p className="text-xs text-slate-500">
-                Hide from active tasks
+              <p className="mt-1 text-sm text-stone-500 dark:text-stone-400">
+                Hide from active tasks.
               </p>
+
             </div>
+
           </label>
+
         </div>
 
         {/* Labels */}
+
         <div>
-          <label className="mb-2 flex items-center gap-2 text-sm font-semibold text-slate-700 dark:text-slate-300">
+
+          <label className="mb-2 flex items-center gap-2 text-sm font-semibold text-stone-700 dark:text-stone-300">
+
             <Tag size={16} />
+
             Labels
+
           </label>
 
           <div className="flex gap-3">
+
             <input
               value={labelInput}
               onChange={(e) => setLabelInput(e.target.value)}
@@ -393,29 +662,83 @@ export default function TodoForm({
                 }
               }}
               placeholder="Work"
-              className="flex-1 rounded-2xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 px-5 py-3 outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500"
+              className="
+                flex-1
+                rounded-2xl
+                border
+                border-stone-200
+                dark:border-zinc-700
+                bg-stone-100
+                dark:bg-zinc-800
+                px-5
+                py-3
+                outline-none
+                focus:border-stone-400
+                focus:ring-2
+                focus:ring-stone-300
+              "
             />
 
             <button
               type="button"
               onClick={addLabel}
-              className="rounded-2xl bg-indigo-600 px-6 text-white"
+              className="
+                rounded-2xl
+                bg-stone-800
+                dark:bg-stone-200
+                px-6
+                font-medium
+                text-white
+                dark:text-zinc-900
+                transition
+                hover:opacity-90
+              "
             >
               Add
             </button>
+
           </div>
 
           <AnimatePresence>
+
             <div className="mt-4 flex flex-wrap gap-2">
+
               {formData.labels.map((label) => (
+
                 <motion.div
                   key={label}
-                  initial={{ opacity: 0, scale: .8 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  exit={{ opacity: 0, scale: .8 }}
-                  className="flex items-center gap-2 rounded-full bg-indigo-100 dark:bg-indigo-500/20 px-4 py-2 text-sm font-medium text-indigo-700 dark:text-indigo-300"
+                  initial={{
+                    opacity: 0,
+                    scale: .85,
+                  }}
+                  animate={{
+                    opacity: 1,
+                    scale: 1,
+                  }}
+                  exit={{
+                    opacity: 0,
+                    scale: .85,
+                  }}
+                  className="
+                    flex
+                    items-center
+                    gap-2
+                    rounded-full
+                    border
+                    border-stone-200
+                    dark:border-zinc-700
+                    bg-stone-100
+                    dark:bg-zinc-800
+                    px-4
+                    py-2
+                    text-sm
+                    font-medium
+                    text-stone-700
+                    dark:text-stone-300
+                  "
                 >
-                  {label}
+
+                  #{label}
 
                   <button
                     type="button"
@@ -423,21 +746,31 @@ export default function TodoForm({
                   >
                     <X size={14} />
                   </button>
+
                 </motion.div>
+
               ))}
+
             </div>
+
           </AnimatePresence>
+
         </div>
 
         {/* Subtasks */}
 
-                <div>
-          <label className="mb-2 flex items-center gap-2 text-sm font-semibold text-slate-700 dark:text-slate-300">
+        <div>
+
+          <label className="mb-2 flex items-center gap-2 text-sm font-semibold text-stone-700 dark:text-stone-300">
+
             <CheckSquare size={16} />
+
             Subtasks
+
           </label>
 
           <div className="flex gap-3">
+
             <input
               value={subtaskInput}
               onChange={(e) => setSubtaskInput(e.target.value)}
@@ -448,112 +781,237 @@ export default function TodoForm({
                 }
               }}
               placeholder="Add a subtask..."
-              className="flex-1 rounded-2xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 px-5 py-3 text-slate-800 dark:text-white outline-none transition focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500"
+              className="
+                flex-1
+                rounded-2xl
+                border
+                border-stone-200
+                dark:border-zinc-700
+                bg-stone-100
+                dark:bg-zinc-800
+                px-5
+                py-3
+                outline-none
+                focus:border-stone-400
+                focus:ring-2
+                focus:ring-stone-300
+              "
             />
 
             <button
               type="button"
               onClick={addSubtask}
-              className="rounded-2xl bg-indigo-600 px-6 text-white font-medium hover:bg-indigo-700 transition"
+              className="
+                rounded-2xl
+                bg-stone-800
+                dark:bg-stone-200
+                px-6
+                font-medium
+                text-white
+                dark:text-zinc-900
+                transition
+                hover:opacity-90
+              "
             >
               Add
             </button>
+
           </div>
 
           <AnimatePresence>
+
             <div className="mt-5 space-y-3">
+
               {formData.subtasks.map((task, index) => (
+
                 <motion.div
                   key={index}
-                  initial={{ opacity: 0, x: -15 }}
+                  initial={{ opacity: 0, x: -10 }}
                   animate={{ opacity: 1, x: 0 }}
-                  exit={{ opacity: 0, x: 15 }}
-                  className="flex items-center justify-between rounded-2xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 p-4"
+                  exit={{ opacity: 0 }}
+                  className="
+                    flex
+                    items-center
+                    justify-between
+                    rounded-2xl
+                    border
+                    border-stone-200
+                    dark:border-zinc-700
+                    bg-stone-100
+                    dark:bg-zinc-800
+                    p-4
+                  "
                 >
+
                   <button
                     type="button"
                     onClick={() => toggleSubtask(index)}
                     className="flex items-center gap-3"
                   >
+
                     {task.completed ? (
                       <CheckSquare
                         size={20}
-                        className="text-green-500"
+                        className="text-emerald-500"
                       />
                     ) : (
                       <Square
                         size={20}
-                        className="text-slate-400"
+                        className="text-stone-400"
                       />
                     )}
 
                     <span
-                      className={`${
+                      className={
                         task.completed
-                          ? "line-through text-slate-400"
-                          : "text-slate-700 dark:text-white"
-                      }`}
+                          ? "line-through text-stone-400"
+                          : "text-stone-700 dark:text-stone-200"
+                      }
                     >
                       {task.title}
                     </span>
+
                   </button>
 
                   <button
                     type="button"
                     onClick={() => removeSubtask(index)}
-                    className="rounded-lg p-2 text-red-500 hover:bg-red-100 dark:hover:bg-red-500/20 transition"
+                    className="
+                      rounded-xl
+                      p-2
+                      text-rose-500
+                      transition
+                      hover:bg-rose-100
+                      dark:hover:bg-rose-500/15
+                    "
                   >
-                    <Trash2 size={18} />
+                    <Trash2 size={17} />
                   </button>
+
                 </motion.div>
+
               ))}
+
             </div>
+
           </AnimatePresence>
+
         </div>
 
-        {/* Submit Buttons */}
-        <div className="flex gap-4 pt-2">
+                {/* Submit Buttons */}
+
+        <div className="flex flex-col gap-4 border-t border-stone-200 pt-6 dark:border-zinc-800 sm:flex-row">
+
           <motion.button
-            whileHover={{ scale: 1.02 }}
-            whileTap={{ scale: 0.98 }}
+            whileHover={{
+              scale: 1.01,
+            }}
+            whileTap={{
+              scale: 0.98,
+            }}
             type="submit"
             disabled={loading}
-            className="flex h-14 flex-1 items-center justify-center gap-3 rounded-2xl bg-gradient-to-r from-indigo-600 to-violet-600 font-semibold text-white shadow-lg transition disabled:cursor-not-allowed disabled:opacity-60"
+            className="
+              flex
+              h-14
+              flex-1
+              items-center
+              justify-center
+              gap-3
+              rounded-2xl
+              bg-stone-900
+              dark:bg-stone-100
+              px-6
+              font-semibold
+              text-white
+              dark:text-zinc-900
+              shadow-lg
+              transition-all
+              hover:shadow-xl
+              disabled:cursor-not-allowed
+              disabled:opacity-60
+            "
           >
+
             {loading ? (
               <>
-                <div className="h-5 w-5 animate-spin rounded-full border-2 border-white border-t-transparent" />
-                {editingTodo ? "Updating..." : "Creating..."}
+
+                <div className="h-5 w-5 animate-spin rounded-full border-2 border-current border-t-transparent" />
+
+                {editingTodo
+                  ? "Updating Task..."
+                  : "Creating Task..."}
+
               </>
             ) : (
               <>
+
                 {editingTodo ? (
-                  <Save size={20} />
+                  <Save size={19} />
                 ) : (
-                  <Plus size={20} />
+                  <Plus size={19} />
                 )}
 
-                {editingTodo ? "Update Task" : "Create Task"}
+                {editingTodo
+                  ? "Update Task"
+                  : "Create Task"}
+
               </>
             )}
+
           </motion.button>
 
           {editingTodo && (
+
             <motion.button
-              whileHover={{ scale: 1.02 }}
-              whileTap={{ scale: 0.98 }}
+              whileHover={{
+                scale: 1.01,
+              }}
+              whileTap={{
+                scale: 0.98,
+              }}
               type="button"
               onClick={() => {
                 resetForm();
                 onCancelEdit();
               }}
-              className="rounded-2xl bg-slate-200 px-8 font-medium text-slate-700 transition hover:bg-slate-300 dark:bg-slate-700 dark:text-white dark:hover:bg-slate-600"
+              className="
+                flex
+                h-14
+                items-center
+                justify-center
+                rounded-2xl
+                border
+                border-stone-300
+                dark:border-zinc-700
+                bg-white
+                dark:bg-zinc-800
+                px-8
+                font-medium
+                text-stone-700
+                dark:text-stone-200
+                transition-all
+                hover:bg-stone-100
+                dark:hover:bg-zinc-700
+              "
             >
+
+              <X
+                size={18}
+                className="mr-2"
+              />
+
               Cancel
+
             </motion.button>
+
           )}
+
         </div>
+
       </form>
+
     </motion.div>
+
   );
 }

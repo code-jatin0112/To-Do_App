@@ -1,5 +1,5 @@
 import { motion, AnimatePresence } from "framer-motion";
-import { AlertTriangle } from "lucide-react";
+import { AlertTriangle, Trash2, X } from "lucide-react";
 
 export default function DeleteModal({
   open,
@@ -11,59 +11,226 @@ export default function DeleteModal({
     <AnimatePresence>
       {open && (
         <>
-          {/* Overlay */}
+          {/* Backdrop */}
+
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             onClick={onClose}
-            className="fixed inset-0 bg-black/40 backdrop-blur-sm z-50"
+            className="fixed inset-0 z-50 bg-black/40 backdrop-blur-md"
           />
 
           {/* Modal */}
-          <motion.div
-            initial={{ opacity: 0, scale: 0.9, y: 40 }}
-            animate={{ opacity: 1, scale: 1, y: 0 }}
-            exit={{ opacity: 0, scale: 0.9 }}
-            transition={{ duration: 0.25 }}
-            className="fixed left-1/2 top-1/2 z-50 w-[90%] max-w-md -translate-x-1/2 -translate-y-1/2 rounded-3xl bg-white p-8 shadow-2xl"
-          >
-            <div className="flex justify-center">
-              <div className="rounded-full bg-red-100 p-4">
-                <AlertTriangle
-                  size={40}
-                  className="text-red-600"
-                />
-              </div>
-            </div>
 
-            <h2 className="mt-6 text-center text-2xl font-bold text-slate-800">
-              Delete Task?
-            </h2>
+          <div className="fixed inset-0 z-50 flex items-center justify-center p-5">
 
-            <p className="mt-3 text-center text-slate-500">
-              This action cannot be undone.
-              <br />
-              Are you sure you want to delete this task?
-            </p>
+            <motion.div
+              initial={{
+                opacity: 0,
+                scale: 0.92,
+                y: 24,
+              }}
+              animate={{
+                opacity: 1,
+                scale: 1,
+                y: 0,
+              }}
+              exit={{
+                opacity: 0,
+                scale: 0.92,
+                y: 24,
+              }}
+              transition={{
+                duration: 0.22,
+              }}
+              onClick={(e) => e.stopPropagation()}
+              className="
+                relative
+                w-full
+                max-w-md
+                overflow-hidden
+                rounded-3xl
+                border
+                border-stone-200
+                dark:border-zinc-800
+                bg-white/80
+                dark:bg-zinc-900/80
+                backdrop-blur-xl
+                shadow-2xl
+              "
+            >
 
-            <div className="mt-8 flex gap-4">
+              {/* Decorative Top */}
+
+              <div className="absolute inset-x-0 top-0 h-24 bg-gradient-to-b from-rose-50 to-transparent dark:from-rose-900/10" />
+
+              {/* Close */}
+
               <button
                 onClick={onClose}
-                className="flex-1 rounded-2xl border border-slate-200 py-3 font-semibold hover:bg-slate-100 transition"
+                className="
+                  absolute
+                  right-5
+                  top-5
+                  flex
+                  h-10
+                  w-10
+                  items-center
+                  justify-center
+                  rounded-xl
+                  bg-stone-100
+                  dark:bg-zinc-800
+                  text-stone-500
+                  transition
+                  hover:bg-stone-200
+                  dark:hover:bg-zinc-700
+                "
               >
-                Cancel
+                <X size={18} />
               </button>
 
-              <button
-                onClick={onConfirm}
-                disabled={loading}
-                className="flex-1 rounded-2xl bg-red-600 py-3 font-semibold text-white hover:bg-red-700 transition disabled:opacity-70"
-              >
-                {loading ? "Deleting..." : "Delete"}
-              </button>
-            </div>
-          </motion.div>
+              {/* Content */}
+
+              <div className="relative p-8">
+
+                <motion.div
+                  initial={{
+                    scale: 0.8,
+                  }}
+                  animate={{
+                    scale: 1,
+                  }}
+                  transition={{
+                    delay: 0.08,
+                  }}
+                  className="
+                    mx-auto
+                    mb-6
+                    flex
+                    h-20
+                    w-20
+                    items-center
+                    justify-center
+                    rounded-full
+                    bg-rose-100
+                    dark:bg-rose-500/15
+                  "
+                >
+                  <AlertTriangle
+                    size={40}
+                    className="text-rose-500"
+                  />
+                </motion.div>
+
+                <h2 className="text-center text-2xl font-bold text-stone-800 dark:text-stone-100">
+                  Delete Task?
+                </h2>
+
+                <p className="mx-auto mt-4 max-w-sm text-center leading-7 text-stone-500 dark:text-stone-400">
+                  This action cannot be undone.
+                  <br />
+                  Are you sure you want to permanently delete this task?
+                </p>
+
+                {/* Warning */}
+
+                <div
+                  className="
+                    mt-7
+                    rounded-2xl
+                    border
+                    border-rose-200
+                    dark:border-rose-500/20
+                    bg-rose-50
+                    dark:bg-rose-500/10
+                    p-4
+                  "
+                >
+                  <p className="text-center text-sm font-medium text-rose-600 dark:text-rose-300">
+                    Once deleted, this task cannot be recovered.
+                  </p>
+                </div>
+
+                {/* Buttons */}
+
+                <div className="mt-8 flex gap-4">
+
+                  <motion.button
+                    whileHover={{
+                      scale: 1.02,
+                    }}
+                    whileTap={{
+                      scale: 0.98,
+                    }}
+                    onClick={onClose}
+                    className="
+                      flex-1
+                      rounded-2xl
+                      border
+                      border-stone-200
+                      dark:border-zinc-700
+                      bg-stone-100
+                      dark:bg-zinc-800
+                      py-3.5
+                      font-semibold
+                      text-stone-700
+                      dark:text-stone-200
+                      transition
+                      hover:bg-stone-200
+                      dark:hover:bg-zinc-700
+                    "
+                  >
+                    Cancel
+                  </motion.button>
+
+                  <motion.button
+                    whileHover={{
+                      scale: loading ? 1 : 1.02,
+                    }}
+                    whileTap={{
+                      scale: loading ? 1 : 0.98,
+                    }}
+                    onClick={onConfirm}
+                    disabled={loading}
+                    className="
+                      flex
+                      flex-1
+                      items-center
+                      justify-center
+                      gap-2
+                      rounded-2xl
+                      bg-rose-500
+                      py-3.5
+                      font-semibold
+                      text-white
+                      shadow-lg
+                      transition
+                      hover:bg-rose-600
+                      disabled:cursor-not-allowed
+                      disabled:opacity-70
+                    "
+                  >
+                    {loading ? (
+                      <>
+                        <div className="h-5 w-5 animate-spin rounded-full border-2 border-current border-t-transparent" />
+                        Deleting...
+                      </>
+                    ) : (
+                      <>
+                        <Trash2 size={18} />
+                        Delete
+                      </>
+                    )}
+                  </motion.button>
+
+                </div>
+
+              </div>
+
+            </motion.div>
+
+          </div>
         </>
       )}
     </AnimatePresence>

@@ -11,9 +11,7 @@ export default function ConfirmModal({
 }) {
   useEffect(() => {
     const handleEscape = (e) => {
-      if (e.key === "Escape") {
-        onCancel();
-      }
+      if (e.key === "Escape") onCancel();
     };
 
     if (open) {
@@ -34,20 +32,21 @@ export default function ConfirmModal({
           {/* Backdrop */}
 
           <motion.div
-            className="fixed inset-0 z-40 bg-black/50 backdrop-blur-md"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             onClick={onCancel}
+            className="fixed inset-0 z-40 bg-black/40 backdrop-blur-md"
           />
 
           {/* Modal */}
 
-          <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
+          <div className="fixed inset-0 z-50 flex items-center justify-center p-5">
+
             <motion.div
               initial={{
                 opacity: 0,
-                scale: 0.85,
+                scale: 0.92,
                 y: 20,
               }}
               animate={{
@@ -57,89 +56,184 @@ export default function ConfirmModal({
               }}
               exit={{
                 opacity: 0,
-                scale: 0.85,
+                scale: 0.92,
                 y: 20,
               }}
               transition={{
-                duration: 0.25,
+                duration: 0.22,
               }}
               onClick={(e) => e.stopPropagation()}
-              className="relative w-full max-w-md rounded-3xl border border-white/40 dark:border-slate-700 bg-white/90 dark:bg-slate-900/90 backdrop-blur-xl shadow-2xl overflow-hidden"
+              className="
+                relative
+                w-full
+                max-w-md
+                overflow-hidden
+                rounded-3xl
+                border
+                border-stone-200
+                dark:border-zinc-800
+                bg-white/80
+                dark:bg-zinc-900/80
+                backdrop-blur-xl
+                shadow-2xl
+              "
             >
-              {/* Close Button */}
+              {/* Decorative Background */}
+
+              <div className="absolute inset-x-0 top-0 h-24 bg-gradient-to-b from-rose-50 to-transparent dark:from-rose-900/10" />
+
+              {/* Close */}
 
               <button
                 onClick={onCancel}
-                className="absolute right-4 top-4 rounded-full p-2 text-slate-500 hover:bg-slate-200 dark:text-slate-400 dark:hover:bg-slate-800 transition"
+                className="
+                  absolute
+                  right-5
+                  top-5
+                  flex
+                  h-10
+                  w-10
+                  items-center
+                  justify-center
+                  rounded-xl
+                  bg-stone-100
+                  dark:bg-zinc-800
+                  text-stone-500
+                  transition
+                  hover:bg-stone-200
+                  dark:hover:bg-zinc-700
+                "
               >
                 <X size={18} />
               </button>
 
               {/* Content */}
 
-              <div className="p-8">
+              <div className="relative p-8">
+
                 <motion.div
-                  initial={{ scale: 0.8 }}
-                  animate={{ scale: 1 }}
-                  transition={{
-                    delay: 0.1,
+                  initial={{
+                    scale: 0.8,
                   }}
-                  className="mx-auto mb-6 flex h-20 w-20 items-center justify-center rounded-full bg-red-100 dark:bg-red-500/20"
+                  animate={{
+                    scale: 1,
+                  }}
+                  transition={{
+                    delay: 0.08,
+                  }}
+                  className="
+                    mx-auto
+                    mb-6
+                    flex
+                    h-20
+                    w-20
+                    items-center
+                    justify-center
+                    rounded-full
+                    bg-rose-100
+                    dark:bg-rose-500/15
+                  "
                 >
                   <AlertTriangle
-                    size={42}
-                    className="text-red-600 dark:text-red-400"
+                    size={40}
+                    className="text-rose-500"
                   />
                 </motion.div>
 
-                <h2 className="text-center text-2xl font-bold text-slate-800 dark:text-white">
+                <h2 className="text-center text-2xl font-bold text-stone-800 dark:text-stone-100">
                   {title}
                 </h2>
 
-                <p className="mt-4 text-center text-slate-500 dark:text-slate-400 leading-relaxed">
+                <p className="mx-auto mt-4 max-w-sm text-center leading-7 text-stone-500 dark:text-stone-400">
                   {message}
                 </p>
 
-                {/* Warning */}
+                {/* Warning Card */}
 
-                <div className="mt-6 rounded-2xl bg-red-50 dark:bg-red-500/10 border border-red-100 dark:border-red-500/20 p-4">
-                  <p className="text-sm text-red-600 dark:text-red-300 text-center">
-                    This action cannot be undone.
+                <div
+                  className="
+                    mt-7
+                    rounded-2xl
+                    border
+                    border-rose-200
+                    dark:border-rose-500/20
+                    bg-rose-50
+                    dark:bg-rose-500/10
+                    p-4
+                  "
+                >
+                  <p className="text-center text-sm font-medium text-rose-600 dark:text-rose-300">
+                    This action is permanent and cannot be undone.
                   </p>
                 </div>
 
                 {/* Buttons */}
 
                 <div className="mt-8 flex gap-4">
+
                   <motion.button
                     whileHover={{
-                      scale: 1.03,
+                      scale: 1.02,
                     }}
                     whileTap={{
                       scale: 0.98,
                     }}
                     onClick={onCancel}
-                    className="flex-1 rounded-2xl border border-slate-200 dark:border-slate-700 bg-slate-100 dark:bg-slate-800 py-3 font-semibold text-slate-700 dark:text-slate-200 transition"
+                    className="
+                      flex-1
+                      rounded-2xl
+                      border
+                      border-stone-200
+                      dark:border-zinc-700
+                      bg-stone-100
+                      dark:bg-zinc-800
+                      py-3.5
+                      font-semibold
+                      text-stone-700
+                      dark:text-stone-200
+                      transition
+                      hover:bg-stone-200
+                      dark:hover:bg-zinc-700
+                    "
                   >
                     Cancel
                   </motion.button>
 
                   <motion.button
                     whileHover={{
-                      scale: 1.03,
+                      scale: 1.02,
                     }}
                     whileTap={{
                       scale: 0.98,
                     }}
                     onClick={onConfirm}
-                    className="flex flex-1 items-center justify-center gap-2 rounded-2xl bg-gradient-to-r from-red-600 to-rose-600 py-3 font-semibold text-white shadow-lg transition"
+                    className="
+                      flex
+                      flex-1
+                      items-center
+                      justify-center
+                      gap-2
+                      rounded-2xl
+                      bg-rose-500
+                      py-3.5
+                      font-semibold
+                      text-white
+                      shadow-lg
+                      transition
+                      hover:bg-rose-600
+                    "
                   >
                     <Trash2 size={18} />
+
                     Delete
                   </motion.button>
+
                 </div>
+
               </div>
+
             </motion.div>
+
           </div>
         </>
       )}

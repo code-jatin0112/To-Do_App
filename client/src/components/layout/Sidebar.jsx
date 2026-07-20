@@ -4,7 +4,6 @@ import {
   CheckCircle,
   Clock,
   Settings,
-  Sparkles,
   SquareKanban,
 } from "lucide-react";
 import { motion } from "framer-motion";
@@ -35,26 +34,28 @@ export default function Sidebar() {
   ];
 
   return (
-    <aside className="hidden lg:flex flex-col w-60 bg-white/80 dark:bg-slate-900/80 backdrop-blur-2xl border-r border-slate-200 dark:border-slate-800 shadow-2xl transition-all duration-300">
+    <aside className="hidden lg:flex w-64 flex-col border-r border-stone-200 bg-stone-50/90 backdrop-blur-md dark:border-zinc-800 dark:bg-zinc-950/90">
+
       {/* Logo */}
-      <div className="h-24 flex items-center justify-center border-b border-slate-200 dark:border-slate-800">
+
+      <div className="flex h-24 items-center justify-center border-b border-stone-200 dark:border-zinc-800">
         <motion.div
-          whileHover={{ scale: 1.05 }}
-          className="flex items-center gap-3"
+          whileHover={{ scale: 1.03 }}
+          className="flex items-center gap-4"
         >
-          <div className="h-12 w-12 rounded-2xl bg-gradient-to-r from-indigo-600 to-purple-600 flex items-center justify-center shadow-lg">
+          <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-stone-800 shadow-md dark:bg-stone-200">
             <SquareKanban
-              size={24}
-              className="text-white"
+              size={22}
+              className="text-white dark:text-zinc-900"
             />
           </div>
 
           <div>
-            <h1 className="text-3xl font-extrabold bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-500 bg-clip-text text-transparent">
+            <h1 className="text-2xl font-bold tracking-tight text-stone-800 dark:text-stone-100">
               TaskFlow
             </h1>
 
-            <p className="text-xs text-slate-500 dark:text-slate-400">
+            <p className="text-xs text-stone-500 dark:text-stone-400">
               Productivity Workspace
             </p>
           </div>
@@ -62,67 +63,67 @@ export default function Sidebar() {
       </div>
 
       {/* Navigation */}
-      <nav className="flex-1 px-5 py-6">
+
+      <nav className="flex-1 px-4 py-6">
         {menu.map((item, index) => (
           <motion.button
             key={item.title}
-            initial={{ opacity: 0, x: -20 }}
+            initial={{ opacity: 0, x: -15 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{
-              delay: index * 0.08,
+              delay: index * 0.06,
             }}
             whileHover={{
-              scale: 1.03,
               x: 4,
             }}
             whileTap={{
-              scale: 0.98,
+              scale: .98,
             }}
-            className={`group w-full flex items-center gap-4 px-5 py-4 rounded-2xl mb-3 transition-all duration-300 ${
+            className={`mb-2 flex w-full items-center gap-4 rounded-2xl px-5 py-4 transition-all duration-300 ${
               item.active
-                ? "bg-gradient-to-r from-indigo-600 to-purple-600 text-white shadow-xl"
-                : "text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800"
+                ? "bg-stone-800 text-white shadow-md dark:bg-stone-200 dark:text-zinc-900"
+                : "text-stone-600 hover:bg-stone-200 dark:text-stone-300 dark:hover:bg-zinc-900"
             }`}
           >
-            <div
-              className={`transition-transform duration-300 ${
-                item.active
-                  ? ""
-                  : "group-hover:scale-110"
-              }`}
-            >
-              {item.icon}
-            </div>
+            {item.icon}
 
-            <span className="font-semibold tracking-wide">
+            <span className="font-medium tracking-wide">
               {item.title}
             </span>
           </motion.button>
         ))}
       </nav>
 
-      {/* Bottom Card */}
-      <div className="p-6">
-        <div className="rounded-2xl bg-gradient-to-r from-indigo-600 to-purple-600 p-5 text-white shadow-xl">
-          <h3 className="font-bold text-lg">
-            🚀 Keep Going!
+      {/* Motivation Card */}
+
+      <div className="p-5">
+        <div className="rounded-3xl border border-stone-200 bg-white p-5 shadow-md dark:border-zinc-800 dark:bg-zinc-900">
+
+          <h3 className="text-lg font-semibold text-stone-800 dark:text-stone-100">
+            🌿 Stay Consistent
           </h3>
 
-          <p className="text-sm text-indigo-100 mt-2 leading-relaxed">
-            Every completed task brings you one step closer to your goals.
+          <p className="mt-2 text-sm leading-relaxed text-stone-500 dark:text-stone-400">
+            Small progress every day leads to big achievements.
+            Focus on consistency rather than perfection.
           </p>
 
-          <div className="mt-4 h-2 rounded-full bg-white/20 overflow-hidden">
-            <div className="h-full w-2/3 rounded-full bg-white"></div>
+          <div className="mt-5 h-2 overflow-hidden rounded-full bg-stone-200 dark:bg-zinc-800">
+            <motion.div
+              initial={{ width: 0 }}
+              animate={{ width: "68%" }}
+              transition={{ duration: 1 }}
+              className="h-full rounded-full bg-stone-700 dark:bg-stone-300"
+            />
           </div>
 
-          <p className="mt-2 text-xs text-indigo-100">
-            Stay productive today 💪
+          <p className="mt-3 text-xs text-stone-500 dark:text-stone-400">
+            Today's Progress
           </p>
         </div>
 
-        <p className="text-center text-xs text-slate-500 dark:text-slate-400 mt-6">
-          TaskFlow v1.0 • Built with MERN ❤️
+        <p className="mt-6 text-center text-xs text-stone-400 dark:text-stone-500">
+          TaskFlow v1.0 • Built with MERN
         </p>
       </div>
     </aside>

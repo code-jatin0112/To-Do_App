@@ -15,11 +15,17 @@ export default function Input({
 
   return (
     <div className="space-y-2">
-      <label className="block text-sm font-medium text-slate-700">
+
+      {/* Label */}
+
+      <label className="block text-sm font-semibold text-stone-700 dark:text-stone-300">
         {label}
       </label>
 
+      {/* Input */}
+
       <div className="relative">
+
         <input
           name={name}
           type={isPassword && showPassword ? "text" : type}
@@ -30,19 +36,24 @@ export default function Input({
             w-full
             rounded-2xl
             border
-            border-slate-300
-            bg-white
+            border-stone-200
+            dark:border-zinc-700
+            bg-stone-100
+            dark:bg-zinc-800
             px-4
-            py-3
+            py-3.5
             pr-12
-            text-slate-800
-            placeholder:text-slate-400
-            transition-all
-            duration-300
+            text-stone-800
+            dark:text-stone-100
+            placeholder:text-stone-400
             outline-none
-            focus:border-indigo-500
-            focus:ring-4
-            focus:ring-indigo-100
+            transition-all
+            duration-200
+            focus:border-stone-400
+            focus:ring-2
+            focus:ring-stone-300
+            dark:focus:border-stone-500
+            dark:focus:ring-stone-700
           "
         />
 
@@ -55,15 +66,31 @@ export default function Input({
               right-4
               top-1/2
               -translate-y-1/2
-              text-slate-500
-              hover:text-indigo-600
-              transition-colors
+              flex
+              h-9
+              w-9
+              items-center
+              justify-center
+              rounded-xl
+              text-stone-500
+              transition-all
+              hover:bg-stone-200
+              hover:text-stone-700
+              dark:text-stone-400
+              dark:hover:bg-zinc-700
+              dark:hover:text-stone-200
             "
           >
-            {showPassword ? <EyeOff size={20} /> : <Eye size={20} />}
+            {showPassword ? (
+              <EyeOff size={18} />
+            ) : (
+              <Eye size={18} />
+            )}
           </button>
         )}
+
       </div>
+
     </div>
   );
 }

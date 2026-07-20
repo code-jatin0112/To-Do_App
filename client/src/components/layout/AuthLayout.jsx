@@ -1,96 +1,230 @@
 import { CheckCircle2, SquareKanban } from "lucide-react";
+import { motion } from "framer-motion";
 
 export default function AuthLayout({ children }) {
-    return (
-        <div className="min-h-screen bg-slate-100 flex">
-            
-           <div className="hidden lg:flex w-1/2 bg-gradient-to-br from-indigo-700 via-indigo-600 to-purple-700 text-white p-20 flex-col justify-center">
+  return (
+    <div className="min-h-screen bg-stone-100 dark:bg-zinc-950 lg:flex">
 
-                <div className="flex items-center gap-4">
+      {/* Left Panel */}
 
-                    <div className="rounded-2xl bg-white/10 p-4 backdrop-blur-sm">
-                        <SquareKanban size={42} />
-                    </div>
+      <div
+        className="
+          relative
+          hidden
+          lg:flex
+          w-1/2
+          overflow-hidden
+          border-r
+          border-stone-200
+          dark:border-zinc-800
+          bg-gradient-to-br
+          from-stone-50
+          via-white
+          to-stone-100
+          dark:from-zinc-950
+          dark:via-zinc-900
+          dark:to-zinc-950
+          p-20
+          flex-col
+          justify-center
+        "
+      >
 
-                    <h1 className="text-6xl font-extrabold tracking-tight">
-                        TaskFlow
-                    </h1>
+        {/* Decorative Blobs */}
 
-                </div>
+        <div className="absolute -top-20 -left-20 h-72 w-72 rounded-full bg-stone-200/40 blur-3xl dark:bg-zinc-800/40" />
 
-                <p className="mt-6 text-xl text-indigo-100 leading-relaxed max-w-md">
-                    Organize your work.
-                    <br />
-                    Focus on what matters.
-                </p>
+        <div className="absolute bottom-0 right-0 h-80 w-80 rounded-full bg-stone-300/30 blur-3xl dark:bg-zinc-700/30" />
 
-                <div className="mt-14 space-y-5">
+        {/* Logo */}
 
-                    <div className="flex items-center gap-3">
-                        <CheckCircle2 size={22} />
-                        <span className="text-lg">
-                            Manage daily tasks effortlessly
-                        </span>
-                    </div>
+        <motion.div
+          initial={{ opacity: 0, y: 15 }}
+          animate={{ opacity: 1, y: 0 }}
+          className="relative z-10 flex items-center gap-4"
+        >
 
-                    <div className="flex items-center gap-3">
-                        <CheckCircle2 size={22} />
-                        <span className="text-lg">
-                            Track deadlines and priorities
-                        </span>
-                    </div>
+          <div
+            className="
+              rounded-2xl
+              border
+              border-stone-200
+              dark:border-zinc-700
+              bg-white
+              dark:bg-zinc-800
+              p-4
+              shadow-md
+            "
+          >
+            <SquareKanban
+              size={38}
+              className="text-stone-700 dark:text-stone-100"
+            />
+          </div>
 
-                    <div className="flex items-center gap-3">
-                        <CheckCircle2 size={22} />
-                        <span className="text-lg">
-                            Stay productive every day
-                        </span>
-                    </div>
+          <div>
 
-                </div>
+            <h1 className="text-5xl font-bold tracking-tight text-stone-900 dark:text-stone-100">
+              TaskFlow
+            </h1>
 
-                <div className="mt-16 max-w-sm rounded-3xl bg-white/10 p-6 backdrop-blur-md border border-white/20">
+            <p className="mt-1 text-stone-500 dark:text-stone-400">
+              Simple. Focused. Productive.
+            </p>
 
-                    <p className="text-indigo-100 text-sm">
-                        Today's Progress
-                    </p>
+          </div>
 
-                    <h2 className="mt-3 text-4xl font-bold">
-                        85%
-                    </h2>
+        </motion.div>
 
-                    <div className="mt-6 h-3 w-full rounded-full bg-white/20">
-                        <div className="h-3 w-[85%] rounded-full bg-white"></div>
-                    </div>
+        {/* Heading */}
 
-                    <div className="mt-8 flex justify-between">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: .1 }}
+          className="relative z-10 mt-14"
+        >
 
-                        <div>
-                            <p className="text-2xl font-bold">28</p>
-                            <p className="text-sm text-indigo-100">
-                                Completed
-                            </p>
-                        </div>
+          <h2 className="max-w-lg text-5xl font-bold leading-tight text-stone-900 dark:text-stone-100">
+            Organize your work with clarity.
+          </h2>
 
-                        <div>
-                            <p className="text-2xl font-bold">5</p>
-                            <p className="text-sm text-indigo-100">
-                                Pending
-                            </p>
-                        </div>
+          <p className="mt-6 max-w-md text-lg leading-8 text-stone-600 dark:text-stone-400">
+            Plan tasks, stay on schedule, and focus on what matters most with a calm, distraction-free workspace.
+          </p>
 
-                    </div>
+        </motion.div>
 
-                </div>
+        {/* Features */}
+
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: .2 }}
+          className="relative z-10 mt-14 space-y-6"
+        >
+
+          {[
+            "Manage daily tasks effortlessly",
+            "Track priorities and deadlines",
+            "Stay productive every single day",
+          ].map((item) => (
+            <div
+              key={item}
+              className="flex items-center gap-4"
+            >
+              <div className="rounded-xl bg-emerald-100 p-2 dark:bg-emerald-500/15">
+                <CheckCircle2
+                  size={18}
+                  className="text-emerald-600 dark:text-emerald-400"
+                />
+              </div>
+
+              <span className="text-lg text-stone-700 dark:text-stone-300">
+                {item}
+              </span>
+            </div>
+          ))}
+
+        </motion.div>
+
+        {/* Stats Card */}
+
+        <motion.div
+          initial={{ opacity: 0, y: 25 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: .3 }}
+          className="
+            relative
+            z-10
+            mt-16
+            max-w-md
+            rounded-3xl
+            border
+            border-stone-200
+            dark:border-zinc-700
+            bg-white/80
+            dark:bg-zinc-900/70
+            p-8
+            shadow-xl
+            backdrop-blur-md
+          "
+        >
+
+          <div className="flex items-center justify-between">
+
+            <div>
+
+              <p className="text-sm text-stone-500 dark:text-stone-400">
+                Today's Progress
+              </p>
+
+              <h3 className="mt-2 text-4xl font-bold text-stone-900 dark:text-stone-100">
+                85%
+              </h3>
 
             </div>
-            
-            <div className="flex-1 flex items-center justify-center p-8">
 
-                {children}
+            <div className="rounded-2xl bg-emerald-100 px-4 py-2 dark:bg-emerald-500/15">
+
+              <span className="text-sm font-semibold text-emerald-700 dark:text-emerald-300">
+                Excellent
+              </span>
 
             </div>
-        
+
+          </div>
+
+          <div className="mt-8 h-3 overflow-hidden rounded-full bg-stone-200 dark:bg-zinc-800">
+
+            <div className="h-full w-[85%] rounded-full bg-emerald-400" />
+
+          </div>
+
+          <div className="mt-8 grid grid-cols-2 gap-6">
+
+            <div>
+
+              <p className="text-3xl font-bold text-stone-900 dark:text-stone-100">
+                28
+              </p>
+
+              <p className="mt-1 text-sm text-stone-500 dark:text-stone-400">
+                Completed
+              </p>
+
+            </div>
+
+            <div>
+
+              <p className="text-3xl font-bold text-stone-900 dark:text-stone-100">
+                5
+              </p>
+
+              <p className="mt-1 text-sm text-stone-500 dark:text-stone-400">
+                Pending
+              </p>
+
+            </div>
+
+          </div>
+
+        </motion.div>
+
+      </div>
+
+      {/* Right Side */}
+
+      <div className="flex flex-1 items-center justify-center p-8 lg:p-12">
+
+        <div className="w-full max-w-md">
+
+          {children}
+
         </div>
-    );
+
+      </div>
+
+    </div>
+  );
 }

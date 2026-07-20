@@ -1,5 +1,6 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { motion } from "framer-motion";
 import toast from "react-hot-toast";
 
 import { useAuth } from "../context/AuthContext";
@@ -36,20 +37,27 @@ export default function Dashboard() {
 
   const [editingTodo, setEditingTodo] = useState(null);
 
-  const [deleteTodoId, setDeleteTodoId] = useState(null);
-  const [deleteLoading, setDeleteLoading] = useState(false);
+  const [deleteTodoId, setDeleteTodoId] =
+    useState(null);
 
-  /* Filters */
+  const [deleteLoading, setDeleteLoading] =
+    useState(false);
+
+  /* ---------------- Filters ---------------- */
 
   const [search, setSearch] = useState("");
 
-  const [statusFilter, setStatusFilter] = useState("All");
+  const [statusFilter, setStatusFilter] =
+    useState("All");
 
-  const [priorityFilter, setPriorityFilter] = useState("All");
+  const [priorityFilter, setPriorityFilter] =
+    useState("All");
 
-  const [sortBy, setSortBy] = useState("Newest");
+  const [sortBy, setSortBy] =
+    useState("Newest");
 
-  const [labelFilter, setLabelFilter] = useState("All");
+  const [labelFilter, setLabelFilter] =
+    useState("All");
 
   const [showFavorites, setShowFavorites] =
     useState(false);
@@ -61,6 +69,8 @@ export default function Dashboard() {
     fetchTodos();
   }, []);
 
+  /* ---------------- API ---------------- */
+
   const fetchTodos = async () => {
     try {
       const response = await getTodos();
@@ -68,7 +78,8 @@ export default function Dashboard() {
       setTodos(response.todos || []);
     } catch (error) {
       console.error(error);
-      toast.error("Failed to load todos");
+
+      toast.error("Failed to load todos.");
     } finally {
       setLoading(false);
     }
@@ -78,12 +89,16 @@ export default function Dashboard() {
     try {
       const response = await createTodo(todoData);
 
-      setTodos((prev) => [response.todo, ...prev]);
+      setTodos((prev) => [
+        response.todo,
+        ...prev,
+      ]);
 
       toast.success("Todo created!");
     } catch (error) {
       console.error(error);
-      toast.error("Failed to create todo");
+
+      toast.error("Failed to create todo.");
     }
   };
 
@@ -99,7 +114,9 @@ export default function Dashboard() {
 
       setTodos((prev) =>
         prev.map((todo) =>
-          todo._id === id ? response.todo : todo
+          todo._id === id
+            ? response.todo
+            : todo
         )
       );
 
@@ -108,7 +125,8 @@ export default function Dashboard() {
       toast.success("Todo updated!");
     } catch (error) {
       console.error(error);
-      toast.error("Failed to update todo");
+
+      toast.error("Failed to update todo.");
     }
   };
 
@@ -126,47 +144,62 @@ export default function Dashboard() {
 
       setTodos((prev) =>
         prev.filter(
-          (todo) => todo._id !== deleteTodoId
+          (todo) =>
+            todo._id !== deleteTodoId
         )
       );
 
-      if (editingTodo?._id === deleteTodoId) {
+      if (
+        editingTodo?._id === deleteTodoId
+      ) {
         setEditingTodo(null);
       }
 
       toast.success("Todo deleted!");
     } catch (error) {
       console.error(error);
-      toast.error("Delete failed");
+
+      toast.error("Delete failed.");
     } finally {
       setDeleteLoading(false);
       setDeleteTodoId(null);
     }
   };
 
-    const handleToggleStatus = async (todo) => {
+  const handleToggleStatus = async (
+    todo
+  ) => {
     try {
-      const response = await updateTodo(todo._id, {
-        status:
-          todo.status === "Completed"
-            ? "Pending"
-            : "Completed",
-      });
+      const response = await updateTodo(
+        todo._id,
+        {
+          status:
+            todo.status === "Completed"
+              ? "Pending"
+              : "Completed",
+        }
+      );
 
       setTodos((prev) =>
         prev.map((t) =>
-          t._id === todo._id ? response.todo : t
+          t._id === todo._id
+            ? response.todo
+            : t
         )
       );
 
       toast.success(
-        response.todo.status === "Completed"
+        response.todo.status ===
+          "Completed"
           ? "Task Completed 🎉"
           : "Task marked Pending"
       );
     } catch (error) {
       console.error(error);
-      toast.error("Status update failed");
+
+      toast.error(
+        "Status update failed."
+      );
     }
   };
 
@@ -178,7 +211,7 @@ export default function Dashboard() {
         behavior: "smooth",
         block: "start",
       });
-    }, 100);
+    }, 120);
   };
 
   const handleCancelEdit = () => {
@@ -190,19 +223,21 @@ export default function Dashboard() {
     navigate("/login");
   };
 
-  /* All Labels */
+  /* ---------------- Labels ---------------- */
 
   const labels = useMemo(() => {
-    const set = new Set();
+    const unique = new Set();
 
-    todos.forEach((todo) => {
-      todo.labels?.forEach((label) => set.add(label));
-    });
+    todos.forEach((todo) =>
+      todo.labels?.forEach((label) =>
+        unique.add(label)
+      )
+    );
 
-    return [...set].sort();
+    return [...unique].sort();
   }, [todos]);
 
-  /* Filtering */
+  /* ---------------- Filtering ---------------- */
 
   const filteredTodos = useMemo(() => {
     let filtered = todos.filter((todo) => {
@@ -223,17 +258,22 @@ export default function Dashboard() {
 
       const matchesPriority =
         priorityFilter === "All" ||
-        todo.priority === priorityFilter;
+        todo.priority ===
+          priorityFilter;
 
       const matchesLabel =
         labelFilter === "All" ||
-        todo.labels?.includes(labelFilter);
+        todo.labels?.includes(
+          labelFilter
+        );
 
       const matchesFavorite =
-        !showFavorites || todo.favorite;
+        !showFavorites ||
+        todo.favorite;
 
-      const matchesArchive =
-        !showArchived || todo.archived;
+      const matchesArchived =
+        !showArchived ||
+        todo.archived;
 
       return (
         matchesSearch &&
@@ -241,7 +281,7 @@ export default function Dashboard() {
         matchesPriority &&
         matchesLabel &&
         matchesFavorite &&
-        matchesArchive
+        matchesArchived
       );
     });
 
@@ -264,7 +304,8 @@ export default function Dashboard() {
 
           filtered.sort(
             (a, b) =>
-              order[b.priority] - order[a.priority]
+              order[b.priority] -
+              order[a.priority]
           );
         }
         break;
@@ -272,20 +313,30 @@ export default function Dashboard() {
       case "DueDate":
         filtered.sort(
           (a, b) =>
-            new Date(a.dueDate || 8640000000000000) -
-            new Date(b.dueDate || 8640000000000000)
+            new Date(
+              a.dueDate ||
+                8640000000000000
+            ) -
+            new Date(
+              b.dueDate ||
+                8640000000000000
+            )
         );
         break;
 
       case "AZ":
         filtered.sort((a, b) =>
-          a.title.localeCompare(b.title)
+          a.title.localeCompare(
+            b.title
+          )
         );
         break;
 
       case "ZA":
         filtered.sort((a, b) =>
-          b.title.localeCompare(a.title)
+          b.title.localeCompare(
+            a.title
+          )
         );
         break;
 
@@ -309,30 +360,96 @@ export default function Dashboard() {
     showArchived,
   ]);
 
-    if (loading) {
-    return (
-      <div className="flex min-h-screen items-center justify-center bg-gradient-to-br from-slate-100 via-blue-50 to-indigo-100 dark:from-slate-950 dark:via-slate-900 dark:to-slate-950">
-        <div className="flex flex-col items-center gap-4">
-          <div className="h-14 w-14 animate-spin rounded-full border-4 border-indigo-600 border-t-transparent" />
+    /* ---------------- Loading ---------------- */
 
-          <h2 className="text-2xl font-bold text-slate-700 dark:text-white">
+  if (loading) {
+    return (
+      <div
+        className="
+          flex
+          min-h-screen
+          items-center
+          justify-center
+          bg-stone-100
+          dark:bg-zinc-950
+        "
+      >
+        <motion.div
+          initial={{
+            opacity: 0,
+            y: 20,
+          }}
+          animate={{
+            opacity: 1,
+            y: 0,
+          }}
+          className="flex flex-col items-center"
+        >
+          <div
+            className="
+              h-14
+              w-14
+              animate-spin
+              rounded-full
+              border-4
+              border-stone-400
+              border-t-transparent
+              dark:border-stone-300
+              dark:border-t-transparent
+            "
+          />
+
+          <h2
+            className="
+              mt-6
+              text-2xl
+              font-bold
+              text-stone-800
+              dark:text-stone-100
+            "
+          >
             Loading your workspace...
           </h2>
 
-          <p className="text-slate-500 dark:text-slate-400">
-            Please wait a moment.
+          <p
+            className="
+              mt-2
+              text-stone-500
+              dark:text-stone-400
+            "
+          >
+            Preparing your tasks.
           </p>
-        </div>
+        </motion.div>
       </div>
     );
   }
 
+  /* ---------------- Dashboard ---------------- */
+
   return (
-    <div className="flex min-h-screen bg-gradient-to-br from-slate-100 via-blue-50 to-indigo-100 dark:from-slate-950 dark:via-slate-900 dark:to-slate-950">
+    <div
+      className="
+        min-h-screen
+        bg-stone-100
+        dark:bg-zinc-950
+      "
+    >
       <Sidebar />
 
-      <main className="flex-1 overflow-y-auto px-8 py-8">
-        <div className="mx-auto max-w-[1700px]">
+      <main
+        className="
+          lg:ml-72
+          min-h-screen
+          px-5
+          py-6
+          sm:px-8
+          lg:px-10
+        "
+      >
+        <div className="mx-auto max-w-7xl">
+
+          {/* Header */}
 
           <Header
             user={user}
@@ -341,19 +458,114 @@ export default function Dashboard() {
             setSearch={setSearch}
           />
 
-          {/* Statistics */}
-          <section className="mt-8">
-            <StatsCards todos={filteredTodos} />
-          </section>
+          {/* Welcome */}
 
-          {/* Progress */}
-          <section className="mt-8 grid items-stretch gap-6 lg:grid-cols-2">
-            <ProgressCard todos={filteredTodos} />
-            <DueDateCard todos={filteredTodos} />
-          </section>
+          <motion.section
+            initial={{
+              opacity: 0,
+              y: 15,
+            }}
+            animate={{
+              opacity: 1,
+              y: 0,
+            }}
+            className="mt-8"
+          >
+            <h1
+              className="
+                text-4xl
+                font-bold
+                tracking-tight
+                text-stone-900
+                dark:text-stone-100
+              "
+            >
+              Welcome back,
+              <span className="ml-2">
+                {user?.name || "User"}
+              </span>
+              👋
+            </h1>
 
-          {/* Filters */}
-          <section className="mt-8">
+            <p
+              className="
+                mt-2
+                text-lg
+                text-stone-500
+                dark:text-stone-400
+              "
+            >
+              Here's an overview of your productivity today.
+            </p>
+          </motion.section>
+
+          {/* Stats */}
+
+          <motion.section
+            initial={{
+              opacity: 0,
+              y: 20,
+            }}
+            animate={{
+              opacity: 1,
+              y: 0,
+            }}
+            transition={{
+              delay: .05,
+            }}
+            className="mt-8"
+          >
+            <StatsCards
+              todos={filteredTodos}
+            />
+          </motion.section>
+
+          {/* Progress Cards */}
+
+          <motion.section
+            initial={{
+              opacity: 0,
+              y: 20,
+            }}
+            animate={{
+              opacity: 1,
+              y: 0,
+            }}
+            transition={{
+              delay: .1,
+            }}
+            className="
+              mt-8
+              grid
+              gap-6
+              lg:grid-cols-2
+            "
+          >
+            <ProgressCard
+              todos={filteredTodos}
+            />
+
+            <DueDateCard
+              todos={filteredTodos}
+            />
+          </motion.section>
+
+                    {/* Filters */}
+
+          <motion.section
+            initial={{
+              opacity: 0,
+              y: 20,
+            }}
+            animate={{
+              opacity: 1,
+              y: 0,
+            }}
+            transition={{
+              delay: 0.15,
+            }}
+            className="mt-10"
+          >
             <TodoFilters
               search={search}
               setSearch={setSearch}
@@ -371,50 +583,151 @@ export default function Dashboard() {
               showArchived={showArchived}
               setShowArchived={setShowArchived}
             />
-          </section>
+          </motion.section>
 
-                    {/* Todo List */}
-          <section className="mt-8">
+          {/* Todo List */}
+
+          <motion.section
+            initial={{
+              opacity: 0,
+              y: 20,
+            }}
+            animate={{
+              opacity: 1,
+              y: 0,
+            }}
+            transition={{
+              delay: 0.2,
+            }}
+            className="mt-10"
+          >
+            <div className="mb-6 flex items-center justify-between">
+
+              <div>
+
+                <h2 className="text-2xl font-bold text-stone-900 dark:text-stone-100">
+                  Your Tasks
+                </h2>
+
+                <p className="mt-1 text-stone-500 dark:text-stone-400">
+                  {filteredTodos.length}{" "}
+                  {filteredTodos.length === 1
+                    ? "task"
+                    : "tasks"}{" "}
+                  available
+                </p>
+
+              </div>
+
+            </div>
+
             <TodoList
               todos={filteredTodos}
               onDelete={confirmDelete}
               onEdit={handleEditTodo}
               onToggleStatus={handleToggleStatus}
             />
-          </section>
+          </motion.section>
 
-          {/* Charts */}
-          <section className="mt-8 grid items-stretch gap-6 lg:grid-cols-2">
-            <TaskChart todos={filteredTodos} />
+          {/* Analytics */}
 
-            <ActivityChart todos={filteredTodos} />
-          </section>
+          <motion.section
+            initial={{
+              opacity: 0,
+              y: 20,
+            }}
+            animate={{
+              opacity: 1,
+              y: 0,
+            }}
+            transition={{
+              delay: 0.25,
+            }}
+            className="mt-10"
+          >
+            <div className="mb-6">
+
+              <h2 className="text-2xl font-bold text-stone-900 dark:text-stone-100">
+                Analytics
+              </h2>
+
+              <p className="mt-1 text-stone-500 dark:text-stone-400">
+                Track your productivity and task distribution.
+              </p>
+
+            </div>
+
+            <div className="grid gap-6 lg:grid-cols-2">
+
+              <TaskChart
+                todos={filteredTodos}
+              />
+
+              <ActivityChart
+                todos={filteredTodos}
+              />
+
+            </div>
+
+          </motion.section>
 
           {/* Create / Edit Todo */}
-          <section
+
+          <motion.section
             ref={formRef}
-            className="mt-8 scroll-mt-24"
+            initial={{
+              opacity: 0,
+              y: 20,
+            }}
+            animate={{
+              opacity: 1,
+              y: 0,
+            }}
+            transition={{
+              delay: 0.3,
+            }}
+            className="
+              mt-10
+              scroll-mt-24
+            "
           >
+            <div className="mb-6">
+
+              <h2 className="text-2xl font-bold text-stone-900 dark:text-stone-100">
+                {editingTodo
+                  ? "Edit Task"
+                  : "Create New Task"}
+              </h2>
+
+              <p className="mt-1 text-stone-500 dark:text-stone-400">
+                {editingTodo
+                  ? "Update the details below."
+                  : "Capture your next task and stay organized."}
+              </p>
+
+            </div>
+
             <TodoForm
               onAddTodo={handleAddTodo}
               editingTodo={editingTodo}
               onUpdateTodo={handleUpdateTodo}
               onCancelEdit={handleCancelEdit}
             />
-          </section>
+          </motion.section>
 
                     {/* Delete Confirmation */}
+
           <ConfirmModal
             open={deleteTodoId !== null}
-            title="Delete Todo?"
-            message="This action cannot be undone."
-
+            title="Delete Task?"
+            message="This action cannot be undone. This task will be permanently removed from your workspace."
             loading={deleteLoading}
-
             onConfirm={handleDeleteTodo}
-
-            onCancel={() => setDeleteTodoId(null)}
+            onCancel={() =>
+              setDeleteTodoId(null)
+            }
           />
+
         </div>
       </main>
     </div>

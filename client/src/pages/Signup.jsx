@@ -2,12 +2,11 @@ import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 import {
-  Eye,
-  EyeOff,
   UserPlus,
   User,
   Mail,
   Lock,
+  ArrowRight,
 } from "lucide-react";
 import toast from "react-hot-toast";
 
@@ -19,8 +18,6 @@ import { signup } from "../services/authService";
 
 export default function Signup() {
   const navigate = useNavigate();
-
-  const [showPassword, setShowPassword] = useState(false);
 
   const [formData, setFormData] = useState({
     name: "",
@@ -66,7 +63,8 @@ export default function Signup() {
       console.error(error);
 
       toast.error(
-        error.response?.data?.message || "Signup Failed"
+        error.response?.data?.message ||
+          "Signup failed."
       );
     } finally {
       setLoading(false);
@@ -76,43 +74,74 @@ export default function Signup() {
   return (
     <AuthLayout>
       <motion.div
-        initial={{ opacity: 0, y: 35 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.45 }}
-        className="w-full max-w-lg rounded-[36px] bg-white/80 backdrop-blur-xl border border-white/50 shadow-2xl p-10"
+        initial={{
+          opacity: 0,
+          y: 25,
+        }}
+        animate={{
+          opacity: 1,
+          y: 0,
+        }}
+        transition={{
+          duration: 0.35,
+        }}
+        className="
+          w-full
+          rounded-3xl
+          border
+          border-stone-200
+          dark:border-zinc-800
+          bg-white/80
+          dark:bg-zinc-900/80
+          backdrop-blur-xl
+          shadow-2xl
+          p-10
+        "
       >
         {/* Header */}
 
-        <div className="flex items-center gap-4 mb-8">
-          <div className="h-14 w-14 rounded-2xl bg-indigo-100 flex items-center justify-center">
+        <div className="flex items-center gap-4">
+
+          <div
+            className="
+              flex
+              h-16
+              w-16
+              items-center
+              justify-center
+              rounded-2xl
+              bg-stone-100
+              dark:bg-zinc-800
+            "
+          >
             <UserPlus
-              size={28}
-              className="text-indigo-600"
+              size={30}
+              className="text-stone-700 dark:text-stone-200"
             />
           </div>
 
           <div>
-            <h2 className="text-4xl font-bold text-slate-800">
-              Create Account
-            </h2>
 
-            <p className="text-slate-500 mt-1">
-              Join
-              <span className="font-semibold text-indigo-600">
-                {" "}TaskFlow
-              </span>{" "}
-              and start organizing smarter.
+            <h1 className="text-3xl font-bold text-stone-900 dark:text-stone-100">
+              Create Account
+            </h1>
+
+            <p className="mt-1 text-stone-500 dark:text-stone-400">
+              Welcome to TaskFlow. Let's get started.
             </p>
+
           </div>
+
         </div>
 
         {/* Form */}
 
         <form
           onSubmit={handleSubmit}
-          className="space-y-6"
+          className="mt-10 space-y-6"
         >
           <div className="relative">
+
             <Input
               label="Full Name"
               name="name"
@@ -123,11 +152,13 @@ export default function Signup() {
 
             <User
               size={18}
-              className="absolute right-4 top-[46px] text-slate-400"
+              className="absolute right-4 top-[47px] text-stone-400"
             />
+
           </div>
 
           <div className="relative">
+
             <Input
               label="Email Address"
               name="email"
@@ -138,69 +169,97 @@ export default function Signup() {
 
             <Mail
               size={18}
-              className="absolute right-4 top-[46px] text-slate-400"
-            />
-          </div>
-
-          <div className="relative">
-            <Input
-              label="Password"
-              name="password"
-              type={showPassword ? "text" : "password"}
-              placeholder="Create a password"
-              value={formData.password}
-              onChange={handleChange}
+              className="absolute right-4 top-[47px] text-stone-400"
             />
 
-            <button
-              type="button"
-              onClick={() =>
-                setShowPassword(!showPassword)
-              }
-              className="absolute right-4 top-[46px] text-slate-500 hover:text-indigo-600"
-            >
-              {showPassword ? (
-                <EyeOff size={20} />
-              ) : (
-                <Eye size={20} />
-              )}
-            </button>
           </div>
 
-          <div className="rounded-2xl bg-indigo-50 border border-indigo-100 p-4 text-sm text-slate-600">
-            <div className="flex items-center gap-2 font-semibold text-indigo-600 mb-2">
+          <Input
+            label="Password"
+            name="password"
+            type="password"
+            placeholder="Create a password"
+            value={formData.password}
+            onChange={handleChange}
+          />
+
+          {/* Password Tips */}
+
+          <div
+            className="
+              rounded-2xl
+              border
+              border-stone-200
+              dark:border-zinc-700
+              bg-stone-100
+              dark:bg-zinc-800
+              p-5
+            "
+          >
+            <div className="mb-3 flex items-center gap-2 font-semibold text-stone-700 dark:text-stone-200">
+
               <Lock size={16} />
+
               Password Tips
+
             </div>
 
-            <ul className="list-disc list-inside space-y-1">
-              <li>At least 6 characters</li>
-              <li>Use letters and numbers</li>
-              <li>A special character is recommended</li>
+            <ul className="space-y-2 text-sm text-stone-500 dark:text-stone-400">
+
+              <li>• Minimum 6 characters</li>
+
+              <li>• Mix letters and numbers</li>
+
+              <li>• Special characters are recommended</li>
+
             </ul>
+
           </div>
 
           <Button
             type="submit"
             disabled={loading}
+            className="w-full"
           >
-            {loading
-              ? "Creating Account..."
-              : "Create Account"}
+            {loading ? (
+              "Creating Account..."
+            ) : (
+              <>
+                Create Account
+                <ArrowRight size={18} />
+              </>
+            )}
           </Button>
+
         </form>
 
         {/* Footer */}
 
-        <div className="mt-8 border-t border-slate-200 pt-6 text-center">
+        <div className="mt-10 border-t border-stone-200 dark:border-zinc-800 pt-6 text-center">
 
-          <p className="text-slate-500">
+          <p className="text-stone-500 dark:text-stone-400">
             Already have an account?
           </p>
 
           <Link
             to="/login"
-            className="inline-block mt-3 rounded-xl bg-indigo-50 px-5 py-3 text-indigo-600 font-semibold hover:bg-indigo-100 transition"
+            className="
+              mt-4
+              inline-flex
+              items-center
+              justify-center
+              rounded-2xl
+              bg-stone-100
+              dark:bg-zinc-800
+              px-6
+              py-3
+              font-semibold
+              text-stone-700
+              dark:text-stone-200
+              transition
+              hover:bg-stone-200
+              dark:hover:bg-zinc-700
+            "
           >
             Sign In
           </Link>

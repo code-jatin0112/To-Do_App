@@ -21,38 +21,43 @@ export default function TodoCard({
   onEdit,
   onToggleStatus,
 }) {
-  const priorityColor = {
+
+  const priorityStyle = {
     High: {
       badge:
-        "bg-red-100 text-red-700 dark:bg-red-500/20 dark:text-red-300",
-      border: "border-l-red-500",
+        "bg-rose-100 text-rose-700 dark:bg-rose-500/15 dark:text-rose-300",
+      border: "border-l-rose-400",
     },
+
     Medium: {
       badge:
-        "bg-yellow-100 text-yellow-700 dark:bg-yellow-500/20 dark:text-yellow-300",
-      border: "border-l-yellow-500",
+        "bg-amber-100 text-amber-700 dark:bg-amber-500/15 dark:text-amber-300",
+      border: "border-l-amber-400",
     },
+
     Low: {
       badge:
-        "bg-green-100 text-green-700 dark:bg-green-500/20 dark:text-green-300",
-      border: "border-l-green-500",
+        "bg-emerald-100 text-emerald-700 dark:bg-emerald-500/15 dark:text-emerald-300",
+      border: "border-l-emerald-400",
     },
   };
 
-  const statusColor = {
+  const statusStyle = {
     Completed:
-      "bg-green-100 text-green-700 dark:bg-green-500/20 dark:text-green-300",
+      "bg-emerald-100 text-emerald-700 dark:bg-emerald-500/15 dark:text-emerald-300",
+
     Pending:
-      "bg-orange-100 text-orange-700 dark:bg-orange-500/20 dark:text-orange-300",
+      "bg-stone-200 text-stone-700 dark:bg-zinc-800 dark:text-stone-300",
   };
 
   const getRelativeDate = (date) => {
-    if (!date)
+    if (!date) {
       return {
         label: "No Due Date",
         color:
-          "bg-slate-100 text-slate-700 dark:bg-slate-800 dark:text-slate-300",
+          "bg-stone-200 text-stone-700 dark:bg-zinc-800 dark:text-stone-300",
       };
+    }
 
     const today = new Date();
     today.setHours(0, 0, 0, 0);
@@ -64,38 +69,41 @@ export default function TodoCard({
       (due - today) / (1000 * 60 * 60 * 24)
     );
 
-    if (diff === 0)
+    if (diff === 0) {
       return {
         label: "Today",
         color:
-          "bg-red-100 text-red-700 dark:bg-red-500/20 dark:text-red-300",
+          "bg-rose-100 text-rose-700 dark:bg-rose-500/15 dark:text-rose-300",
       };
+    }
 
-    if (diff === 1)
+    if (diff === 1) {
       return {
         label: "Tomorrow",
         color:
-          "bg-yellow-100 text-yellow-700 dark:bg-yellow-500/20 dark:text-yellow-300",
+          "bg-amber-100 text-amber-700 dark:bg-amber-500/15 dark:text-amber-300",
       };
+    }
 
-    if (diff > 1)
+    if (diff > 1) {
       return {
         label: `${diff} days left`,
         color:
-          "bg-slate-100 text-slate-700 dark:bg-slate-800 dark:text-slate-300",
+          "bg-stone-200 text-stone-700 dark:bg-zinc-800 dark:text-stone-300",
       };
+    }
 
     return {
       label: `${Math.abs(diff)} days overdue`,
       color:
-        "bg-red-100 text-red-700 dark:bg-red-500/20 dark:text-red-300",
+        "bg-rose-100 text-rose-700 dark:bg-rose-500/15 dark:text-rose-300",
     };
   };
 
   const relativeDate = getRelativeDate(todo.dueDate);
 
   const completedSubtasks =
-    todo.subtasks?.filter((item) => item.completed).length || 0;
+    todo.subtasks?.filter((task) => task.completed).length || 0;
 
   const totalSubtasks = todo.subtasks?.length || 0;
 
@@ -107,79 +115,167 @@ export default function TodoCard({
   return (
     <motion.div
       layout
-      initial={{ opacity: 0, y: 20 }}
-      animate={{ opacity: 1, y: 0 }}
-      exit={{ opacity: 0, scale: 0.9 }}
-      whileHover={{ y: -8 }}
-      className={`group relative overflow-hidden rounded-3xl border-l-8 ${
-        priorityColor[todo.priority]?.border
-      } border border-white/40 dark:border-slate-700 bg-white/80 dark:bg-slate-900/80 backdrop-blur-xl shadow-xl transition hover:shadow-2xl`}
+      initial={{
+        opacity: 0,
+        y: 18,
+      }}
+      animate={{
+        opacity: 1,
+        y: 0,
+      }}
+      exit={{
+        opacity: 0,
+        scale: .95,
+      }}
+      whileHover={{
+        y: -6,
+      }}
+      className={`
+        group
+        relative
+        overflow-hidden
+        rounded-3xl
+        border-l-4
+        ${priorityStyle[todo.priority]?.border}
+        border
+        border-stone-200
+        dark:border-zinc-800
+        bg-white/70
+        dark:bg-zinc-900/70
+        backdrop-blur-md
+        shadow-lg
+        transition-all
+        duration-300
+      `}
     >
-      <div className="absolute -right-10 -top-10 h-36 w-36 rounded-full bg-indigo-500/10 blur-3xl" />
+
+      {/* Decorative Background */}
+
+      <div className="absolute -right-16 -top-16 h-48 w-48 rounded-full bg-stone-200/40 blur-3xl dark:bg-zinc-700/10" />
+
+      {/* Favorite */}
 
       {todo.favorite && (
-        <div className="absolute right-4 top-4">
+        <div className="absolute right-5 top-5">
           <Star
-            size={22}
-            className="fill-yellow-400 text-yellow-400"
+            size={20}
+            className="fill-amber-400 text-amber-400"
           />
         </div>
       )}
 
+      {/* Archived */}
+
       {todo.archived && (
-        <div className="absolute left-4 top-4 rounded-full bg-slate-700 px-3 py-1 text-xs text-white">
+        <div className="absolute left-5 top-5 flex items-center gap-2 rounded-full bg-zinc-800 px-3 py-1 text-xs font-medium text-white dark:bg-stone-200 dark:text-zinc-900">
+          <Archive size={12}/>
           Archived
         </div>
       )}
 
       <div className="relative p-6">
-        <div className="flex items-start justify-between gap-4">
+                {/* Header */}
+
+        <div className="flex items-start justify-between gap-5">
+
           <div className="flex-1">
+
             <h2
-              className={`text-2xl font-bold ${
+              className={`text-2xl font-bold tracking-tight transition-colors ${
                 todo.status === "Completed"
-                  ? "line-through text-slate-400"
-                  : "text-slate-800 dark:text-white"
+                  ? "text-stone-400 line-through"
+                  : "text-stone-800 dark:text-stone-100"
               }`}
             >
               {todo.title}
             </h2>
 
-            <p className="mt-3 leading-relaxed text-slate-500 dark:text-slate-400">
-              {todo.description || "No description"}
+            <p className="mt-3 leading-7 text-stone-500 dark:text-stone-400">
+              {todo.description || "No description provided."}
             </p>
 
+            {/* Notes */}
+
             {todo.notes && (
-              <div className="mt-4 rounded-2xl bg-slate-100 dark:bg-slate-800 p-4">
-                <div className="mb-2 flex items-center gap-2 font-semibold">
-                  <FileText size={16} />
+              <div
+                className="
+                  mt-5
+                  rounded-2xl
+                  border
+                  border-stone-200
+                  dark:border-zinc-800
+                  bg-stone-100
+                  dark:bg-zinc-800
+                  p-4
+                "
+              >
+
+                <div className="mb-3 flex items-center gap-2 text-sm font-semibold text-stone-700 dark:text-stone-200">
+
+                  <FileText
+                    size={16}
+                    className="text-stone-500"
+                  />
+
                   Notes
+
                 </div>
 
-                <p className="text-sm text-slate-600 dark:text-slate-300">
+                <p className="text-sm leading-6 text-stone-600 dark:text-stone-300">
                   {todo.notes}
                 </p>
+
               </div>
             )}
+
           </div>
 
+          {/* Status Toggle */}
+
           <motion.button
-            whileHover={{ scale: 1.1 }}
-            whileTap={{ scale: .9 }}
+            whileHover={{
+              scale: 1.08,
+            }}
+            whileTap={{
+              scale: .92,
+            }}
             onClick={() => onToggleStatus(todo)}
-            className="text-indigo-600 dark:text-indigo-400"
+            className="
+              flex
+              h-12
+              w-12
+              items-center
+              justify-center
+              rounded-2xl
+              bg-stone-100
+              dark:bg-zinc-800
+              transition-colors
+              hover:bg-stone-200
+              dark:hover:bg-zinc-700
+            "
           >
-            {todo.status === "Completed"
-              ? <CheckCircle2 size={34}/>
-              : <Circle size={34}/>}
+            {todo.status === "Completed" ? (
+              <CheckCircle2
+                size={28}
+                className="text-emerald-500"
+              />
+            ) : (
+              <Circle
+                size={28}
+                className="text-stone-400"
+              />
+            )}
           </motion.button>
+
         </div>
 
-                {/* Status / Priority / Date Chips */}
-        <div className="mt-6 flex flex-wrap gap-3">
+        {/* Status Chips */}
+
+        <div className="mt-7 flex flex-wrap gap-3">
+
           <span
-            className={`flex items-center gap-2 rounded-full px-4 py-2 text-sm font-semibold ${
-              priorityColor[todo.priority]?.badge
+            className={`flex items-center gap-2 rounded-full px-4 py-2 text-sm font-medium ${
+              priorityStyle[todo.priority]?.badge
             }`}
           >
             <Flag size={15} />
@@ -187,159 +283,326 @@ export default function TodoCard({
           </span>
 
           <span
-            className={`rounded-full px-4 py-2 text-sm font-semibold ${
-              statusColor[todo.status]
+            className={`rounded-full px-4 py-2 text-sm font-medium ${
+              statusStyle[todo.status]
             }`}
           >
             {todo.status}
           </span>
 
           <span
-            className={`flex items-center gap-2 rounded-full px-4 py-2 text-sm font-semibold ${relativeDate.color}`}
+            className={`flex items-center gap-2 rounded-full px-4 py-2 text-sm font-medium ${relativeDate.color}`}
           >
             <CalendarDays size={15} />
             {relativeDate.label}
           </span>
-        </div>
 
-        {/* Labels */}
+        </div>
+                {/* Labels */}
+
         {todo.labels?.length > 0 && (
-          <div className="mt-5">
-            <div className="mb-2 flex items-center gap-2 text-sm font-semibold text-slate-600 dark:text-slate-300">
-              <Tag size={15} />
+          <div className="mt-7">
+
+            <div className="mb-3 flex items-center gap-2 text-sm font-semibold text-stone-700 dark:text-stone-300">
+
+              <Tag
+                size={15}
+                className="text-stone-500"
+              />
+
               Labels
+
             </div>
 
             <div className="flex flex-wrap gap-2">
+
               {todo.labels.map((label) => (
                 <span
                   key={label}
-                  className="rounded-full bg-indigo-100 dark:bg-indigo-500/20 px-3 py-1 text-xs font-medium text-indigo-700 dark:text-indigo-300"
+                  className="
+                    rounded-full
+                    border
+                    border-stone-200
+                    dark:border-zinc-700
+                    bg-stone-100
+                    dark:bg-zinc-800
+                    px-3
+                    py-1.5
+                    text-xs
+                    font-medium
+                    text-stone-700
+                    dark:text-stone-300
+                  "
                 >
                   #{label}
                 </span>
               ))}
+
             </div>
+
           </div>
         )}
 
         {/* Progress */}
+
         {totalSubtasks > 0 && (
-          <div className="mt-6">
-            <div className="mb-2 flex items-center justify-between text-sm">
-              <span className="font-medium text-slate-700 dark:text-slate-300">
+          <div className="mt-7">
+
+            <div className="mb-3 flex items-center justify-between">
+
+              <span className="text-sm font-semibold text-stone-700 dark:text-stone-300">
                 Progress
               </span>
 
-              <span className="text-slate-500">
-                {completedSubtasks}/{totalSubtasks}
+              <span className="text-sm text-stone-500 dark:text-stone-400">
+                {completedSubtasks} / {totalSubtasks}
               </span>
+
             </div>
 
-            <div className="h-3 overflow-hidden rounded-full bg-slate-200 dark:bg-slate-700">
+            <div className="h-2 overflow-hidden rounded-full bg-stone-200 dark:bg-zinc-800">
+
               <motion.div
-                initial={{ width: 0 }}
-                animate={{ width: `${progress}%` }}
-                transition={{ duration: .5 }}
-                className="h-full rounded-full bg-gradient-to-r from-indigo-500 to-violet-500"
+                initial={{
+                  width: 0,
+                }}
+                animate={{
+                  width: `${progress}%`,
+                }}
+                transition={{
+                  duration: .6,
+                }}
+                className="h-full rounded-full bg-emerald-400"
               />
+
             </div>
+
           </div>
         )}
 
         {/* Subtasks */}
+
         {totalSubtasks > 0 && (
-          <div className="mt-6">
-            <div className="mb-3 flex items-center gap-2 text-sm font-semibold text-slate-700 dark:text-slate-300">
-              <CheckSquare size={16} />
+          <div className="mt-7">
+
+            <div className="mb-4 flex items-center gap-2 text-sm font-semibold text-stone-700 dark:text-stone-300">
+
+              <CheckSquare
+                size={16}
+                className="text-stone-500"
+              />
+
               Subtasks
+
             </div>
 
             <AnimatePresence>
-              <div className="space-y-2">
+
+              <div className="space-y-3">
+
                 {todo.subtasks.map((task, index) => (
+
                   <motion.div
                     key={index}
-                    initial={{ opacity: 0, x: -12 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    exit={{ opacity: 0 }}
-                    className="flex items-center gap-3 rounded-xl bg-slate-100 dark:bg-slate-800 px-4 py-3"
+                    initial={{
+                      opacity: 0,
+                      x: -12,
+                    }}
+                    animate={{
+                      opacity: 1,
+                      x: 0,
+                    }}
+                    exit={{
+                      opacity: 0,
+                    }}
+                    transition={{
+                      delay: index * .04,
+                    }}
+                    className="
+                      flex
+                      items-center
+                      gap-3
+                      rounded-2xl
+                      border
+                      border-stone-200
+                      dark:border-zinc-700
+                      bg-stone-100
+                      dark:bg-zinc-800
+                      px-4
+                      py-3
+                    "
                   >
+
                     {task.completed ? (
+
                       <CheckSquare
                         size={18}
-                        className="text-green-500"
+                        className="text-emerald-500"
                       />
+
                     ) : (
+
                       <Square
                         size={18}
-                        className="text-slate-400"
+                        className="text-stone-400"
                       />
+
                     )}
 
                     <span
-                      className={`text-sm ${
+                      className={`text-sm transition-colors ${
                         task.completed
-                          ? "line-through text-slate-400"
-                          : "text-slate-700 dark:text-slate-200"
+                          ? "line-through text-stone-400"
+                          : "text-stone-700 dark:text-stone-200"
                       }`}
                     >
                       {task.title}
                     </span>
+
                   </motion.div>
+
                 ))}
+
               </div>
+
             </AnimatePresence>
+
           </div>
         )}
+                {/* Footer */}
 
-        {/* Footer */}
-        <div className="mt-7 flex flex-col gap-4 border-t border-slate-200 dark:border-slate-700 pt-5 md:flex-row md:items-center md:justify-between">
+        <div
+          className="
+            mt-8
+            border-t
+            border-stone-200
+            dark:border-zinc-800
+            pt-6
+          "
+        >
 
-          <div className="space-y-2 text-sm text-slate-500 dark:text-slate-400">
+          <div className="flex flex-col gap-6 lg:flex-row lg:items-center lg:justify-between">
 
-            <div className="flex items-center gap-2">
-              <Clock3 size={16} />
-              {todo.dueDate
-                ? new Date(todo.dueDate).toLocaleDateString()
-                : "No Due Date"}
+            {/* Dates */}
+
+            <div className="space-y-3 text-sm text-stone-500 dark:text-stone-400">
+
+              <div className="flex items-center gap-2">
+
+                <Clock3
+                  size={16}
+                  className="text-stone-400"
+                />
+
+                <span>
+
+                  Due:&nbsp;
+
+                  {todo.dueDate
+                    ? new Date(todo.dueDate).toLocaleDateString()
+                    : "No Due Date"}
+
+                </span>
+
+              </div>
+
+              <div>
+
+                Created:&nbsp;
+
+                {new Date(todo.createdAt).toLocaleDateString()}
+
+              </div>
+
+              <div>
+
+                Updated:&nbsp;
+
+                {new Date(todo.updatedAt).toLocaleDateString()}
+
+              </div>
+
             </div>
 
-            <div>
-              Created{" "}
-              {new Date(todo.createdAt).toLocaleDateString()}
+            {/* Action Buttons */}
+
+            <div className="flex items-center gap-3">
+
+              <motion.button
+                whileHover={{
+                  scale: 1.04,
+                }}
+                whileTap={{
+                  scale: .96,
+                }}
+                onClick={() => onEdit(todo)}
+                className="
+                  flex
+                  items-center
+                  gap-2
+                  rounded-2xl
+                  border
+                  border-stone-200
+                  dark:border-zinc-700
+                  bg-stone-100
+                  dark:bg-zinc-800
+                  px-5
+                  py-2.5
+                  text-sm
+                  font-medium
+                  text-stone-700
+                  dark:text-stone-200
+                  transition-all
+                  hover:bg-stone-200
+                  dark:hover:bg-zinc-700
+                "
+              >
+
+                <Pencil size={16} />
+
+                Edit
+
+              </motion.button>
+
+              <motion.button
+                whileHover={{
+                  scale: 1.04,
+                }}
+                whileTap={{
+                  scale: .96,
+                }}
+                onClick={() => onDelete(todo._id)}
+                className="
+                  flex
+                  items-center
+                  gap-2
+                  rounded-2xl
+                  bg-rose-500
+                  px-5
+                  py-2.5
+                  text-sm
+                  font-medium
+                  text-white
+                  shadow-sm
+                  transition-all
+                  hover:bg-rose-600
+                "
+              >
+
+                <Trash2 size={16} />
+
+                Delete
+
+              </motion.button>
+
             </div>
 
-            <div>
-              Updated{" "}
-              {new Date(todo.updatedAt).toLocaleDateString()}
-            </div>
           </div>
 
-          <div className="flex gap-3">
-
-                        <motion.button
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-              onClick={() => onEdit(todo)}
-              className="flex items-center gap-2 rounded-xl bg-blue-50 px-4 py-2 text-blue-600 transition hover:bg-blue-100 dark:bg-blue-500/20 dark:text-blue-300 dark:hover:bg-blue-500/30"
-            >
-              <Pencil size={16} />
-              Edit
-            </motion.button>
-
-            <motion.button
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-              onClick={() => onDelete(todo._id)}
-              className="flex items-center gap-2 rounded-xl bg-red-50 px-4 py-2 text-red-600 transition hover:bg-red-100 dark:bg-red-500/20 dark:text-red-300 dark:hover:bg-red-500/30"
-            >
-              <Trash2 size={16} />
-              Delete
-            </motion.button>
-          </div>
         </div>
+
       </div>
+
     </motion.div>
   );
 }

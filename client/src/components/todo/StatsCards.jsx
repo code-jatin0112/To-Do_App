@@ -26,24 +26,28 @@ export default function StatsCards({ todos }) {
       value: total,
       subtitle: "Tasks in workspace",
       icon: ClipboardList,
-      gradient: "from-indigo-600 via-indigo-500 to-violet-500",
-      iconBg: "bg-white/20",
+      accent: "bg-stone-700 dark:bg-stone-300",
+      iconBg: "bg-stone-200 dark:bg-zinc-800",
+      progress: 100,
     },
     {
       title: "Pending",
       value: pending,
       subtitle: "Need your attention",
       icon: Clock3,
-      gradient: "from-amber-500 via-orange-500 to-red-500",
-      iconBg: "bg-white/20",
+      accent: "bg-amber-300",
+      iconBg: "bg-amber-100 dark:bg-amber-500/20",
+      progress:
+        total === 0 ? 0 : (pending / total) * 100,
     },
     {
       title: "Completed",
       value: completed,
-      subtitle: `${completion}% completion rate`,
+      subtitle: `${completion}% completion`,
       icon: CheckCircle2,
-      gradient: "from-emerald-500 via-green-500 to-teal-500",
-      iconBg: "bg-white/20",
+      accent: "bg-emerald-300",
+      iconBg: "bg-emerald-100 dark:bg-emerald-500/20",
+      progress: completion,
     },
   ];
 
@@ -59,87 +63,99 @@ export default function StatsCards({ todos }) {
             animate={{ opacity: 1, y: 0 }}
             transition={{
               delay: index * 0.08,
-              duration: 0.35,
             }}
             whileHover={{
-              y: -8,
-              scale: 1.03,
+              y: -6,
+              scale: 1.02,
             }}
-            className={`relative overflow-hidden rounded-3xl bg-gradient-to-r ${card.gradient} p-6 text-white shadow-xl hover:shadow-2xl transition-all duration-300`}
+            className="
+              relative
+              overflow-hidden
+              rounded-3xl
+              border
+              border-stone-200
+              dark:border-zinc-800
+              bg-white/70
+              dark:bg-zinc-900/70
+              backdrop-blur-md
+              shadow-lg
+              transition-all
+            "
           >
-            {/* Decorative Background */}
-            <div className="absolute -right-10 -top-10 h-36 w-36 rounded-full bg-white/10 blur-xl" />
+            {/* Accent Strip */}
 
-            <div className="absolute -left-12 -bottom-12 h-28 w-28 rounded-full bg-black/10 dark:bg-white/5 blur-xl" />
+            <div
+              className={`absolute left-0 top-0 h-full w-2 ${card.accent}`}
+            />
 
-            <div className="relative flex items-start justify-between">
-              {/* Left */}
-              <div className="flex-1">
-                <p className="text-sm font-semibold tracking-wide text-white/80 uppercase">
-                  {card.title}
-                </p>
+            {/* Decoration */}
 
-                <h2 className="mt-3 text-5xl font-extrabold tracking-tight">
-                  {card.value}
-                </h2>
+            <div className="absolute -right-12 -top-12 h-40 w-40 rounded-full bg-stone-200/40 blur-3xl dark:bg-zinc-700/20" />
 
-                <div className="mt-5 flex items-center gap-2 text-sm text-white/90">
-                  <TrendingUp size={16} />
-                  <span>{card.subtitle}</span>
-                </div>
+            <div className="relative p-6">
 
-                {/* Progress Bar */}
-                <div className="mt-6">
-                  <div className="h-2 rounded-full bg-white/20 overflow-hidden">
-                    <motion.div
-                      initial={{ width: 0 }}
-                      animate={{
-                        width:
-                          card.title === "Completed"
-                            ? `${completion}%`
-                            : card.title === "Pending"
-                            ? total === 0
-                              ? "0%"
-                              : `${(pending / total) * 100}%`
-                            : "100%",
-                      }}
-                      transition={{
-                        duration: 1,
-                        delay: 0.3 + index * 0.15,
-                      }}
-                      className="h-full rounded-full bg-white"
-                    />
+              <div className="flex items-start justify-between">
+
+                <div>
+
+                  <p className="text-sm font-semibold uppercase tracking-wide text-stone-500 dark:text-stone-400">
+                    {card.title}
+                  </p>
+
+                  <h2 className="mt-3 text-5xl font-bold text-stone-800 dark:text-stone-100">
+                    {card.value}
+                  </h2>
+
+                  <div className="mt-5 flex items-center gap-2 text-sm text-stone-500 dark:text-stone-400">
+                    <TrendingUp size={15} />
+                    {card.subtitle}
                   </div>
+
                 </div>
+
+                <motion.div
+                  whileHover={{
+                    rotate: 8,
+                    scale: 1.08,
+                  }}
+                  className={`
+                    ${card.iconBg}
+                    rounded-2xl
+                    p-4
+                  `}
+                >
+                  <Icon
+                    size={28}
+                    className="text-stone-700 dark:text-stone-200"
+                  />
+                </motion.div>
+
               </div>
 
-              {/* Icon */}
-              <motion.div
-                whileHover={{
-                  rotate: 10,
-                  scale: 1.1,
-                }}
-                className={`${card.iconBg} backdrop-blur-md rounded-2xl p-4 shadow-lg border border-white/20`}
-              >
-                <Icon
-                  size={30}
-                  className="text-white"
-                />
-              </motion.div>
+              {/* Progress */}
+
+              <div className="mt-8">
+
+                <div className="h-2 overflow-hidden rounded-full bg-stone-200 dark:bg-zinc-800">
+
+                  <motion.div
+                    initial={{ width: 0 }}
+                    animate={{
+                      width: `${card.progress}%`,
+                    }}
+                    transition={{
+                      duration: 1,
+                      delay: .2,
+                    }}
+                    className={`h-full rounded-full ${card.accent}`}
+                  />
+
+                </div>
+
+              </div>
+
             </div>
 
-            {/* Bottom Decoration */}
-            <div className="absolute inset-x-0 bottom-0 h-1 bg-white/20">
-              <motion.div
-                initial={{ width: 0 }}
-                animate={{ width: "100%" }}
-                transition={{
-                  duration: 1.2,
-                  delay: index * 0.2,
-                }}
-                className="h-full bg-white"
-              />
-            </div>
           </motion.div>
         );
       })}
