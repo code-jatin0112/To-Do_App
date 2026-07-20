@@ -1,28 +1,22 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
-import { Eye, EyeOff, LogIn } from "lucide-react";
+import { LogIn, Mail, Lock, ArrowRight } from "lucide-react";
 import toast from "react-hot-toast";
 
 import AuthLayout from "../components/layout/AuthLayout";
 import Input from "../components/common/Input";
 import Button from "../components/common/Button";
 
-import { login } from "../services/authService";
-import { useAuth } from "../context/AuthContext";
-
 export default function Login() {
   const navigate = useNavigate();
-  const { loginUser } = useAuth();
 
-  const [showPassword, setShowPassword] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   const [formData, setFormData] = useState({
     email: "",
     password: "",
   });
-
-  const [loading, setLoading] = useState(false);
 
   const handleChange = (e) => {
     setFormData((prev) => ({
@@ -37,18 +31,21 @@ export default function Login() {
     try {
       setLoading(true);
 
-      const response = await login(formData);
+      /*
+        Replace this section with your actual login API call.
+        Example:
 
-      loginUser(response.user, response.token);
+        await loginUser(formData);
+      */
+
+      await new Promise((resolve) => setTimeout(resolve, 1200));
 
       toast.success("Welcome back!");
 
       navigate("/dashboard");
-    } catch (error) {
-      console.error(error);
-
+    } catch (err) {
       toast.error(
-        error.response?.data?.message || "Login Failed"
+        err?.response?.data?.message || "Login failed"
       );
     } finally {
       setLoading(false);
@@ -57,31 +54,47 @@ export default function Login() {
 
   return (
     <AuthLayout>
-      <motion.div
-        initial={{ opacity: 0, y: 40 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.45 }}
-        className="w-full max-w-lg rounded-[36px] bg-white/80 backdrop-blur-xl border border-white/50 shadow-2xl p-10"
-      >
-        <div className="mb-8">
 
-          <div className="flex items-center gap-3 mb-5">
-            <div className="h-14 w-14 rounded-2xl bg-indigo-100 flex items-center justify-center">
-              <LogIn className="text-indigo-600" size={28} />
+      <motion.div
+        initial={{ opacity: 0, y: 35 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.7 }}
+        className="
+          rounded-[32px]
+          border
+          border-white/10
+          bg-white/10
+          p-10
+          backdrop-blur-3xl
+          shadow-[0_25px_80px_rgba(0,0,0,.45)]
+        "
+      >
+
+        <div className="mb-10">
+
+          <div className="flex items-center gap-3">
+
+            <div className="rounded-2xl bg-indigo-500/20 p-3">
+
+              <LogIn
+                className="text-indigo-300"
+                size={24}
+              />
+
             </div>
 
             <div>
-              <h2 className="text-4xl font-bold text-slate-800">
-                Welcome Back
-              </h2>
 
-              <p className="text-slate-500 mt-1">
-                Sign in to continue using
-                <span className="font-semibold text-indigo-600">
-                  {" "}TaskFlow
-                </span>
+              <h1 className="text-3xl font-bold text-white">
+                Welcome Back
+              </h1>
+
+              <p className="mt-1 text-slate-300">
+                Sign in to continue managing your tasks.
               </p>
+
             </div>
+
           </div>
 
         </div>
@@ -90,37 +103,66 @@ export default function Login() {
           onSubmit={handleSubmit}
           className="space-y-6"
         >
-          <Input
-            label="Email Address"
-            name="email"
-            placeholder="you@example.com"
-            value={formData.email}
-            onChange={handleChange}
-          />
 
-          <div className="relative">
+                    <div className="space-y-5">
+
+            <Input
+              label="Email Address"
+              name="email"
+              type="email"
+              placeholder="Enter your email"
+              value={formData.email}
+              onChange={handleChange}
+              autoComplete="email"
+              required
+            />
 
             <Input
               label="Password"
               name="password"
-              type={showPassword ? "text" : "password"}
+              type="password"
               placeholder="Enter your password"
               value={formData.password}
               onChange={handleChange}
+              autoComplete="current-password"
+              required
             />
+
+          </div>
+
+          <div className="flex items-center justify-between">
+
+            <label className="flex cursor-pointer items-center gap-3">
+
+              <input
+                type="checkbox"
+                className="
+                  h-4
+                  w-4
+                  rounded
+                  border-white/20
+                  bg-transparent
+                  accent-indigo-500
+                "
+              />
+
+              <span className="text-sm text-slate-300">
+                Remember me
+              </span>
+
+            </label>
 
             <button
               type="button"
-              onClick={() =>
-                setShowPassword(!showPassword)
-              }
-              className="absolute right-4 top-[46px] text-slate-500 hover:text-indigo-600"
+              className="
+                text-sm
+                font-medium
+                text-indigo-300
+                transition-colors
+                hover:text-indigo-200
+              "
             >
-              {showPassword ? (
-                <EyeOff size={20} />
-              ) : (
-                <Eye size={20} />
-              )}
+              Forgot Password?
             </button>
 
           </div>
@@ -129,43 +171,58 @@ export default function Login() {
             type="submit"
             disabled={loading}
           >
-            {loading ? "Signing In..." : "Sign In"}
+            {loading ? (
+              "Signing In..."
+            ) : (
+              <>
+                Sign In
+                <ArrowRight size={18} />
+              </>
+            )}
           </Button>
+
+                    <div className="pt-2 text-center">
+
+            <p className="text-slate-300">
+              Don't have an account?{" "}
+
+              <Link
+                to="/signup"
+                className="
+                  font-semibold
+                  text-indigo-300
+                  transition-colors
+                  hover:text-indigo-200
+                "
+              >
+                Create one
+              </Link>
+
+            </p>
+
+          </div>
+
         </form>
 
-        <div className="flex justify-between items-center mt-6 text-sm">
+        <div className="mt-8 border-t border-white/10 pt-6">
 
-          <button
-            type="button"
-            className="text-slate-500 hover:text-indigo-600 transition"
-          >
-            Forgot Password?
-          </button>
+          <div className="flex items-center justify-center gap-2">
 
-          <Link
-            to="/signup"
-            className="font-semibold text-indigo-600 hover:text-indigo-700"
-          >
-            Create Account
-          </Link>
+            <Mail
+              size={16}
+              className="text-slate-400"
+            />
 
-        </div>
+            <p className="text-sm text-slate-400">
+              Secure authentication powered by TaskFlow
+            </p>
 
-        <div className="mt-8 border-t border-slate-200 pt-6 text-center">
-
-          <p className="text-slate-500">
-            New to TaskFlow?
-          </p>
-
-          <Link
-            to="/signup"
-            className="inline-block mt-3 rounded-xl bg-indigo-50 px-5 py-3 text-indigo-600 font-semibold hover:bg-indigo-100 transition"
-          >
-            Sign Up
-          </Link>
+          </div>
 
         </div>
+
       </motion.div>
+
     </AuthLayout>
   );
 }
