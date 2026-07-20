@@ -36,17 +36,16 @@ export default function ConfirmModal({
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             onClick={onCancel}
-            className="fixed inset-0 z-40 bg-black/40 backdrop-blur-md"
+            className="fixed inset-0 z-40 bg-[#242527]/45 backdrop-blur-md"
           />
 
           {/* Modal */}
 
           <div className="fixed inset-0 z-50 flex items-center justify-center p-5">
-
             <motion.div
               initial={{
                 opacity: 0,
-                scale: 0.92,
+                scale: 0.94,
                 y: 20,
               }}
               animate={{
@@ -56,11 +55,11 @@ export default function ConfirmModal({
               }}
               exit={{
                 opacity: 0,
-                scale: 0.92,
+                scale: 0.94,
                 y: 20,
               }}
               transition={{
-                duration: 0.22,
+                duration: 0.25,
               }}
               onClick={(e) => e.stopPropagation()}
               className="
@@ -70,17 +69,17 @@ export default function ConfirmModal({
                 overflow-hidden
                 rounded-3xl
                 border
-                border-stone-200
-                dark:border-zinc-800
-                bg-white/80
-                dark:bg-zinc-900/80
-                backdrop-blur-xl
+                border-[#BCB9AC]
+                bg-[#FCFBF8]
                 shadow-2xl
+                shadow-[#6F6558]/20
+                dark:border-[#4B4540]
+                dark:bg-[#2B2B2B]
               "
             >
-              {/* Decorative Background */}
+              {/* Decorative Top */}
 
-              <div className="absolute inset-x-0 top-0 h-24 bg-gradient-to-b from-rose-50 to-transparent dark:from-rose-900/10" />
+              <div className="absolute inset-x-0 top-0 h-24 bg-gradient-to-b from-[#F2ECE4] to-transparent dark:from-[#3B3733]" />
 
               {/* Close */}
 
@@ -96,31 +95,25 @@ export default function ConfirmModal({
                   items-center
                   justify-center
                   rounded-xl
-                  bg-stone-100
-                  dark:bg-zinc-800
-                  text-stone-500
+                  bg-[#F2ECE4]
+                  text-[#6F6558]
                   transition
-                  hover:bg-stone-200
-                  dark:hover:bg-zinc-700
+                  hover:bg-[#E6DED3]
+                  dark:bg-[#3A3A3A]
+                  dark:text-[#BCB9AC]
                 "
               >
                 <X size={18} />
               </button>
 
-              {/* Content */}
-
               <div className="relative p-8">
 
+                {/* Icon */}
+
                 <motion.div
-                  initial={{
-                    scale: 0.8,
-                  }}
-                  animate={{
-                    scale: 1,
-                  }}
-                  transition={{
-                    delay: 0.08,
-                  }}
+                  initial={{ scale: 0.8 }}
+                  animate={{ scale: 1 }}
+                  transition={{ delay: 0.08 }}
                   className="
                     mx-auto
                     mb-6
@@ -130,39 +123,43 @@ export default function ConfirmModal({
                     items-center
                     justify-center
                     rounded-full
-                    bg-rose-100
-                    dark:bg-rose-500/15
+                    bg-[#EFE3D8]
+                    dark:bg-[#5E4B3F]/30
                   "
                 >
                   <AlertTriangle
-                    size={40}
-                    className="text-rose-500"
+                    size={38}
+                    className="text-[#8F6948]"
                   />
                 </motion.div>
 
-                <h2 className="text-center text-2xl font-bold text-stone-800 dark:text-stone-100">
+                {/* Title */}
+
+                <h2 className="text-center text-2xl font-bold text-[#242527] dark:text-[#F7F4EF]">
                   {title}
                 </h2>
 
-                <p className="mx-auto mt-4 max-w-sm text-center leading-7 text-stone-500 dark:text-stone-400">
+                {/* Message */}
+
+                <p className="mx-auto mt-4 max-w-sm text-center leading-7 text-[#6F6558] dark:text-[#BCB9AC]">
                   {message}
                 </p>
 
-                {/* Warning Card */}
+                {/* Warning */}
 
                 <div
                   className="
                     mt-7
                     rounded-2xl
                     border
-                    border-rose-200
-                    dark:border-rose-500/20
-                    bg-rose-50
-                    dark:bg-rose-500/10
+                    border-[#D7C5B5]
+                    bg-[#F6EEE5]
                     p-4
+                    dark:border-[#5E4B3F]
+                    dark:bg-[#3A312C]
                   "
                 >
-                  <p className="text-center text-sm font-medium text-rose-600 dark:text-rose-300">
+                  <p className="text-center text-sm font-medium text-[#8F6948] dark:text-[#D7C5B5]">
                     This action is permanent and cannot be undone.
                   </p>
                 </div>
@@ -172,40 +169,31 @@ export default function ConfirmModal({
                 <div className="mt-8 flex gap-4">
 
                   <motion.button
-                    whileHover={{
-                      scale: 1.02,
-                    }}
-                    whileTap={{
-                      scale: 0.98,
-                    }}
+                    whileHover={{ scale: 1.02 }}
+                    whileTap={{ scale: 0.98 }}
                     onClick={onCancel}
                     className="
                       flex-1
                       rounded-2xl
                       border
-                      border-stone-200
-                      dark:border-zinc-700
-                      bg-stone-100
-                      dark:bg-zinc-800
+                      border-[#BCB9AC]
+                      bg-[#F2ECE4]
                       py-3.5
                       font-semibold
-                      text-stone-700
-                      dark:text-stone-200
+                      text-[#2F4A61]
                       transition
-                      hover:bg-stone-200
-                      dark:hover:bg-zinc-700
+                      hover:bg-[#E8DFD4]
+                      dark:border-[#4B4540]
+                      dark:bg-[#3A3A3A]
+                      dark:text-[#F7F4EF]
                     "
                   >
                     Cancel
                   </motion.button>
 
                   <motion.button
-                    whileHover={{
-                      scale: 1.02,
-                    }}
-                    whileTap={{
-                      scale: 0.98,
-                    }}
+                    whileHover={{ scale: 1.02 }}
+                    whileTap={{ scale: 0.98 }}
                     onClick={onConfirm}
                     className="
                       flex
@@ -214,26 +202,24 @@ export default function ConfirmModal({
                       justify-center
                       gap-2
                       rounded-2xl
-                      bg-rose-500
+                      bg-[#6E4A36]
                       py-3.5
                       font-semibold
-                      text-white
+                      text-[#F7F4EF]
                       shadow-lg
+                      shadow-[#6E4A36]/20
                       transition
-                      hover:bg-rose-600
+                      hover:bg-[#5C3E2D]
                     "
                   >
                     <Trash2 size={18} />
-
                     Delete
                   </motion.button>
 
                 </div>
 
               </div>
-
             </motion.div>
-
           </div>
         </>
       )}

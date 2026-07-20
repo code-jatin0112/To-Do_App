@@ -27,7 +27,7 @@ body {
   margin: 0;
   min-height: 100vh;
 
-  @apply bg-stone-100 text-stone-900;
+  @apply bg-[#F7F4EF] text-[#242527];
 
   transition:
     background-color 250ms ease,
@@ -35,7 +35,7 @@ body {
 }
 
 .dark body {
-  @apply bg-zinc-950 text-stone-100;
+  @apply bg-[#242527] text-[#F7F4EF];
 }
 
 /* Smooth transitions */
@@ -66,11 +66,11 @@ select {
 /* Selection */
 
 ::selection {
-  @apply bg-stone-800 text-white;
+  @apply bg-[#2F4A61] text-white;
 }
 
 .dark ::selection {
-  @apply bg-stone-300 text-zinc-900;
+  @apply bg-[#BCB9AC] text-[#242527];
 }
 
 /* Scrollbar */
@@ -85,19 +85,19 @@ select {
 }
 
 ::-webkit-scrollbar-thumb {
-  @apply rounded-full bg-stone-300;
+  @apply rounded-full bg-[#BCB9AC];
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  @apply bg-stone-400;
+  @apply bg-[#A78963];
 }
 
 .dark ::-webkit-scrollbar-thumb {
-  @apply bg-zinc-700;
+  @apply bg-[#4B4540];
 }
 
 .dark ::-webkit-scrollbar-thumb:hover {
-  @apply bg-zinc-600;
+  @apply bg-[#6F6558];
 }
 
 /* Focus Ring */
@@ -105,14 +105,14 @@ select {
 :focus-visible {
   outline: none;
   box-shadow:
-    0 0 0 2px rgb(255 255 255),
-    0 0 0 4px rgb(120 113 108 / 0.45);
+    0 0 0 2px rgb(252 251 248),
+    0 0 0 4px rgb(47 74 97 / 0.35);
 }
 
 .dark :focus-visible {
   box-shadow:
-    0 0 0 2px rgb(24 24 27),
-    0 0 0 4px rgb(214 211 209 / 0.3);
+    0 0 0 2px rgb(36 37 39),
+    0 0 0 4px rgb(188 185 172 / 0.35);
 }
 
 /* Utility */

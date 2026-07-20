@@ -84,19 +84,19 @@ export default function Login() {
           w-full
           rounded-3xl
           border
-          border-stone-200
-          dark:border-zinc-800
-          bg-white/80
-          dark:bg-zinc-900/80
+          border-[#BCB9AC]/60
+          dark:border-[#4B4540]
+          bg-[#FCFBF8]/95
+          dark:bg-[#2B2B2B]
           backdrop-blur-xl
           shadow-2xl
+          shadow-[#2F4A61]/5
           p-10
         "
       >
         {/* Header */}
 
         <div className="flex items-center gap-4">
-
           <div
             className="
               flex
@@ -105,28 +105,25 @@ export default function Login() {
               items-center
               justify-center
               rounded-2xl
-              bg-stone-100
-              dark:bg-zinc-800
+              bg-[#F2ECE4]
+              dark:bg-[#343434]
             "
           >
             <LogIn
               size={30}
-              className="text-stone-700 dark:text-stone-200"
+              className="text-[#2F4A61] dark:text-[#F7F4EF]"
             />
           </div>
 
           <div>
-
-            <h1 className="text-3xl font-bold text-stone-900 dark:text-stone-100">
+            <h1 className="text-3xl font-bold text-[#242527] dark:text-[#F7F4EF]">
               Welcome Back
             </h1>
 
-            <p className="mt-1 text-stone-500 dark:text-stone-400">
+            <p className="mt-1 text-[#6F6558] dark:text-[#BCB9AC]">
               Sign in to continue using TaskFlow.
             </p>
-
           </div>
-
         </div>
 
         {/* Form */}
@@ -136,7 +133,6 @@ export default function Login() {
           className="mt-10 space-y-6"
         >
           <div className="relative">
-
             <Input
               label="Email Address"
               name="email"
@@ -147,9 +143,8 @@ export default function Login() {
 
             <Mail
               size={18}
-              className="absolute right-4 top-[47px] text-stone-400"
+              className="absolute right-4 top-[47px] text-[#A78963]"
             />
-
           </div>
 
           <Input
@@ -162,14 +157,14 @@ export default function Login() {
           />
 
           <div className="flex items-center justify-between text-sm">
-
             <button
               type="button"
               className="
-                text-stone-500
+                text-[#6F6558]
                 transition
-                hover:text-stone-800
-                dark:hover:text-stone-200
+                hover:text-[#2F4A61]
+                dark:text-[#BCB9AC]
+                dark:hover:text-[#F7F4EF]
               "
             >
               Forgot Password?
@@ -179,16 +174,15 @@ export default function Login() {
               to="/signup"
               className="
                 font-semibold
-                text-stone-700
+                text-[#2F4A61]
                 transition
-                hover:text-black
-                dark:text-stone-300
-                dark:hover:text-white
+                hover:text-[#5F8396]
+                dark:text-[#BCB9AC]
+                dark:hover:text-[#F7F4EF]
               "
             >
               Create Account
             </Link>
-
           </div>
 
           <Button
@@ -205,14 +199,12 @@ export default function Login() {
               </>
             )}
           </Button>
-
         </form>
 
         {/* Footer */}
 
-        <div className="mt-10 border-t border-stone-200 dark:border-zinc-800 pt-6 text-center">
-
-          <p className="text-stone-500 dark:text-stone-400">
+        <div className="mt-10 border-t border-[#BCB9AC] dark:border-[#4B4540] pt-6 text-center">
+          <p className="text-[#6F6558] dark:text-[#BCB9AC]">
             New to TaskFlow?
           </p>
 
@@ -224,21 +216,20 @@ export default function Login() {
               items-center
               justify-center
               rounded-2xl
-              bg-stone-100
-              dark:bg-zinc-800
+              bg-[#F2ECE4]
+              dark:bg-[#343434]
               px-6
               py-3
               font-semibold
-              text-stone-700
-              dark:text-stone-200
+              text-[#2F4A61]
+              dark:text-[#F7F4EF]
               transition
-              hover:bg-stone-200
-              dark:hover:bg-zinc-700
+              hover:bg-[#E7DDD2]
+              dark:hover:bg-[#4B4540]
             "
           >
             Create an Account
           </Link>
-
         </div>
       </motion.div>
     </AuthLayout>

@@ -47,7 +47,7 @@ export default function TodoCard({
       "bg-emerald-100 text-emerald-700 dark:bg-emerald-500/15 dark:text-emerald-300",
 
     Pending:
-      "bg-stone-200 text-stone-700 dark:bg-zinc-800 dark:text-stone-300",
+      "bg-[#E7DDD2] text-[#2F4A61] dark:bg-[#343434] dark:text-[#BCB9AC]",
   };
 
   const getRelativeDate = (date) => {
@@ -55,7 +55,7 @@ export default function TodoCard({
       return {
         label: "No Due Date",
         color:
-          "bg-stone-200 text-stone-700 dark:bg-zinc-800 dark:text-stone-300",
+          "bg-[#E7DDD2] text-[#2F4A61] dark:bg-[#343434] dark:text-[#BCB9AC]",
       };
     }
 
@@ -89,7 +89,7 @@ export default function TodoCard({
       return {
         label: `${diff} days left`,
         color:
-          "bg-stone-200 text-stone-700 dark:bg-zinc-800 dark:text-stone-300",
+          "bg-[#E7DDD2] text-[#2F4A61] dark:bg-[#343434] dark:text-[#BCB9AC]",
       };
     }
 
@@ -138,10 +138,10 @@ export default function TodoCard({
         border-l-4
         ${priorityStyle[todo.priority]?.border}
         border
-        border-stone-200
-        dark:border-zinc-800
-        bg-white/70
-        dark:bg-zinc-900/70
+        border-[#BCB9AC]/60
+        dark:border-[#4B4540]
+        bg-[#FCFBF8]/90
+        dark:bg-[#2B2B2B]/70
         backdrop-blur-md
         shadow-lg
         transition-all
@@ -151,7 +151,7 @@ export default function TodoCard({
 
       {/* Decorative Background */}
 
-      <div className="absolute -right-16 -top-16 h-48 w-48 rounded-full bg-stone-200/40 blur-3xl dark:bg-zinc-700/10" />
+      <div className="absolute -right-16 -top-16 h-48 w-48 rounded-full bg-[#E7DDD2]/40 blur-3xl dark:bg-zinc-700/10" />
 
       {/* Favorite */}
 
@@ -167,7 +167,7 @@ export default function TodoCard({
       {/* Archived */}
 
       {todo.archived && (
-        <div className="absolute left-5 top-5 flex items-center gap-2 rounded-full bg-zinc-800 px-3 py-1 text-xs font-medium text-white dark:bg-stone-200 dark:text-zinc-900">
+        <div className="absolute left-5 top-5 flex items-center gap-2 rounded-full bg-zinc-800 px-3 py-1 text-xs font-medium text-white dark:bg-[#E7DDD2] dark:text-zinc-900">
           <Archive size={12}/>
           Archived
         </div>
@@ -183,14 +183,14 @@ export default function TodoCard({
             <h2
               className={`text-2xl font-bold tracking-tight transition-colors ${
                 todo.status === "Completed"
-                  ? "text-stone-400 line-through"
-                  : "text-stone-800 dark:text-stone-100"
+                  ? "text-[#A78963] line-through"
+                  : "text-[#242527] dark:text-[#F7F4EF]"
               }`}
             >
               {todo.title}
             </h2>
 
-            <p className="mt-3 leading-7 text-stone-500 dark:text-stone-400">
+            <p className="mt-3 leading-7 text-[#6F6558] dark:text-[#A78963]">
               {todo.description || "No description provided."}
             </p>
 
@@ -202,26 +202,26 @@ export default function TodoCard({
                   mt-5
                   rounded-2xl
                   border
-                  border-stone-200
-                  dark:border-zinc-800
-                  bg-stone-100
-                  dark:bg-zinc-800
+                  border-[#BCB9AC]/60
+                  dark:border-[#4B4540]
+                  bg-[#F2ECE4]
+                  dark:bg-[#343434]
                   p-4
                 "
               >
 
-                <div className="mb-3 flex items-center gap-2 text-sm font-semibold text-stone-700 dark:text-stone-200">
+                <div className="mb-3 flex items-center gap-2 text-sm font-semibold text-[#2F4A61] dark:text-[#F7F4EF]">
 
                   <FileText
                     size={16}
-                    className="text-stone-500"
+                    className="text-[#6F6558]"
                   />
 
                   Notes
 
                 </div>
 
-                <p className="text-sm leading-6 text-stone-600 dark:text-stone-300">
+                <p className="text-sm leading-6 text-[#6F6558] dark:text-[#BCB9AC]">
                   {todo.notes}
                 </p>
 
@@ -247,10 +247,10 @@ export default function TodoCard({
               items-center
               justify-center
               rounded-2xl
-              bg-stone-100
-              dark:bg-zinc-800
+              bg-[#F2ECE4]
+              dark:bg-[#343434]
               transition-colors
-              hover:bg-stone-200
+              hover:bg-[#E7DDD2]
               dark:hover:bg-zinc-700
             "
           >
@@ -262,7 +262,7 @@ export default function TodoCard({
             ) : (
               <Circle
                 size={28}
-                className="text-stone-400"
+                className="text-[#A78963]"
               />
             )}
           </motion.button>
@@ -303,11 +303,11 @@ export default function TodoCard({
         {todo.labels?.length > 0 && (
           <div className="mt-7">
 
-            <div className="mb-3 flex items-center gap-2 text-sm font-semibold text-stone-700 dark:text-stone-300">
+            <div className="mb-3 flex items-center gap-2 text-sm font-semibold text-[#2F4A61] dark:text-[#BCB9AC]">
 
               <Tag
                 size={15}
-                className="text-stone-500"
+                className="text-[#6F6558]"
               />
 
               Labels
@@ -322,16 +322,16 @@ export default function TodoCard({
                   className="
                     rounded-full
                     border
-                    border-stone-200
-                    dark:border-zinc-700
-                    bg-stone-100
-                    dark:bg-zinc-800
+                    border-[#BCB9AC]/60
+                    dark:border-[#4B4540]
+                    bg-[#F2ECE4]
+                    dark:bg-[#343434]
                     px-3
                     py-1.5
                     text-xs
                     font-medium
-                    text-stone-700
-                    dark:text-stone-300
+                    text-[#2F4A61]
+                    dark:text-[#BCB9AC]
                   "
                 >
                   #{label}
@@ -350,17 +350,17 @@ export default function TodoCard({
 
             <div className="mb-3 flex items-center justify-between">
 
-              <span className="text-sm font-semibold text-stone-700 dark:text-stone-300">
+              <span className="text-sm font-semibold text-[#2F4A61] dark:text-[#BCB9AC]">
                 Progress
               </span>
 
-              <span className="text-sm text-stone-500 dark:text-stone-400">
+              <span className="text-sm text-[#6F6558] dark:text-[#A78963]">
                 {completedSubtasks} / {totalSubtasks}
               </span>
 
             </div>
 
-            <div className="h-2 overflow-hidden rounded-full bg-stone-200 dark:bg-zinc-800">
+            <div className="h-2 overflow-hidden rounded-full bg-[#E7DDD2] dark:bg-[#343434]">
 
               <motion.div
                 initial={{
@@ -385,11 +385,11 @@ export default function TodoCard({
         {totalSubtasks > 0 && (
           <div className="mt-7">
 
-            <div className="mb-4 flex items-center gap-2 text-sm font-semibold text-stone-700 dark:text-stone-300">
+            <div className="mb-4 flex items-center gap-2 text-sm font-semibold text-[#2F4A61] dark:text-[#BCB9AC]">
 
               <CheckSquare
                 size={16}
-                className="text-stone-500"
+                className="text-[#6F6558]"
               />
 
               Subtasks
@@ -424,10 +424,10 @@ export default function TodoCard({
                       gap-3
                       rounded-2xl
                       border
-                      border-stone-200
-                      dark:border-zinc-700
-                      bg-stone-100
-                      dark:bg-zinc-800
+                      border-[#BCB9AC]/60
+                      dark:border-[#4B4540]
+                      bg-[#F2ECE4]
+                      dark:bg-[#343434]
                       px-4
                       py-3
                     "
@@ -444,7 +444,7 @@ export default function TodoCard({
 
                       <Square
                         size={18}
-                        className="text-stone-400"
+                        className="text-[#A78963]"
                       />
 
                     )}
@@ -452,8 +452,8 @@ export default function TodoCard({
                     <span
                       className={`text-sm transition-colors ${
                         task.completed
-                          ? "line-through text-stone-400"
-                          : "text-stone-700 dark:text-stone-200"
+                          ? "line-through text-[#A78963]"
+                          : "text-[#2F4A61] dark:text-[#F7F4EF]"
                       }`}
                     >
                       {task.title}
@@ -475,8 +475,8 @@ export default function TodoCard({
           className="
             mt-8
             border-t
-            border-stone-200
-            dark:border-zinc-800
+            border-[#BCB9AC]/60
+            dark:border-[#4B4540]
             pt-6
           "
         >
@@ -485,13 +485,13 @@ export default function TodoCard({
 
             {/* Dates */}
 
-            <div className="space-y-3 text-sm text-stone-500 dark:text-stone-400">
+            <div className="space-y-3 text-sm text-[#6F6558] dark:text-[#A78963]">
 
               <div className="flex items-center gap-2">
 
                 <Clock3
                   size={16}
-                  className="text-stone-400"
+                  className="text-[#A78963]"
                 />
 
                 <span>
@@ -542,18 +542,18 @@ export default function TodoCard({
                   gap-2
                   rounded-2xl
                   border
-                  border-stone-200
-                  dark:border-zinc-700
-                  bg-stone-100
-                  dark:bg-zinc-800
+                  border-[#BCB9AC]/60
+                  dark:border-[#4B4540]
+                  bg-[#F2ECE4]
+                  dark:bg-[#343434]
                   px-5
                   py-2.5
                   text-sm
                   font-medium
-                  text-stone-700
-                  dark:text-stone-200
+                  text-[#2F4A61]
+                  dark:text-[#F7F4EF]
                   transition-all
-                  hover:bg-stone-200
+                  hover:bg-[#E7DDD2]
                   dark:hover:bg-zinc-700
                 "
               >

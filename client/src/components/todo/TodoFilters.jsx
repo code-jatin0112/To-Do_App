@@ -45,29 +45,26 @@ export default function TodoFilters({
       className="
         rounded-3xl
         border
-        border-stone-200
-        dark:border-zinc-800
-        bg-white/70
-        dark:bg-zinc-900/70
+        border-[#BCB9AC]/60
+        dark:border-[#4B4540]
+        bg-[#FCFBF8]/95
+        dark:bg-[#2B2B2B]
         backdrop-blur-md
-        shadow-lg
+        shadow-xl shadow-[#2F4A61]/5
         p-6
       "
     >
       {/* Header */}
 
       <div className="mb-6 flex items-center justify-between">
-
         <div>
-
-          <h2 className="text-xl font-bold text-stone-800 dark:text-stone-100">
+          <h2 className="text-xl font-bold text-[#242527] dark:text-[#F7F4EF]">
             Filters & Search
           </h2>
 
-          <p className="mt-1 text-sm text-stone-500 dark:text-stone-400">
+          <p className="mt-1 text-sm text-[#6F6558] dark:text-[#BCB9AC]">
             Quickly find and organize your tasks.
           </p>
-
         </div>
 
         <button
@@ -78,38 +75,35 @@ export default function TodoFilters({
             gap-2
             rounded-2xl
             border
-            border-stone-200
-            dark:border-zinc-700
-            bg-stone-100
-            dark:bg-zinc-800
+            border-[#BCB9AC]
+            dark:border-[#4B4540]
+            bg-[#F2ECE4]
+            dark:bg-[#343434]
             px-4
             py-2.5
             text-sm
             font-medium
-            text-stone-700
-            dark:text-stone-300
+            text-[#2F4A61]
+            dark:text-[#F7F4EF]
             transition
-            hover:bg-stone-200
-            dark:hover:bg-zinc-700
+            hover:bg-[#E7DDD2]
+            dark:hover:bg-[#4B4540]
           "
         >
           <RotateCcw size={16} />
           Reset
         </button>
-
       </div>
 
       {/* Main Filters */}
 
       <div className="grid gap-5 lg:grid-cols-5">
-
         {/* Search */}
 
         <div className="relative lg:col-span-2">
-
           <Search
             size={18}
-            className="pointer-events-none absolute left-4 top-1/2 -translate-y-1/2 text-stone-400"
+            className="pointer-events-none absolute left-4 top-1/2 -translate-y-1/2 text-[#A78963]"
           />
 
           <input
@@ -121,33 +115,31 @@ export default function TodoFilters({
               w-full
               rounded-2xl
               border
-              border-stone-200
-              dark:border-zinc-700
-              bg-stone-100
-              dark:bg-zinc-800
+              border-[#BCB9AC]
+              dark:border-[#4B4540]
+              bg-[#F7F4EF]
+              dark:bg-[#343434]
               py-3.5
               pl-11
               pr-4
-              text-stone-800
-              dark:text-stone-100
-              placeholder:text-stone-400
+              text-[#242527]
+              dark:text-[#F7F4EF]
+              placeholder:text-[#A78963]
               outline-none
               transition-all
-              focus:border-stone-400
+              focus:border-[#2F4A61]
               focus:ring-2
-              focus:ring-stone-300
+              focus:ring-[#5F8396]/30
             "
           />
-
         </div>
 
         {/* Status */}
 
         <div className="relative">
-
           <Filter
             size={18}
-            className="pointer-events-none absolute left-4 top-1/2 -translate-y-1/2 text-stone-400"
+            className="pointer-events-none absolute left-4 top-1/2 -translate-y-1/2 text-[#A78963]"
           />
 
           <select
@@ -158,36 +150,34 @@ export default function TodoFilters({
               appearance-none
               rounded-2xl
               border
-              border-stone-200
-              dark:border-zinc-700
-              bg-stone-100
-              dark:bg-zinc-800
+              border-[#BCB9AC]
+              dark:border-[#4B4540]
+              bg-[#F7F4EF]
+              dark:bg-[#343434]
               py-3.5
               pl-11
               pr-4
-              text-stone-700
-              dark:text-stone-200
+              text-[#242527]
+              dark:text-[#F7F4EF]
               outline-none
               transition-all
-              focus:border-stone-400
+              focus:border-[#2F4A61]
               focus:ring-2
-              focus:ring-stone-300
+              focus:ring-[#5F8396]/30
             "
           >
             <option value="All">All Status</option>
             <option value="Pending">Pending</option>
             <option value="Completed">Completed</option>
           </select>
-
         </div>
 
         {/* Priority */}
 
         <div className="relative">
-
           <Flag
             size={18}
-            className="pointer-events-none absolute left-4 top-1/2 -translate-y-1/2 text-stone-400"
+            className="pointer-events-none absolute left-4 top-1/2 -translate-y-1/2 text-[#A78963]"
           />
 
           <select
@@ -198,20 +188,20 @@ export default function TodoFilters({
               appearance-none
               rounded-2xl
               border
-              border-stone-200
-              dark:border-zinc-700
-              bg-stone-100
-              dark:bg-zinc-800
+              border-[#BCB9AC]
+              dark:border-[#4B4540]
+              bg-[#F7F4EF]
+              dark:bg-[#343434]
               py-3.5
               pl-11
               pr-4
-              text-stone-700
-              dark:text-stone-200
+              text-[#242527]
+              dark:text-[#F7F4EF]
               outline-none
               transition-all
-              focus:border-stone-400
+              focus:border-[#2F4A61]
               focus:ring-2
-              focus:ring-stone-300
+              focus:ring-[#5F8396]/30
             "
           >
             <option value="All">All Priority</option>
@@ -219,16 +209,14 @@ export default function TodoFilters({
             <option value="Medium">🟡 Medium</option>
             <option value="Low">🟢 Low</option>
           </select>
-
         </div>
 
         {/* Sort */}
 
         <div className="relative">
-
           <ArrowUpDown
             size={18}
-            className="pointer-events-none absolute left-4 top-1/2 -translate-y-1/2 text-stone-400"
+            className="pointer-events-none absolute left-4 top-1/2 -translate-y-1/2 text-[#A78963]"
           />
 
           <select
@@ -239,20 +227,20 @@ export default function TodoFilters({
               appearance-none
               rounded-2xl
               border
-              border-stone-200
-              dark:border-zinc-700
-              bg-stone-100
-              dark:bg-zinc-800
+              border-[#BCB9AC]
+              dark:border-[#4B4540]
+              bg-[#F7F4EF]
+              dark:bg-[#343434]
               py-3.5
               pl-11
               pr-4
-              text-stone-700
-              dark:text-stone-200
+              text-[#242527]
+              dark:text-[#F7F4EF]
               outline-none
               transition-all
-              focus:border-stone-400
+              focus:border-[#2F4A61]
               focus:ring-2
-              focus:ring-stone-300
+              focus:ring-[#5F8396]/30
             "
           >
             <option value="Newest">Newest</option>
@@ -262,22 +250,18 @@ export default function TodoFilters({
             <option value="AZ">A-Z</option>
             <option value="ZA">Z-A</option>
           </select>
-
         </div>
-
       </div>
 
       {/* Secondary Filters */}
 
       <div className="mt-5 grid gap-5 lg:grid-cols-3">
-
         {/* Labels */}
 
         <div className="relative">
-
           <Tag
             size={18}
-            className="pointer-events-none absolute left-4 top-1/2 -translate-y-1/2 text-stone-400"
+            className="pointer-events-none absolute left-4 top-1/2 -translate-y-1/2 text-[#A78963]"
           />
 
           <select
@@ -288,35 +272,30 @@ export default function TodoFilters({
               appearance-none
               rounded-2xl
               border
-              border-stone-200
-              dark:border-zinc-700
-              bg-stone-100
-              dark:bg-zinc-800
+              border-[#BCB9AC]
+              dark:border-[#4B4540]
+              bg-[#F7F4EF]
+              dark:bg-[#343434]
               py-3.5
               pl-11
               pr-4
-              text-stone-700
-              dark:text-stone-200
+              text-[#242527]
+              dark:text-[#F7F4EF]
               outline-none
               transition-all
-              focus:border-stone-400
+              focus:border-[#2F4A61]
               focus:ring-2
-              focus:ring-stone-300
+              focus:ring-[#5F8396]/30
             "
           >
             <option value="All">All Labels</option>
 
             {labels.map((label) => (
-              <option
-                key={label}
-                value={label}
-              >
+              <option key={label} value={label}>
                 {label}
               </option>
             ))}
-
           </select>
-
         </div>
 
         {/* Favorites */}
@@ -335,8 +314,8 @@ export default function TodoFilters({
             transition-all
             ${
               showFavorites
-                ? "border-amber-300 bg-amber-50 text-amber-700 dark:border-amber-500/40 dark:bg-amber-500/15 dark:text-amber-300"
-                : "border-stone-200 bg-stone-100 text-stone-700 dark:border-zinc-700 dark:bg-zinc-800 dark:text-stone-200"
+                ? "border-[#A78963] bg-[#F4E7D7] text-[#8F6948] dark:border-[#A78963] dark:bg-[#8F6948]/20 dark:text-[#F4E7D7]"
+                : "border-[#BCB9AC] bg-[#F2ECE4] text-[#2F4A61] dark:border-[#4B4540] dark:bg-[#343434] dark:text-[#F7F4EF]"
             }
           `}
         >
@@ -346,7 +325,6 @@ export default function TodoFilters({
           />
 
           Favorites
-
         </button>
 
         {/* Archived */}
@@ -365,19 +343,15 @@ export default function TodoFilters({
             transition-all
             ${
               showArchived
-                ? "border-stone-400 bg-stone-200 text-stone-800 dark:border-stone-500 dark:bg-stone-700 dark:text-stone-100"
-                : "border-stone-200 bg-stone-100 text-stone-700 dark:border-zinc-700 dark:bg-zinc-800 dark:text-stone-200"
+                ? "border-[#2F4A61] bg-[#E7F1F4] text-[#2F4A61] dark:border-[#5F8396] dark:bg-[#2F4A61]/20 dark:text-[#E7F1F4]"
+                : "border-[#BCB9AC] bg-[#F2ECE4] text-[#2F4A61] dark:border-[#4B4540] dark:bg-[#343434] dark:text-[#F7F4EF]"
             }
           `}
         >
           <Archive size={18} />
-
           Archived
-
         </button>
-
       </div>
-
     </motion.div>
   );
 }

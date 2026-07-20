@@ -34,28 +34,60 @@ export default function Sidebar() {
   ];
 
   return (
-    <aside className="hidden lg:flex w-64 flex-col border-r border-stone-200 bg-stone-50/90 backdrop-blur-md dark:border-zinc-800 dark:bg-zinc-950/90">
+    <aside
+      className="
+        fixed
+        left-0
+        top-0
+        hidden
+        h-screen
+        w-72
+        flex-col
+        border-r
+        border-[#D7D0C6]
+        bg-[#F2ECE4]
+        shadow-xl
+        shadow-[#BCB9AC]/10
+        backdrop-blur-xl
 
+        dark:border-[#4B4540]
+        dark:bg-[#242527]
+
+        lg:flex
+      "
+    >
       {/* Logo */}
 
-      <div className="flex h-24 items-center justify-center border-b border-stone-200 dark:border-zinc-800">
+      <div className="flex h-24 items-center border-b border-[#D7D0C6] px-8 dark:border-[#4B4540]">
         <motion.div
           whileHover={{ scale: 1.03 }}
           className="flex items-center gap-4"
         >
-          <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-stone-800 shadow-md dark:bg-stone-200">
+          <div
+            className="
+              flex
+              h-14
+              w-14
+              items-center
+              justify-center
+              rounded-2xl
+              bg-[#2F4A61]
+              shadow-lg
+              shadow-[#2F4A61]/20
+            "
+          >
             <SquareKanban
-              size={22}
-              className="text-white dark:text-zinc-900"
+              size={24}
+              className="text-[#F7F4EF]"
             />
           </div>
 
           <div>
-            <h1 className="text-2xl font-bold tracking-tight text-stone-800 dark:text-stone-100">
+            <h1 className="text-2xl font-bold tracking-tight text-[#242527] dark:text-[#F7F4EF]">
               TaskFlow
             </h1>
 
-            <p className="text-xs text-stone-500 dark:text-stone-400">
+            <p className="text-xs text-[#8A8177] dark:text-[#BCB9AC]">
               Productivity Workspace
             </p>
           </div>
@@ -64,65 +96,108 @@ export default function Sidebar() {
 
       {/* Navigation */}
 
-      <nav className="flex-1 px-4 py-6">
+      <nav className="mt-6 flex-1 px-5">
         {menu.map((item, index) => (
           <motion.button
             key={item.title}
             initial={{ opacity: 0, x: -15 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{
-              delay: index * 0.06,
+              delay: index * 0.05,
             }}
             whileHover={{
               x: 4,
             }}
             whileTap={{
-              scale: .98,
+              scale: 0.98,
             }}
-            className={`mb-2 flex w-full items-center gap-4 rounded-2xl px-5 py-4 transition-all duration-300 ${
-              item.active
-                ? "bg-stone-800 text-white shadow-md dark:bg-stone-200 dark:text-zinc-900"
-                : "text-stone-600 hover:bg-stone-200 dark:text-stone-300 dark:hover:bg-zinc-900"
-            }`}
+            className={`
+              mb-3
+              flex
+              w-full
+              items-center
+              gap-4
+              rounded-2xl
+              px-5
+              py-4
+              font-medium
+              transition-all
+              duration-300
+
+              ${
+                item.active
+                  ? `
+                    bg-[#FCFBF8]
+                    text-[#2F4A61]
+                    shadow-lg
+                    shadow-[#BCB9AC]/15
+                  `
+                  : `
+                    text-[#6F6558]
+                    hover:bg-[#FCFBF8]
+                    hover:text-[#2F4A61]
+
+                    dark:text-[#BCB9AC]
+                    dark:hover:bg-[#343434]
+                  `
+              }
+            `}
           >
             {item.icon}
-
-            <span className="font-medium tracking-wide">
-              {item.title}
-            </span>
+            <span>{item.title}</span>
           </motion.button>
         ))}
       </nav>
 
-      {/* Motivation Card */}
+      {/* Bottom Card */}
 
-      <div className="p-5">
-        <div className="rounded-3xl border border-stone-200 bg-white p-5 shadow-md dark:border-zinc-800 dark:bg-zinc-900">
+      <div className="p-6">
+        <div
+          className="
+            rounded-3xl
+            border
+            border-[#D7D0C6]
+            bg-[#FCFBF8]
+            p-6
+            shadow-lg
+            shadow-[#BCB9AC]/15
 
-          <h3 className="text-lg font-semibold text-stone-800 dark:text-stone-100">
+            dark:border-[#4B4540]
+            dark:bg-[#2E2E2E]
+          "
+        >
+          <h3 className="text-lg font-semibold text-[#242527] dark:text-[#F7F4EF]">
             🌿 Stay Consistent
           </h3>
 
-          <p className="mt-2 text-sm leading-relaxed text-stone-500 dark:text-stone-400">
+          <p className="mt-3 text-sm leading-7 text-[#6F6558] dark:text-[#BCB9AC]">
             Small progress every day leads to big achievements.
             Focus on consistency rather than perfection.
           </p>
 
-          <div className="mt-5 h-2 overflow-hidden rounded-full bg-stone-200 dark:bg-zinc-800">
+          <div className="mt-6 h-2 overflow-hidden rounded-full bg-[#DDD6CC]">
             <motion.div
               initial={{ width: 0 }}
               animate={{ width: "68%" }}
               transition={{ duration: 1 }}
-              className="h-full rounded-full bg-stone-700 dark:bg-stone-300"
+              className="h-full rounded-full bg-[#2F4A61]"
             />
           </div>
 
-          <p className="mt-3 text-xs text-stone-500 dark:text-stone-400">
-            Today's Progress
-          </p>
+          <div className="mt-4 flex items-center justify-between">
+
+            <span className="text-sm text-[#8A8177]">
+              Today's Progress
+            </span>
+
+            <span className="font-semibold text-[#2F4A61]">
+              68%
+            </span>
+
+          </div>
         </div>
 
-        <p className="mt-6 text-center text-xs text-stone-400 dark:text-stone-500">
+        <p className="mt-6 text-center text-xs tracking-wide text-[#8A8177] dark:text-[#8A8177]">
           TaskFlow v1.0 • Built with MERN
         </p>
       </div>

@@ -370,8 +370,8 @@ export default function Dashboard() {
           min-h-screen
           items-center
           justify-center
-          bg-stone-100
-          dark:bg-zinc-950
+          bg-[#F2ECE4]
+          dark:bg-[#242527]
         "
       >
         <motion.div
@@ -404,8 +404,8 @@ export default function Dashboard() {
               mt-6
               text-2xl
               font-bold
-              text-stone-800
-              dark:text-stone-100
+              text-[#242527]
+              dark:text-[#F7F4EF]
             "
           >
             Loading your workspace...
@@ -414,8 +414,8 @@ export default function Dashboard() {
           <p
             className="
               mt-2
-              text-stone-500
-              dark:text-stone-400
+              text-[#6F6558]
+              dark:text-[#BCB9AC]
             "
           >
             Preparing your tasks.
@@ -431,8 +431,8 @@ export default function Dashboard() {
     <div
       className="
         min-h-screen
-        bg-stone-100
-        dark:bg-zinc-950
+        bg-[#F2ECE4]
+        dark:bg-[#242527]
       "
     >
       <Sidebar />
@@ -476,8 +476,8 @@ export default function Dashboard() {
                 text-4xl
                 font-bold
                 tracking-tight
-                text-stone-900
-                dark:text-stone-100
+                text-[#242527]
+                dark:text-[#F7F4EF]
               "
             >
               Welcome back,
@@ -491,8 +491,8 @@ export default function Dashboard() {
               className="
                 mt-2
                 text-lg
-                text-stone-500
-                dark:text-stone-400
+                text-[#6F6558]
+                dark:text-[#BCB9AC]
               "
             >
               Here's an overview of your productivity today.
@@ -605,11 +605,11 @@ export default function Dashboard() {
 
               <div>
 
-                <h2 className="text-2xl font-bold text-stone-900 dark:text-stone-100">
+                <h2 className="text-2xl font-bold text-[#242527] dark:text-[#F7F4EF]">
                   Your Tasks
                 </h2>
 
-                <p className="mt-1 text-stone-500 dark:text-stone-400">
+                <p className="mt-1 text-[#6F6558] dark:text-[#BCB9AC]">
                   {filteredTodos.length}{" "}
                   {filteredTodos.length === 1
                     ? "task"
@@ -647,11 +647,11 @@ export default function Dashboard() {
           >
             <div className="mb-6">
 
-              <h2 className="text-2xl font-bold text-stone-900 dark:text-stone-100">
+              <h2 className="text-2xl font-bold text-[#242527] dark:text-[#F7F4EF]">
                 Analytics
               </h2>
 
-              <p className="mt-1 text-stone-500 dark:text-stone-400">
+              <p className="mt-1 text-[#6F6558] dark:text-[#BCB9AC]">
                 Track your productivity and task distribution.
               </p>
 
@@ -693,13 +693,13 @@ export default function Dashboard() {
           >
             <div className="mb-6">
 
-              <h2 className="text-2xl font-bold text-stone-900 dark:text-stone-100">
+              <h2 className="text-2xl font-bold text-[#242527] dark:text-[#F7F4EF]">
                 {editingTodo
                   ? "Edit Task"
                   : "Create New Task"}
               </h2>
 
-              <p className="mt-1 text-stone-500 dark:text-stone-400">
+              <p className="mt-1 text-[#6F6558] dark:text-[#BCB9AC]">
                 {editingTodo
                   ? "Update the details below."
                   : "Capture your next task and stay organized."}

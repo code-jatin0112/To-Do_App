@@ -27,7 +27,6 @@ export default function ActivityChart({ todos = [] }) {
     if (!date) return;
 
     const jsDay = new Date(date).getDay();
-
     const index = jsDay === 0 ? 6 : jsDay - 1;
 
     data[index].completed++;
@@ -50,34 +49,35 @@ export default function ActivityChart({ todos = [] }) {
         initial={{ opacity: 0, y: 25 }}
         animate={{ opacity: 1, y: 0 }}
         className="
-          h-[560px]
-          rounded-3xl
-          border
-          border-stone-200
-          dark:border-zinc-800
-          bg-white/70
-          dark:bg-zinc-900/70
-          backdrop-blur-md
-          shadow-lg
           flex
+          h-[560px]
           flex-col
           items-center
           justify-center
+          rounded-3xl
+          border
+          border-[#BCB9AC]
+          bg-[#FCFBF8]
           p-8
+          shadow-xl
+          shadow-[#BCB9AC]/15
+
+          dark:border-[#4B4540]
+          dark:bg-[#2B2B2B]
         "
       >
-        <div className="rounded-full bg-stone-200 dark:bg-zinc-800 p-6">
+        <div className="rounded-full bg-[#F2ECE4] p-6 dark:bg-[#343434]">
           <BarChart3
             size={48}
-            className="text-stone-700 dark:text-stone-300"
+            className="text-[#2F4A61]"
           />
         </div>
 
-        <h2 className="mt-6 text-2xl font-bold text-stone-800 dark:text-stone-100">
+        <h2 className="mt-6 text-2xl font-bold text-[#242527] dark:text-[#F7F4EF]">
           No Weekly Activity
         </h2>
 
-        <p className="mt-3 text-center text-stone-500 dark:text-stone-400">
+        <p className="mt-3 text-center text-[#6F6558] dark:text-[#BCB9AC]">
           Complete a few tasks to visualize your weekly productivity.
         </p>
       </motion.div>
@@ -93,18 +93,19 @@ export default function ActivityChart({ todos = [] }) {
         scale: 1.01,
       }}
       className="
+        flex
         h-[560px]
+        flex-col
         rounded-3xl
         border
-        border-stone-200
-        dark:border-zinc-800
-        bg-white/70
-        dark:bg-zinc-900/70
-        backdrop-blur-md
-        shadow-lg
+        border-[#BCB9AC]
+        bg-[#FCFBF8]
         p-6
-        flex
-        flex-col
+        shadow-xl
+        shadow-[#BCB9AC]/15
+
+        dark:border-[#4B4540]
+        dark:bg-[#2B2B2B]
       "
     >
       {/* Header */}
@@ -113,11 +114,11 @@ export default function ActivityChart({ todos = [] }) {
 
         <div>
 
-          <h2 className="text-2xl font-bold text-stone-800 dark:text-stone-100">
+          <h2 className="text-2xl font-bold text-[#242527] dark:text-[#F7F4EF]">
             Weekly Activity
           </h2>
 
-          <p className="text-sm text-stone-500 dark:text-stone-400">
+          <p className="text-sm text-[#6F6558] dark:text-[#BCB9AC]">
             Completed tasks this week
           </p>
 
@@ -126,14 +127,15 @@ export default function ActivityChart({ todos = [] }) {
         <div
           className="
             rounded-full
-            bg-stone-200
-            dark:bg-zinc-800
+            bg-[#F2ECE4]
             px-4
             py-2
             text-sm
             font-medium
-            text-stone-700
-            dark:text-stone-300
+            text-[#2F4A61]
+
+            dark:bg-[#343434]
+            dark:text-[#F7F4EF]
           "
         >
           {totalCompleted} Tasks
@@ -151,14 +153,14 @@ export default function ActivityChart({ todos = [] }) {
 
             <CartesianGrid
               strokeDasharray="4 4"
-              stroke="#d6d3d1"
-              opacity={0.35}
+              stroke="#D7D0C6"
+              opacity={0.4}
             />
 
             <XAxis
               dataKey="day"
               tick={{
-                fill: "#78716c",
+                fill: "#6F6558",
                 fontSize: 12,
               }}
               axisLine={false}
@@ -168,7 +170,7 @@ export default function ActivityChart({ todos = [] }) {
             <YAxis
               allowDecimals={false}
               tick={{
-                fill: "#78716c",
+                fill: "#6F6558",
                 fontSize: 12,
               }}
               axisLine={false}
@@ -177,15 +179,14 @@ export default function ActivityChart({ todos = [] }) {
 
             <Tooltip
               cursor={{
-                fill: "rgba(120,113,108,.08)",
+                fill: "rgba(47,74,97,.06)",
               }}
               contentStyle={{
                 borderRadius: 18,
-                border: "1px solid #d6d3d1",
-                backgroundColor: "#fafaf9",
-                color: "#292524",
-                boxShadow:
-                  "0 10px 25px rgba(0,0,0,.08)",
+                border: "1px solid #BCB9AC",
+                backgroundColor: "#FCFBF8",
+                color: "#242527",
+                boxShadow: "0 10px 30px rgba(0,0,0,.08)",
               }}
             />
 
@@ -199,8 +200,8 @@ export default function ActivityChart({ todos = [] }) {
                   key={entry.day}
                   fill={
                     entry.day === mostProductive.day
-                      ? "#10b981"
-                      : "#a8a29e"
+                      ? "#2F4A61"
+                      : "#A78963"
                   }
                 />
               ))}
@@ -221,19 +222,19 @@ export default function ActivityChart({ todos = [] }) {
           className="
             rounded-2xl
             border
-            border-stone-200
-            dark:border-zinc-800
-            bg-stone-100
-            dark:bg-zinc-800
+            border-[#BCB9AC]
+            bg-[#F7F4EF]
             p-5
+
+            dark:border-[#4B4540]
+            dark:bg-[#343434]
           "
         >
-
-          <p className="text-sm text-stone-500 dark:text-stone-400">
+          <p className="text-sm text-[#6F6558] dark:text-[#BCB9AC]">
             Total Completed
           </p>
 
-          <h3 className="mt-2 text-3xl font-bold text-stone-800 dark:text-stone-100">
+          <h3 className="mt-2 text-3xl font-bold text-[#242527] dark:text-[#F7F4EF]">
             {totalCompleted}
           </h3>
 
@@ -244,23 +245,23 @@ export default function ActivityChart({ todos = [] }) {
           className="
             rounded-2xl
             border
-            border-emerald-200
-            dark:border-emerald-500/20
-            bg-emerald-50
-            dark:bg-emerald-500/10
+            border-[#D5C2AE]
+            bg-[#F6EEE5]
             p-5
+
+            dark:border-[#5E4B3F]
+            dark:bg-[#3A312C]
           "
         >
-
-          <p className="text-sm text-emerald-700 dark:text-emerald-300">
+          <p className="text-sm text-[#8F6948] dark:text-[#D7C5B5]">
             Best Day
           </p>
 
-          <h3 className="mt-2 text-3xl font-bold text-emerald-600">
+          <h3 className="mt-2 text-3xl font-bold text-[#2F4A61]">
             {mostProductive.day}
           </h3>
 
-          <p className="mt-1 text-sm text-emerald-700/80 dark:text-emerald-300/80">
+          <p className="mt-1 text-sm text-[#8F6948] dark:text-[#D7C5B5]">
             {mostProductive.completed} task
             {mostProductive.completed !== 1 ? "s" : ""}
           </p>

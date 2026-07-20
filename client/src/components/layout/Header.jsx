@@ -53,20 +53,22 @@ export default function Header({
 
   return (
     <motion.header
-      initial={{ opacity: 0, y: -20 }}
+      initial={{ opacity: 0, y: -18 }}
       animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: .4 }}
+      transition={{ duration: 0.4 }}
       className="
-        rounded-3xl
+        rounded-[32px]
         border
-        border-stone-200
-        dark:border-zinc-800
-        bg-white/70
-        dark:bg-zinc-900/70
-        backdrop-blur-md
-        shadow-lg
+        border-[#D7D0C6]
+        bg-[#FCFBF8]/90
         px-8
         py-8
+        shadow-xl
+        shadow-[#BCB9AC]/15
+        backdrop-blur-xl
+
+        dark:border-[#4B4540]
+        dark:bg-[#2B2B2B]/90
       "
     >
       <div className="flex flex-col justify-between gap-8 xl:flex-row">
@@ -82,65 +84,68 @@ export default function Header({
               items-center
               gap-2
               rounded-full
-              bg-stone-200
-              dark:bg-zinc-800
+              bg-[#F2ECE4]
               px-4
               py-2
               text-sm
               font-medium
-              text-stone-700
-              dark:text-stone-300
+              text-[#6F6558]
+
+              dark:bg-[#3A3A3A]
+              dark:text-[#D8D2CA]
             "
           >
-            <Sparkles size={15} />
+            <Sparkles size={15} className="text-[#A78963]" />
             {greeting}
           </motion.div>
 
           <div>
-            <h1 className="text-5xl font-bold tracking-tight text-stone-800 dark:text-stone-100">
 
+            <h1 className="text-5xl font-bold tracking-tight text-[#242527] dark:text-[#F7F4EF]">
               Welcome back,
-
-              <span className="text-stone-500 dark:text-stone-400">
+              <span className="text-[#2F4A61]">
                 {" "}
                 {user?.name || "User"}
               </span>
-
             </h1>
 
-            <p className="mt-4 max-w-xl text-lg leading-7 text-stone-500 dark:text-stone-400">
+            <p className="mt-4 max-w-xl text-lg leading-7 text-[#6F6558] dark:text-[#BCB9AC]">
               Stay organized, stay focused and make progress one task at a time.
             </p>
+
           </div>
 
           <div className="flex flex-wrap items-center gap-4">
 
-            <div className="
-              flex
-              items-center
-              gap-2
-              rounded-2xl
-              bg-stone-100
-              dark:bg-zinc-800
-              px-4
-              py-3
-              text-stone-600
-              dark:text-stone-300
-            ">
-              <CalendarDays size={18}/>
+            <div
+              className="
+                flex
+                items-center
+                gap-2
+                rounded-2xl
+                bg-[#F2ECE4]
+                px-4
+                py-3
+                text-[#6F6558]
+
+                dark:bg-[#343434]
+                dark:text-[#D8D2CA]
+              "
+            >
+              <CalendarDays size={18} />
               <span>{formattedDate}</span>
             </div>
 
-            <div className="
-              rounded-2xl
-              bg-stone-800
-              dark:bg-stone-200
-              px-5
-              py-3
-              font-semibold
-              text-white
-              dark:text-zinc-900
-            ">
+            <div
+              className="
+                rounded-2xl
+                bg-[#2F4A61]
+                px-5
+                py-3
+                font-semibold
+                text-[#F7F4EF]
+              "
+            >
               {formattedTime}
             </div>
 
@@ -150,7 +155,7 @@ export default function Header({
 
         {/* Right */}
 
-        <div className="flex flex-col items-stretch gap-4 sm:flex-row sm:items-center">
+        <div className="flex flex-col gap-4 sm:flex-row sm:items-center">
 
           {/* Search */}
 
@@ -160,12 +165,12 @@ export default function Header({
           >
             <Search
               size={18}
-              className="absolute left-5 top-1/2 -translate-y-1/2 text-stone-400"
+              className="absolute left-5 top-1/2 -translate-y-1/2 text-[#A79E92]"
             />
 
             <input
               value={search}
-              onChange={(e)=>setSearch(e.target.value)}
+              onChange={(e) => setSearch(e.target.value)}
               placeholder="Search tasks..."
               className="
                 h-14
@@ -173,20 +178,27 @@ export default function Header({
                 sm:w-80
                 rounded-2xl
                 border
-                border-stone-200
-                dark:border-zinc-700
-                bg-stone-100
-                dark:bg-zinc-800
+                border-[#D7D0C6]
+                bg-[#F7F4EF]
                 pl-12
                 pr-5
-                text-stone-800
-                dark:text-white
-                placeholder:text-stone-400
+
+                text-[#242527]
+                placeholder:text-[#A79E92]
+
+                shadow-sm
                 outline-none
                 transition-all
-                focus:border-stone-400
+
+                hover:border-[#BCB9AC]
+
+                focus:border-[#2F4A61]
                 focus:ring-4
-                focus:ring-stone-300/40
+                focus:ring-[#2F4A61]/10
+
+                dark:border-[#4B4540]
+                dark:bg-[#343434]
+                dark:text-[#F7F4EF]
               "
             />
           </motion.div>
@@ -195,11 +207,11 @@ export default function Header({
 
           <motion.button
             whileHover={{
-              rotate:180,
-              scale:1.05,
+              rotate: 180,
+              scale: 1.05,
             }}
             whileTap={{
-              scale:.95,
+              scale: 0.95,
             }}
             onClick={toggleTheme}
             className="
@@ -209,32 +221,36 @@ export default function Header({
               items-center
               justify-center
               rounded-2xl
+
               border
-              border-stone-200
-              dark:border-zinc-700
-              bg-white
-              dark:bg-zinc-800
-              shadow-sm
+              border-[#D7D0C6]
+
+              bg-[#FCFBF8]
+
+              shadow-md
+
+              dark:border-[#4B4540]
+              dark:bg-[#343434]
             "
           >
             {darkMode ? (
               <Sun
-                size={21}
-                className="text-amber-500"
+                size={20}
+                className="text-[#A78963]"
               />
             ) : (
               <Moon
-                size={21}
-                className="text-stone-700"
+                size={20}
+                className="text-[#2F4A61]"
               />
             )}
           </motion.button>
 
-          {/* Notifications */}
+          {/* Notification */}
 
           <motion.button
-            whileHover={{scale:1.05}}
-            whileTap={{scale:.95}}
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
             className="
               relative
               flex
@@ -242,21 +258,26 @@ export default function Header({
               w-14
               items-center
               justify-center
+
               rounded-2xl
+
               border
-              border-stone-200
-              dark:border-zinc-700
-              bg-white
-              dark:bg-zinc-800
-              shadow-sm
+              border-[#D7D0C6]
+
+              bg-[#FCFBF8]
+
+              shadow-md
+
+              dark:border-[#4B4540]
+              dark:bg-[#343434]
             "
           >
             <Bell
               size={20}
-              className="text-stone-700 dark:text-stone-300"
+              className="text-[#2F4A61] dark:text-[#D8D2CA]"
             />
 
-            <span className="absolute right-3 top-3 h-2.5 w-2.5 rounded-full bg-rose-400"/>
+            <span className="absolute right-3 top-3 h-2.5 w-2.5 rounded-full bg-[#8F6948]" />
           </motion.button>
 
           {/* Logout */}
@@ -267,15 +288,6 @@ export default function Header({
               relative
               h-14
               min-w-[200px]
-              rounded-2xl
-              bg-stone-800
-              hover:bg-stone-700
-              dark:bg-stone-200
-              dark:text-zinc-900
-              dark:hover:bg-white
-              text-white
-              font-semibold
-              shadow-md
             "
           >
             <LogOut

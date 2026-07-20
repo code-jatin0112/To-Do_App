@@ -22,12 +22,13 @@ export default function TodoList({
         className="
           rounded-3xl
           border
-          border-stone-200
-          dark:border-zinc-800
-          bg-white/70
-          dark:bg-zinc-900/70
+          border-[#BCB9AC]/60
+          dark:border-[#4B4540]
+          bg-[#FCFBF8]/95
+          dark:bg-[#2B2B2B]
           backdrop-blur-md
-          shadow-lg
+          shadow-xl
+          shadow-[#2F4A61]/5
           p-14
           text-center
         "
@@ -35,7 +36,6 @@ export default function TodoList({
         {/* Icon */}
 
         <div className="mb-8 flex justify-center">
-
           <div
             className="
               flex
@@ -44,27 +44,26 @@ export default function TodoList({
               items-center
               justify-center
               rounded-full
-              bg-stone-100
-              dark:bg-zinc-800
+              bg-[#F2ECE4]
+              dark:bg-[#343434]
             "
           >
             <ClipboardList
               size={42}
-              className="text-stone-500"
+              className="text-[#5F8396]"
             />
           </div>
-
         </div>
 
         {/* Title */}
 
-        <h2 className="text-3xl font-bold text-stone-800 dark:text-stone-100">
+        <h2 className="text-3xl font-bold text-[#242527] dark:text-[#F7F4EF]">
           Nothing here yet
         </h2>
 
         {/* Description */}
 
-        <p className="mx-auto mt-4 max-w-md leading-7 text-stone-500 dark:text-stone-400">
+        <p className="mx-auto mt-4 max-w-md leading-7 text-[#6F6558] dark:text-[#BCB9AC]">
           No tasks match your current filters.
           Create a new task or adjust your filters to start organizing your work.
         </p>
@@ -82,25 +81,23 @@ export default function TodoList({
             gap-3
             rounded-2xl
             border
-            border-stone-200
-            dark:border-zinc-700
-            bg-stone-100
-            dark:bg-zinc-800
+            border-[#BCB9AC]
+            dark:border-[#4B4540]
+            bg-[#F7F4EF]
+            dark:bg-[#343434]
             px-5
             py-4
           "
         >
           <Sparkles
             size={18}
-            className="text-emerald-500"
+            className="text-[#A78963]"
           />
 
-          <span className="text-sm font-medium text-stone-600 dark:text-stone-300">
+          <span className="text-sm font-medium text-[#6F6558] dark:text-[#BCB9AC]">
             Your next task is just one click away.
           </span>
-
         </div>
-
       </motion.div>
     );
   }
@@ -111,9 +108,7 @@ export default function TodoList({
       className="space-y-6"
     >
       <AnimatePresence mode="popLayout">
-
         {todos.map((todo, index) => (
-
           <motion.div
             key={todo._id}
             layout
@@ -142,9 +137,7 @@ export default function TodoList({
               onToggleStatus={onToggleStatus}
             />
           </motion.div>
-
         ))}
-
       </AnimatePresence>
     </motion.div>
   );

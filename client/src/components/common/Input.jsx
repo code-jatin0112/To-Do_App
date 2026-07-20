@@ -15,17 +15,15 @@ export default function Input({
 
   return (
     <div className="space-y-2">
-
       {/* Label */}
 
-      <label className="block text-sm font-semibold text-stone-700 dark:text-stone-300">
+      <label className="block text-sm font-semibold tracking-wide text-[#6F6558] dark:text-[#D9D2C8]">
         {label}
       </label>
 
       {/* Input */}
 
       <div className="relative">
-
         <input
           name={name}
           type={isPassword && showPassword ? "text" : type}
@@ -36,24 +34,33 @@ export default function Input({
             w-full
             rounded-2xl
             border
-            border-stone-200
-            dark:border-zinc-700
-            bg-stone-100
-            dark:bg-zinc-800
+            border-[#D7D0C6]
+            bg-[#FCFBF8]
             px-4
             py-3.5
             pr-12
-            text-stone-800
-            dark:text-stone-100
-            placeholder:text-stone-400
+            text-[#242527]
+            placeholder:text-[#A79E92]
+            shadow-sm
             outline-none
             transition-all
-            duration-200
-            focus:border-stone-400
-            focus:ring-2
-            focus:ring-stone-300
-            dark:focus:border-stone-500
-            dark:focus:ring-stone-700
+            duration-300
+
+            hover:border-[#BCB9AC]
+
+            focus:border-[#2F4A61]
+            focus:ring-4
+            focus:ring-[#2F4A61]/10
+
+            dark:border-[#4B4540]
+            dark:bg-[#2F2F2F]
+            dark:text-[#F7F4EF]
+            dark:placeholder:text-[#A89F94]
+
+            dark:hover:border-[#6F6558]
+
+            dark:focus:border-[#5F8396]
+            dark:focus:ring-[#5F8396]/20
           "
         />
 
@@ -63,22 +70,27 @@ export default function Input({
             onClick={() => setShowPassword(!showPassword)}
             className="
               absolute
-              right-4
+              right-3
               top-1/2
-              -translate-y-1/2
               flex
-              h-9
-              w-9
+              h-10
+              w-10
+              -translate-y-1/2
               items-center
               justify-center
               rounded-xl
-              text-stone-500
+
+              text-[#6F6558]
+
               transition-all
-              hover:bg-stone-200
-              hover:text-stone-700
-              dark:text-stone-400
-              dark:hover:bg-zinc-700
-              dark:hover:text-stone-200
+              duration-200
+
+              hover:bg-[#F2ECE4]
+              hover:text-[#2F4A61]
+
+              dark:text-[#BCB9AC]
+              dark:hover:bg-[#3A3A3A]
+              dark:hover:text-[#F7F4EF]
             "
           >
             {showPassword ? (
@@ -88,9 +100,7 @@ export default function Input({
             )}
           </button>
         )}
-
       </div>
-
     </div>
   );
 }

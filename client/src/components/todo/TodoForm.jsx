@@ -200,10 +200,10 @@ export default function TodoForm({
       className="
         rounded-3xl
         border
-        border-stone-200
-        dark:border-zinc-800
-        bg-white/70
-        dark:bg-zinc-900/70
+        border-[#BCB9AC]/60
+        dark:border-[#4B4540]
+        bg-[#FCFBF8]/90
+        dark:bg-[#2B2B2B]/70
         backdrop-blur-md
         shadow-lg
         p-8
@@ -216,7 +216,7 @@ export default function TodoForm({
 
         <div>
 
-          <h2 className="text-3xl font-bold text-stone-800 dark:text-stone-100">
+          <h2 className="text-3xl font-bold text-[#242527] dark:text-[#F7F4EF]">
 
             {editingTodo
               ? "Edit Task"
@@ -224,7 +224,7 @@ export default function TodoForm({
 
           </h2>
 
-          <p className="mt-2 text-stone-500 dark:text-stone-400">
+          <p className="mt-2 text-[#6F6558] dark:text-[#BCB9AC]">
 
             Organize your work with a clean workflow.
 
@@ -275,11 +275,11 @@ export default function TodoForm({
 
         <div>
 
-          <label className="mb-2 flex items-center gap-2 text-sm font-semibold text-stone-700 dark:text-stone-300">
+          <label className="mb-2 flex items-center gap-2 text-sm font-semibold text-[#2F4A61] dark:text-[#BCB9AC]">
 
             <Type
               size={16}
-              className="text-stone-500"
+              className="text-[#6F6558]"
             />
 
             Title
@@ -297,14 +297,14 @@ export default function TodoForm({
               w-full
               rounded-2xl
               border
-              border-stone-200
-              dark:border-zinc-700
-              bg-stone-100
-              dark:bg-zinc-800
+              border-[#BCB9AC]/60
+              dark:border-[#4B4540]
+              bg-[#F2ECE4]
+              dark:bg-[#343434]
               px-5
               py-3.5
-              text-stone-800
-              dark:text-stone-100
+              text-[#242527]
+              dark:text-[#F7F4EF]
               placeholder:text-stone-400
               outline-none
               transition-all
@@ -324,11 +324,11 @@ export default function TodoForm({
 
         <div>
 
-          <label className="mb-2 flex items-center gap-2 text-sm font-semibold text-stone-700 dark:text-stone-300">
+          <label className="mb-2 flex items-center gap-2 text-sm font-semibold text-[#2F4A61] dark:text-[#BCB9AC]">
 
             <FileText
               size={16}
-              className="text-stone-500"
+              className="text-[#6F6558]"
             />
 
             Description
@@ -347,14 +347,14 @@ export default function TodoForm({
               resize-none
               rounded-2xl
               border
-              border-stone-200
-              dark:border-zinc-700
-              bg-stone-100
-              dark:bg-zinc-800
+              border-[#BCB9AC]/60
+              dark:border-[#4B4540]
+              bg-[#F2ECE4]
+              dark:bg-[#343434]
               px-5
               py-3.5
-              text-stone-800
-              dark:text-stone-100
+              text-[#242527]
+              dark:text-[#F7F4EF]
               placeholder:text-stone-400
               outline-none
               transition-all
@@ -374,11 +374,11 @@ export default function TodoForm({
 
         <div>
 
-          <label className="mb-2 flex items-center gap-2 text-sm font-semibold text-stone-700 dark:text-stone-300">
+          <label className="mb-2 flex items-center gap-2 text-sm font-semibold text-[#2F4A61] dark:text-[#BCB9AC]">
 
             <FileText
               size={16}
-              className="text-stone-500"
+              className="text-[#6F6558]"
             />
 
             Notes
@@ -397,14 +397,14 @@ export default function TodoForm({
               resize-none
               rounded-2xl
               border
-              border-stone-200
-              dark:border-zinc-700
-              bg-stone-100
-              dark:bg-zinc-800
+              border-[#BCB9AC]/60
+              dark:border-[#4B4540]
+              bg-[#F2ECE4]
+              dark:bg-[#343434]
               px-5
               py-3.5
-              text-stone-800
-              dark:text-stone-100
+              text-[#242527]
+              dark:text-[#F7F4EF]
               placeholder:text-stone-400
               outline-none
               transition-all
@@ -428,11 +428,11 @@ export default function TodoForm({
 
           <div>
 
-            <label className="mb-2 flex items-center gap-2 text-sm font-semibold text-stone-700 dark:text-stone-300">
+            <label className="mb-2 flex items-center gap-2 text-sm font-semibold text-[#2F4A61] dark:text-[#BCB9AC]">
 
               <Flag
                 size={16}
-                className="text-stone-500"
+                className="text-[#6F6558]"
               />
 
               Priority
@@ -447,14 +447,14 @@ export default function TodoForm({
                 w-full
                 rounded-2xl
                 border
-                border-stone-200
-                dark:border-zinc-700
-                bg-stone-100
-                dark:bg-zinc-800
+                border-[#BCB9AC]/60
+                dark:border-[#4B4540]
+                bg-[#F2ECE4]
+                dark:bg-[#343434]
                 px-5
                 py-3.5
-                text-stone-800
-                dark:text-stone-100
+                text-[#242527]
+                dark:text-[#F7F4EF]
                 outline-none
                 transition-all
                 focus:border-stone-400
@@ -482,11 +482,11 @@ export default function TodoForm({
 
           <div>
 
-            <label className="mb-2 flex items-center gap-2 text-sm font-semibold text-stone-700 dark:text-stone-300">
+            <label className="mb-2 flex items-center gap-2 text-sm font-semibold text-[#2F4A61] dark:text-[#BCB9AC]">
 
               <CalendarDays
                 size={16}
-                className="text-stone-500"
+                className="text-[#6F6558]"
               />
 
               Due Date
@@ -502,14 +502,14 @@ export default function TodoForm({
                 w-full
                 rounded-2xl
                 border
-                border-stone-200
-                dark:border-zinc-700
-                bg-stone-100
-                dark:bg-zinc-800
+                border-[#BCB9AC]/60
+                dark:border-[#4B4540]
+                bg-[#F2ECE4]
+                dark:bg-[#343434]
                 px-5
                 py-3.5
-                text-stone-800
-                dark:text-stone-100
+                text-[#242527]
+                dark:text-[#F7F4EF]
                 outline-none
                 transition-all
                 focus:border-stone-400
@@ -536,10 +536,10 @@ export default function TodoForm({
               gap-4
               rounded-2xl
               border
-              border-stone-200
-              dark:border-zinc-700
-              bg-stone-100
-              dark:bg-zinc-800
+              border-[#BCB9AC]/60
+              dark:border-[#4B4540]
+              bg-[#F2ECE4]
+              dark:bg-[#343434]
               p-5
               transition-all
               hover:border-amber-300
@@ -554,7 +554,7 @@ export default function TodoForm({
               className="hidden"
             />
 
-            <div className="rounded-xl bg-white dark:bg-zinc-900 p-3 shadow-sm">
+            <div className="rounded-xl bg-[#FCFBF8] dark:bg-[#2B2B2B] p-3 shadow-sm">
 
               <Star
                 size={22}
@@ -569,11 +569,11 @@ export default function TodoForm({
 
             <div>
 
-              <p className="font-semibold text-stone-800 dark:text-stone-100">
+              <p className="font-semibold text-[#242527] dark:text-[#F7F4EF]">
                 Favorite
               </p>
 
-              <p className="mt-1 text-sm text-stone-500 dark:text-stone-400">
+              <p className="mt-1 text-sm text-[#6F6558] dark:text-[#BCB9AC]">
                 Pin this task to the top.
               </p>
 
@@ -591,10 +591,10 @@ export default function TodoForm({
               gap-4
               rounded-2xl
               border
-              border-stone-200
-              dark:border-zinc-700
-              bg-stone-100
-              dark:bg-zinc-800
+              border-[#BCB9AC]/60
+              dark:border-[#4B4540]
+              bg-[#F2ECE4]
+              dark:bg-[#343434]
               p-5
               transition-all
               hover:border-stone-400
@@ -609,13 +609,13 @@ export default function TodoForm({
               className="hidden"
             />
 
-            <div className="rounded-xl bg-white dark:bg-zinc-900 p-3 shadow-sm">
+            <div className="rounded-xl bg-[#FCFBF8] dark:bg-[#2B2B2B] p-3 shadow-sm">
 
               <Archive
                 size={22}
                 className={
                   formData.archived
-                    ? "text-stone-700 dark:text-stone-200"
+                    ? "text-[#2F4A61] dark:text-[#F7F4EF]"
                     : "text-stone-400"
                 }
               />
@@ -624,11 +624,11 @@ export default function TodoForm({
 
             <div>
 
-              <p className="font-semibold text-stone-800 dark:text-stone-100">
+              <p className="font-semibold text-[#242527] dark:text-[#F7F4EF]">
                 Archive
               </p>
 
-              <p className="mt-1 text-sm text-stone-500 dark:text-stone-400">
+              <p className="mt-1 text-sm text-[#6F6558] dark:text-[#BCB9AC]">
                 Hide from active tasks.
               </p>
 
@@ -642,7 +642,7 @@ export default function TodoForm({
 
         <div>
 
-          <label className="mb-2 flex items-center gap-2 text-sm font-semibold text-stone-700 dark:text-stone-300">
+          <label className="mb-2 flex items-center gap-2 text-sm font-semibold text-[#2F4A61] dark:text-[#BCB9AC]">
 
             <Tag size={16} />
 
@@ -666,10 +666,10 @@ export default function TodoForm({
                 flex-1
                 rounded-2xl
                 border
-                border-stone-200
-                dark:border-zinc-700
-                bg-stone-100
-                dark:bg-zinc-800
+                border-[#BCB9AC]/60
+                dark:border-[#4B4540]
+                bg-[#F2ECE4]
+                dark:bg-[#343434]
                 px-5
                 py-3
                 outline-none
@@ -684,11 +684,11 @@ export default function TodoForm({
               onClick={addLabel}
               className="
                 rounded-2xl
-                bg-stone-800
+                bg-[#2F4A61]
                 dark:bg-stone-200
                 px-6
                 font-medium
-                text-white
+                text-[#FFFFFF]
                 dark:text-zinc-900
                 transition
                 hover:opacity-90
@@ -725,16 +725,16 @@ export default function TodoForm({
                     gap-2
                     rounded-full
                     border
-                    border-stone-200
-                    dark:border-zinc-700
-                    bg-stone-100
-                    dark:bg-zinc-800
+                    border-[#BCB9AC]/60
+                    dark:border-[#4B4540]
+                    bg-[#F2ECE4]
+                    dark:bg-[#343434]
                     px-4
                     py-2
                     text-sm
                     font-medium
-                    text-stone-700
-                    dark:text-stone-300
+                    text-[#2F4A61]
+                    dark:text-[#BCB9AC]
                   "
                 >
 
@@ -761,7 +761,7 @@ export default function TodoForm({
 
         <div>
 
-          <label className="mb-2 flex items-center gap-2 text-sm font-semibold text-stone-700 dark:text-stone-300">
+          <label className="mb-2 flex items-center gap-2 text-sm font-semibold text-[#2F4A61] dark:text-[#BCB9AC]">
 
             <CheckSquare size={16} />
 
@@ -785,10 +785,10 @@ export default function TodoForm({
                 flex-1
                 rounded-2xl
                 border
-                border-stone-200
-                dark:border-zinc-700
-                bg-stone-100
-                dark:bg-zinc-800
+                border-[#BCB9AC]/60
+                dark:border-[#4B4540]
+                bg-[#F2ECE4]
+                dark:bg-[#343434]
                 px-5
                 py-3
                 outline-none
@@ -803,11 +803,11 @@ export default function TodoForm({
               onClick={addSubtask}
               className="
                 rounded-2xl
-                bg-stone-800
+                bg-[#2F4A61]
                 dark:bg-stone-200
                 px-6
                 font-medium
-                text-white
+                text-[#FFFFFF]
                 dark:text-zinc-900
                 transition
                 hover:opacity-90
@@ -835,10 +835,10 @@ export default function TodoForm({
                     justify-between
                     rounded-2xl
                     border
-                    border-stone-200
-                    dark:border-zinc-700
-                    bg-stone-100
-                    dark:bg-zinc-800
+                    border-[#BCB9AC]/60
+                    dark:border-[#4B4540]
+                    bg-[#F2ECE4]
+                    dark:bg-[#343434]
                     p-4
                   "
                 >
@@ -865,7 +865,7 @@ export default function TodoForm({
                       className={
                         task.completed
                           ? "line-through text-stone-400"
-                          : "text-stone-700 dark:text-stone-200"
+                          : "text-[#2F4A61] dark:text-[#F7F4EF]"
                       }
                     >
                       {task.title}
@@ -900,7 +900,7 @@ export default function TodoForm({
 
                 {/* Submit Buttons */}
 
-        <div className="flex flex-col gap-4 border-t border-stone-200 pt-6 dark:border-zinc-800 sm:flex-row">
+        <div className="flex flex-col gap-4 border-t border-[#BCB9AC]/60 pt-6 dark:border-[#4B4540] sm:flex-row">
 
           <motion.button
             whileHover={{
@@ -920,10 +920,10 @@ export default function TodoForm({
               gap-3
               rounded-2xl
               bg-stone-900
-              dark:bg-stone-100
+              dark:bg-[#F2ECE4]
               px-6
               font-semibold
-              text-white
+              text-[#FFFFFF]
               dark:text-zinc-900
               shadow-lg
               transition-all
@@ -983,15 +983,15 @@ export default function TodoForm({
                 rounded-2xl
                 border
                 border-stone-300
-                dark:border-zinc-700
-                bg-white
-                dark:bg-zinc-800
+                dark:border-[#4B4540]
+                bg-[#FCFBF8]
+                dark:bg-[#343434]
                 px-8
                 font-medium
-                text-stone-700
-                dark:text-stone-200
+                text-[#2F4A61]
+                dark:text-[#F7F4EF]
                 transition-all
-                hover:bg-stone-100
+                hover:bg-[#F2ECE4]
                 dark:hover:bg-zinc-700
               "
             >

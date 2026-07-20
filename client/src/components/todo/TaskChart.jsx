@@ -10,8 +10,8 @@ import {
 import { PieChart as PieChartIcon } from "lucide-react";
 
 const COLORS = [
-  "#34d399", // emerald
-  "#fbbf24", // amber
+  "#2F4A61", // Completed
+  "#A78963", // Pending
 ];
 
 export default function TaskChart({ todos = [] }) {
@@ -42,34 +42,35 @@ export default function TaskChart({ todos = [] }) {
         initial={{ opacity: 0, y: 25 }}
         animate={{ opacity: 1, y: 0 }}
         className="
-          h-[560px]
-          rounded-3xl
-          border
-          border-stone-200
-          dark:border-zinc-800
-          bg-white/70
-          dark:bg-zinc-900/70
-          backdrop-blur-md
-          shadow-lg
           flex
+          h-[560px]
           flex-col
           items-center
           justify-center
+          rounded-3xl
+          border
+          border-[#BCB9AC]
+          bg-[#FCFBF8]
           p-8
+          shadow-xl
+          shadow-[#BCB9AC]/15
+
+          dark:border-[#4B4540]
+          dark:bg-[#2B2B2B]
         "
       >
-        <div className="rounded-full bg-stone-200 dark:bg-zinc-800 p-6">
+        <div className="rounded-full bg-[#F2ECE4] p-6 dark:bg-[#343434]">
           <PieChartIcon
             size={48}
-            className="text-stone-700 dark:text-stone-300"
+            className="text-[#2F4A61]"
           />
         </div>
 
-        <h2 className="mt-6 text-2xl font-bold text-stone-800 dark:text-stone-100">
+        <h2 className="mt-6 text-2xl font-bold text-[#242527] dark:text-[#F7F4EF]">
           No Analytics Yet
         </h2>
 
-        <p className="mt-3 text-center text-stone-500 dark:text-stone-400">
+        <p className="mt-3 text-center text-[#6F6558] dark:text-[#BCB9AC]">
           Add a few tasks to start seeing your productivity insights.
         </p>
       </motion.div>
@@ -89,18 +90,19 @@ export default function TaskChart({ todos = [] }) {
         scale: 1.01,
       }}
       className="
+        flex
         h-[560px]
+        flex-col
         rounded-3xl
         border
-        border-stone-200
-        dark:border-zinc-800
-        bg-white/70
-        dark:bg-zinc-900/70
-        backdrop-blur-md
-        shadow-lg
+        border-[#BCB9AC]
+        bg-[#FCFBF8]
         p-6
-        flex
-        flex-col
+        shadow-xl
+        shadow-[#BCB9AC]/15
+
+        dark:border-[#4B4540]
+        dark:bg-[#2B2B2B]
       "
     >
       {/* Header */}
@@ -109,27 +111,30 @@ export default function TaskChart({ todos = [] }) {
 
         <div>
 
-          <h2 className="text-2xl font-bold text-stone-800 dark:text-stone-100">
+          <h2 className="text-2xl font-bold text-[#242527] dark:text-[#F7F4EF]">
             Task Analytics
           </h2>
 
-          <p className="text-sm text-stone-500 dark:text-stone-400">
+          <p className="text-sm text-[#6F6558] dark:text-[#BCB9AC]">
             Completion Overview
           </p>
 
         </div>
 
-        <div className="
-          rounded-full
-          bg-stone-200
-          dark:bg-zinc-800
-          px-4
-          py-2
-          text-sm
-          font-medium
-          text-stone-700
-          dark:text-stone-300
-        ">
+        <div
+          className="
+            rounded-full
+            bg-[#F2ECE4]
+            px-4
+            py-2
+            text-sm
+            font-medium
+            text-[#2F4A61]
+
+            dark:bg-[#343434]
+            dark:text-[#F7F4EF]
+          "
+        >
           {completionRate}% Complete
         </div>
 
@@ -163,11 +168,11 @@ export default function TaskChart({ todos = [] }) {
             <Tooltip
               contentStyle={{
                 borderRadius: 18,
-                border: "1px solid #d6d3d1",
-                backgroundColor: "#fafaf9",
-                color: "#292524",
+                border: "1px solid #BCB9AC",
+                backgroundColor: "#FCFBF8",
+                color: "#242527",
                 boxShadow:
-                  "0 10px 25px rgba(0,0,0,.08)",
+                  "0 10px 30px rgba(0,0,0,.08)",
               }}
               formatter={(value) => [
                 `${value} Tasks`,
@@ -175,7 +180,11 @@ export default function TaskChart({ todos = [] }) {
               ]}
             />
 
-            <Legend />
+            <Legend
+              wrapperStyle={{
+                color: "#6F6558",
+              }}
+            />
 
           </PieChart>
 
@@ -195,19 +204,21 @@ export default function TaskChart({ todos = [] }) {
               justify-center
               rounded-full
               border
-              border-stone-200
-              dark:border-zinc-700
-              bg-white
-              dark:bg-zinc-900
-              shadow-md
+              border-[#BCB9AC]
+              bg-[#FCFBF8]
+              shadow-lg
+              shadow-[#BCB9AC]/15
+
+              dark:border-[#4B4540]
+              dark:bg-[#343434]
             "
           >
 
-            <h2 className="text-4xl font-bold text-stone-800 dark:text-stone-100">
+            <h2 className="text-4xl font-bold text-[#242527] dark:text-[#F7F4EF]">
               {completionRate}%
             </h2>
 
-            <span className="text-sm text-stone-500 dark:text-stone-400">
+            <span className="text-sm text-[#6F6558] dark:text-[#BCB9AC]">
               Complete
             </span>
 
@@ -226,23 +237,24 @@ export default function TaskChart({ todos = [] }) {
           className="
             rounded-2xl
             border
-            border-emerald-200
-            dark:border-emerald-500/20
-            bg-emerald-50
-            dark:bg-emerald-500/10
+            border-[#D7D0C6]
+            bg-[#EEF3F6]
             p-5
+
+            dark:border-[#4B4540]
+            dark:bg-[#2F4A61]/20
           "
         >
 
-          <p className="text-sm font-medium text-emerald-700 dark:text-emerald-300">
+          <p className="text-sm font-medium text-[#2F4A61]">
             Completed
           </p>
 
-          <h3 className="mt-2 text-3xl font-bold text-emerald-600">
+          <h3 className="mt-2 text-3xl font-bold text-[#2F4A61]">
             {completed}
           </h3>
 
-          <p className="mt-1 text-xs text-emerald-700/80 dark:text-emerald-300/80">
+          <p className="mt-1 text-xs text-[#5F8396]">
             {completionRate}% of all tasks
           </p>
 
@@ -253,23 +265,24 @@ export default function TaskChart({ todos = [] }) {
           className="
             rounded-2xl
             border
-            border-amber-200
-            dark:border-amber-500/20
-            bg-amber-50
-            dark:bg-amber-500/10
+            border-[#D7D0C6]
+            bg-[#F6EEE5]
             p-5
+
+            dark:border-[#5E4B3F]
+            dark:bg-[#5E4B3F]/20
           "
         >
 
-          <p className="text-sm font-medium text-amber-700 dark:text-amber-300">
+          <p className="text-sm font-medium text-[#8F6948]">
             Pending
           </p>
 
-          <h3 className="mt-2 text-3xl font-bold text-amber-600">
+          <h3 className="mt-2 text-3xl font-bold text-[#A78963]">
             {pending}
           </h3>
 
-          <p className="mt-1 text-xs text-amber-700/80 dark:text-amber-300/80">
+          <p className="mt-1 text-xs text-[#8F6948]">
             {100 - completionRate}% remaining
           </p>
 

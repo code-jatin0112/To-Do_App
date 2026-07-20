@@ -42,22 +42,22 @@ export default function DueDateCard({ todos }) {
       title: "Overdue",
       value: overdue.length,
       icon: AlertTriangle,
-      iconBg: "bg-rose-100 dark:bg-rose-500/15",
-      iconColor: "text-rose-500",
+      iconBg: "bg-[#F6EEE5] dark:bg-[#5E4B3F]/25",
+      iconColor: "text-[#8F6948]",
     },
     {
       title: "Due Today",
       value: dueToday.length,
       icon: Clock3,
-      iconBg: "bg-amber-100 dark:bg-amber-500/15",
-      iconColor: "text-amber-500",
+      iconBg: "bg-[#F4EBDD] dark:bg-[#6E4A36]/20",
+      iconColor: "text-[#A78963]",
     },
     {
       title: "Upcoming",
       value: upcoming.length,
       icon: CalendarClock,
-      iconBg: "bg-emerald-100 dark:bg-emerald-500/15",
-      iconColor: "text-emerald-500",
+      iconBg: "bg-[#EEF3F6] dark:bg-[#2F4A61]/20",
+      iconColor: "text-[#2F4A61]",
     },
   ];
 
@@ -80,13 +80,14 @@ export default function DueDateCard({ todos }) {
         h-full
         rounded-3xl
         border
-        border-stone-200
-        dark:border-zinc-800
-        bg-white/70
-        dark:bg-zinc-900/70
-        backdrop-blur-md
-        shadow-lg
+        border-[#BCB9AC]
+        bg-[#FCFBF8]
         p-6
+        shadow-xl
+        shadow-[#BCB9AC]/15
+
+        dark:border-[#4B4540]
+        dark:bg-[#2B2B2B]
       "
     >
       <div className="flex h-full flex-col">
@@ -97,11 +98,11 @@ export default function DueDateCard({ todos }) {
 
           <div>
 
-            <h2 className="text-2xl font-bold text-stone-800 dark:text-stone-100">
+            <h2 className="text-2xl font-bold text-[#242527] dark:text-[#F7F4EF]">
               Today's Summary
             </h2>
 
-            <p className="mt-1 text-sm text-stone-500 dark:text-stone-400">
+            <p className="mt-1 text-sm text-[#6F6558] dark:text-[#BCB9AC]">
               {today.toLocaleDateString(undefined, {
                 weekday: "long",
                 month: "long",
@@ -111,10 +112,10 @@ export default function DueDateCard({ todos }) {
 
           </div>
 
-          <div className="rounded-2xl bg-stone-200 p-3 dark:bg-zinc-800">
+          <div className="rounded-2xl bg-[#F2ECE4] p-3 dark:bg-[#343434]">
             <CalendarDays
               size={26}
-              className="text-stone-700 dark:text-stone-200"
+              className="text-[#2F4A61]"
             />
           </div>
 
@@ -149,16 +150,19 @@ export default function DueDateCard({ todos }) {
                   items-center
                   justify-between
                   rounded-2xl
-                  bg-stone-100
-                  dark:bg-zinc-800
+                  border
+                  border-[#E5DDD2]
+                  bg-[#F7F4EF]
                   p-4
+                  transition-all
+
+                  dark:border-[#4B4540]
+                  dark:bg-[#343434]
                 "
               >
                 <div className="flex items-center gap-4">
 
-                  <div
-                    className={`${card.iconBg} rounded-2xl p-3`}
-                  >
+                  <div className={`${card.iconBg} rounded-2xl p-3`}>
                     <Icon
                       size={20}
                       className={card.iconColor}
@@ -167,11 +171,11 @@ export default function DueDateCard({ todos }) {
 
                   <div>
 
-                    <p className="font-semibold text-stone-800 dark:text-stone-100">
+                    <p className="font-semibold text-[#242527] dark:text-[#F7F4EF]">
                       {card.title}
                     </p>
 
-                    <p className="text-sm text-stone-500 dark:text-stone-400">
+                    <p className="text-sm text-[#6F6558] dark:text-[#BCB9AC]">
                       Active Tasks
                     </p>
 
@@ -179,7 +183,7 @@ export default function DueDateCard({ todos }) {
 
                 </div>
 
-                <div className="text-3xl font-bold text-stone-800 dark:text-stone-100">
+                <div className="text-3xl font-bold text-[#2F4A61]">
                   {card.value}
                 </div>
 
@@ -197,16 +201,17 @@ export default function DueDateCard({ todos }) {
             className="
               rounded-2xl
               border
-              border-stone-200
-              dark:border-zinc-800
-              bg-stone-100
-              dark:bg-zinc-800
+              border-[#BCB9AC]
+              bg-[#F2ECE4]
               px-5
               py-4
               text-center
+
+              dark:border-[#4B4540]
+              dark:bg-[#343434]
             "
           >
-            <p className="text-sm font-medium text-stone-700 dark:text-stone-300">
+            <p className="text-sm font-medium text-[#6F6558] dark:text-[#D8D2CA]">
               {message}
             </p>
           </div>

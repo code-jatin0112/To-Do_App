@@ -42,13 +42,14 @@ export default function ProgressCard({ todos }) {
         h-full
         rounded-3xl
         border
-        border-stone-200
-        dark:border-zinc-800
-        bg-white/70
-        dark:bg-zinc-900/70
-        backdrop-blur-md
-        shadow-lg
+        border-[#BCB9AC]
+        bg-[#FCFBF8]
         p-6
+        shadow-xl
+        shadow-[#BCB9AC]/15
+
+        dark:border-[#4B4540]
+        dark:bg-[#2B2B2B]
       "
     >
       <div className="flex h-full flex-col">
@@ -59,26 +60,26 @@ export default function ProgressCard({ todos }) {
 
           <div>
 
-            <h2 className="text-2xl font-bold text-stone-800 dark:text-stone-100">
+            <h2 className="text-2xl font-bold text-[#242527] dark:text-[#F7F4EF]">
               Task Progress
             </h2>
 
-            <p className="mt-1 text-sm text-stone-500 dark:text-stone-400">
+            <p className="mt-1 text-sm text-[#6F6558] dark:text-[#BCB9AC]">
               Track your overall productivity.
             </p>
 
           </div>
 
-          <div className="rounded-2xl bg-stone-200 p-3 dark:bg-zinc-800">
+          <div className="rounded-2xl bg-[#F2ECE4] p-3 dark:bg-[#343434]">
             <Target
               size={26}
-              className="text-stone-700 dark:text-stone-200"
+              className="text-[#2F4A61]"
             />
           </div>
 
         </div>
 
-        {/* Circle */}
+        {/* Progress Circle */}
 
         <div className="mt-8 flex justify-center">
 
@@ -95,7 +96,7 @@ export default function ProgressCard({ todos }) {
                 cy="72"
                 r={radius}
                 strokeWidth="10"
-                stroke="#e7e5e4"
+                stroke="#DDD6CC"
                 fill="transparent"
               />
 
@@ -105,7 +106,7 @@ export default function ProgressCard({ todos }) {
                 r={radius}
                 strokeWidth="10"
                 fill="transparent"
-                stroke="#10b981"
+                stroke="#2F4A61"
                 strokeLinecap="round"
                 strokeDasharray={circumference}
                 initial={{
@@ -124,11 +125,11 @@ export default function ProgressCard({ todos }) {
 
             <div className="absolute inset-0 flex flex-col items-center justify-center">
 
-              <h2 className="text-4xl font-bold text-stone-800 dark:text-stone-100">
+              <h2 className="text-4xl font-bold text-[#242527] dark:text-[#F7F4EF]">
                 {percentage}%
               </h2>
 
-              <span className="mt-1 text-xs text-stone-500 dark:text-stone-400">
+              <span className="mt-1 text-xs text-[#6F6558] dark:text-[#BCB9AC]">
                 Completed
               </span>
 
@@ -138,16 +139,16 @@ export default function ProgressCard({ todos }) {
 
         </div>
 
-        {/* Progress */}
+        {/* Progress Bar */}
 
         <div className="mt-8">
 
-          <div className="mb-2 flex justify-between text-sm text-stone-500 dark:text-stone-400">
+          <div className="mb-2 flex justify-between text-sm text-[#6F6558] dark:text-[#BCB9AC]">
             <span>Overall Progress</span>
             <span>{percentage}%</span>
           </div>
 
-          <div className="h-2 overflow-hidden rounded-full bg-stone-200 dark:bg-zinc-800">
+          <div className="h-2 overflow-hidden rounded-full bg-[#DDD6CC] dark:bg-[#3D3D3D]">
 
             <motion.div
               initial={{ width: 0 }}
@@ -157,7 +158,7 @@ export default function ProgressCard({ todos }) {
               transition={{
                 duration: 1,
               }}
-              className="h-full rounded-full bg-emerald-400"
+              className="h-full rounded-full bg-[#2F4A61]"
             />
 
           </div>
@@ -168,39 +169,65 @@ export default function ProgressCard({ todos }) {
 
         <div className="mt-8 grid grid-cols-2 gap-4">
 
-          <div className="rounded-2xl bg-stone-100 p-4 text-center dark:bg-zinc-800">
+          <motion.div
+            whileHover={{ scale: 1.02 }}
+            className="
+              rounded-2xl
+              border
+              border-[#E5DDD2]
+              bg-[#F7F4EF]
+              p-4
+              text-center
+
+              dark:border-[#4B4540]
+              dark:bg-[#343434]
+            "
+          >
 
             <CheckCircle2
               size={22}
-              className="mx-auto mb-2 text-emerald-500"
+              className="mx-auto mb-2 text-[#2F4A61]"
             />
 
-            <p className="text-2xl font-bold text-stone-800 dark:text-stone-100">
+            <p className="text-2xl font-bold text-[#242527] dark:text-[#F7F4EF]">
               {completed}
             </p>
 
-            <span className="text-xs text-stone-500 dark:text-stone-400">
+            <span className="text-xs text-[#6F6558] dark:text-[#BCB9AC]">
               Completed
             </span>
 
-          </div>
+          </motion.div>
 
-          <div className="rounded-2xl bg-stone-100 p-4 text-center dark:bg-zinc-800">
+          <motion.div
+            whileHover={{ scale: 1.02 }}
+            className="
+              rounded-2xl
+              border
+              border-[#E5DDD2]
+              bg-[#F7F4EF]
+              p-4
+              text-center
+
+              dark:border-[#4B4540]
+              dark:bg-[#343434]
+            "
+          >
 
             <Trophy
               size={22}
-              className="mx-auto mb-2 text-amber-500"
+              className="mx-auto mb-2 text-[#A78963]"
             />
 
-            <p className="text-2xl font-bold text-stone-800 dark:text-stone-100">
+            <p className="text-2xl font-bold text-[#242527] dark:text-[#F7F4EF]">
               {total}
             </p>
 
-            <span className="text-xs text-stone-500 dark:text-stone-400">
+            <span className="text-xs text-[#6F6558] dark:text-[#BCB9AC]">
               Total Tasks
             </span>
 
-          </div>
+          </motion.div>
 
         </div>
 
@@ -208,19 +235,22 @@ export default function ProgressCard({ todos }) {
 
         <div className="mt-auto pt-8">
 
-          <div className="
-            rounded-2xl
-            border
-            border-stone-200
-            dark:border-zinc-800
-            bg-stone-100
-            dark:bg-zinc-800
-            px-5
-            py-4
-            text-center
-          ">
+          <div
+            className="
+              rounded-2xl
+              border
+              border-[#BCB9AC]
+              bg-[#F2ECE4]
+              px-5
+              py-4
+              text-center
 
-            <p className="text-sm font-medium text-stone-700 dark:text-stone-300">
+              dark:border-[#4B4540]
+              dark:bg-[#343434]
+            "
+          >
+
+            <p className="text-sm font-medium text-[#6F6558] dark:text-[#D8D2CA]">
               {message}
             </p>
 
