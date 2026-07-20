@@ -42,8 +42,11 @@ export default function Sidebar() {
           whileHover={{ scale: 1.05 }}
           className="flex items-center gap-3"
         >
-          <div className="rounded-2xl bg-white/10 p-4 backdrop-blur-sm">
-            <SquareKanban size={42} />
+          <div className="h-12 w-12 rounded-2xl bg-gradient-to-r from-indigo-600 to-purple-600 flex items-center justify-center shadow-lg">
+            <SquareKanban
+              size={24}
+              className="text-white"
+            />
           </div>
 
           <div>
